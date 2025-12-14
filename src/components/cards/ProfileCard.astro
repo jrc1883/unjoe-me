@@ -9,56 +9,7 @@ const socialLinks = [
 
 <div class="profile-card">
   <div class="location-map">
-    <div class="map-wrapper">
-      <div id="map-container"></div>
-      <!-- Illinois state outline mask -->
-      <svg class="illinois-mask" viewBox="0 0 100 160" preserveAspectRatio="none">
-        <defs>
-          <clipPath id="illinois-clip">
-            <path d="
-              M 72 0
-              L 78 2
-              L 80 8
-              L 82 15
-              L 80 25
-              L 78 35
-              L 75 45
-              L 72 55
-              L 70 65
-              L 68 75
-              L 70 85
-              L 75 92
-              L 78 100
-              L 75 108
-              L 68 118
-              L 55 130
-              L 42 140
-              L 30 148
-              L 20 155
-              L 12 158
-              L 8 155
-              L 5 148
-              L 8 138
-              L 12 125
-              L 15 112
-              L 18 98
-              L 15 85
-              L 12 72
-              L 10 58
-              L 12 45
-              L 15 32
-              L 18 20
-              L 22 10
-              L 28 4
-              L 38 1
-              L 50 0
-              L 62 0
-              Z
-            "/>
-          </clipPath>
-        </defs>
-      </svg>
-    </div>
+    <div id="map-container"></div>
     <div class="location-label">
       <span class="location-icon">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -66,7 +17,7 @@ const socialLinks = [
           <circle cx="12" cy="10" r="3"/>
         </svg>
       </span>
-      Illinois
+      Illinois, USA
     </div>
   </div>
 
@@ -98,12 +49,12 @@ const socialLinks = [
     const container = document.getElementById('map-container');
     if (!container) return;
 
-    // Illinois center - adjusted for better framing
-    const illinoisCenter = [40.0, -89.2];
+    // Center on continental US
+    const usCenter = [39.5, -98.35];
 
     const map = L.map('map-container', {
-      center: illinoisCenter,
-      zoom: 6,
+      center: usCenter,
+      zoom: 3,
       zoomControl: false,
       attributionControl: false,
       dragging: false,
@@ -117,14 +68,15 @@ const socialLinks = [
       subdomains: 'abcd',
     }).addTo(map);
 
-    // Pulsing marker
+    // Pulsing marker on Illinois
     const pulsingIcon = L.divIcon({
       className: 'pulsing-marker',
-      iconSize: [16, 16],
-      iconAnchor: [8, 8],
+      iconSize: [14, 14],
+      iconAnchor: [7, 7],
     });
 
-    L.marker([41.5, -88.2], { icon: pulsingIcon }).addTo(map);
+    // Illinois location (near Chicago/Yorkville area)
+    L.marker([41.6, -88.4], { icon: pulsingIcon }).addTo(map);
   });
 </script>
 
@@ -145,52 +97,26 @@ const socialLinks = [
     position: relative;
   }
 
-  .map-wrapper {
-    position: relative;
-    width: 120px;
-    height: 180px;
-  }
-
   #map-container {
     width: 100%;
-    height: 100%;
-    clip-path: url(#illinois-clip);
-    border-radius: 0;
-  }
-
-  .illinois-mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+    height: 180px;
+    border-radius: 12px;
+    overflow: hidden;
   }
 
   :global(.pulsing-marker) {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     background: #22c55e;
     border-radius: 50%;
+    border: 2px solid #fff;
     box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
     animation: pulse 2s infinite;
   }
 
-  :global(.pulsing-marker::after) {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-  }
-
   @keyframes pulse {
     0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-    70% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+    70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
     100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
   }
 
