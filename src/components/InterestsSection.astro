@@ -1,0 +1,140 @@
+---
+const interests = [
+  {
+    category: 'Building',
+    items: [
+      { name: 'Systems', icon: '⚙️' },
+      { name: 'AI Agents', icon: '🤖' },
+      { name: 'Automation', icon: '🔄' },
+      { name: 'Home Lab', icon: '🏠' },
+    ]
+  },
+  {
+    category: 'Leading',
+    items: [
+      { name: 'Teams', icon: '👥' },
+      { name: 'Programs', icon: '📋' },
+      { name: 'Operations', icon: '🎯' },
+      { name: 'Strategy', icon: '♟️' },
+    ]
+  },
+  {
+    category: 'Domains',
+    items: [
+      { name: 'Defense', icon: '🛡️' },
+      { name: 'Facilities', icon: '🏢' },
+      { name: 'Energy', icon: '⚡' },
+      { name: 'Gov Tech', icon: '🏛️' },
+    ]
+  },
+  {
+    category: 'Lifestyle',
+    items: [
+      { name: 'Family', icon: '👨‍👩‍👧‍👦' },
+      { name: 'Faith', icon: '✝️' },
+      { name: 'Learning', icon: '📚' },
+      { name: 'Fitness', icon: '💪' },
+    ]
+  },
+];
+---
+
+<section class="interests-section">
+  <h2 class="section-title">My Interests</h2>
+
+  <div class="interests-grid">
+    {interests.map(group => (
+      <div class="interest-group">
+        <span class="group-label">{group.category}</span>
+        <div class="interest-items">
+          {group.items.map(item => (
+            <div class="interest-item" title={item.name}>
+              <span class="item-icon">{item.icon}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .interests-section {
+    padding: 3rem 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 1.5rem 0;
+    padding: 0.5rem 1rem;
+    background: var(--card-bg);
+    border-radius: 999px;
+    display: inline-block;
+  }
+
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .interest-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .group-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .interest-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .interest-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .interest-item:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .item-icon {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .interests-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .interests-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

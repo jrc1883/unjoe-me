@@ -1,0 +1,95 @@
+---
+const techStack = {
+  engineering: [
+    { name: 'Python', icon: '🐍' },
+    { name: 'TypeScript', icon: '📘' },
+    { name: 'Node.js', icon: '💚' },
+    { name: 'SQL', icon: '🗃️' },
+  ],
+  platforms: [
+    { name: 'AWS', icon: '☁️' },
+    { name: 'Cloudflare', icon: '🔶' },
+    { name: 'Docker', icon: '🐳' },
+  ],
+  tools: [
+    { name: 'Claude', icon: '🤖' },
+    { name: 'Git', icon: '📦' },
+    { name: 'VS Code', icon: '💻' },
+  ],
+};
+---
+
+<div class="stack-card">
+  <h3 class="card-title">My Stack</h3>
+
+  <div class="stack-section">
+    <span class="section-label">Engineering</span>
+    <div class="icon-row">
+      {techStack.engineering.map(tech => (
+        <span class="tech-icon" title={tech.name}>{tech.icon}</span>
+      ))}
+    </div>
+  </div>
+
+  <div class="stack-section">
+    <span class="section-label">Platforms</span>
+    <div class="icon-row">
+      {techStack.platforms.map(tech => (
+        <span class="tech-icon" title={tech.name}>{tech.icon}</span>
+      ))}
+    </div>
+  </div>
+
+  <div class="stack-section">
+    <span class="section-label">Tools</span>
+    <div class="icon-row">
+      {techStack.tools.map(tech => (
+        <span class="tech-icon" title={tech.name}>{tech.icon}</span>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .stack-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .stack-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .section-label {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .icon-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-icon {
+    font-size: 1.25rem;
+    cursor: default;
+    transition: transform 0.2s ease;
+  }
+
+  .tech-icon:hover {
+    transform: scale(1.2);
+  }
+</style>
