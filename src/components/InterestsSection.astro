@@ -62,7 +62,7 @@ const iconPaths: Record<string, string> = {
   <h2 class="section-title">My Interests</h2>
 
   <div class="breadcrumb-display" id="interest-breadcrumb">
-    <span class="breadcrumb-text">Hover to explore</span>
+    <span class="breadcrumb-text"></span>
   </div>
 
   <div class="interests-grid">
@@ -105,7 +105,7 @@ const iconPaths: Record<string, string> = {
 
       item.addEventListener('mouseleave', () => {
         if (breadcrumbText) {
-          breadcrumbText.textContent = 'Hover to explore';
+          breadcrumbText.textContent = '';
         }
         breadcrumb?.classList.remove('active');
       });
@@ -138,25 +138,19 @@ const iconPaths: Record<string, string> = {
   .breadcrumb-display {
     margin-bottom: 1.5rem;
     padding: 0.5rem 1rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
     display: inline-block;
     min-width: 180px;
-    transition: all 0.2s ease;
+    min-height: 2rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
   }
 
   .breadcrumb-display.active {
-    border-color: var(--accent);
-    background: rgba(59, 130, 246, 0.1);
+    opacity: 1;
   }
 
   .breadcrumb-text {
     font-size: 0.875rem;
-    color: var(--text-muted);
-  }
-
-  .breadcrumb-display.active .breadcrumb-text {
     color: var(--text-primary);
   }
 
