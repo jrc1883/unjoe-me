@@ -6,22 +6,46 @@ import { SITE_TITLE } from '../../consts';
 
 const projects = [
   {
+    title: "PopKit",
+    description: "Claude Code plugin ecosystem with 30+ specialized AI agents for development workflows. Features automated assessments, multi-agent coordination, and project management tools.",
+    tags: ["TypeScript", "Claude Code", "AI Agents", "Plugin"],
+    status: "Active",
+    link: "https://github.com/jrc1883/popkit"
+  },
+  {
+    title: "OPTIMUS",
+    description: "Multi-agent orchestration system with 55+ AI agents designed for complex task automation. Built for scalable, intelligent automation across diverse domains.",
+    tags: ["Python", "Multi-Agent", "Orchestration", "AI"],
+    status: "Active",
+    link: "#"
+  },
+  {
+    title: "Genesis Family OS",
+    description: "Comprehensive family management system integrating schedules, tasks, finances, and home automation into a unified intelligent platform.",
+    tags: ["Full Stack", "Home Automation", "AI", "Family"],
+    status: "In Development",
+    link: "#"
+  },
+  {
     title: "Navy Engineering Leadership",
-    description: "21+ years of leading engineering teams, managing complex systems, and ensuring mission readiness across multiple deployments.",
-    tags: ["Leadership", "Engineering", "Operations"],
-    status: "Completed"
+    description: "21+ years leading engineering teams, managing $140M+ facility portfolios, and directing 200+ personnel across complex operational environments.",
+    tags: ["Leadership", "Engineering", "Operations", "Military"],
+    status: "Career",
+    link: "/about"
   },
   {
-    title: "Building Commissioning",
-    description: "Commercial building systems commissioning at Enovity, including HVAC optimization and energy efficiency programs.",
-    tags: ["HVAC", "Energy", "Systems"],
-    status: "Completed"
+    title: "Mars Inc. Facilities",
+    description: "9 years managing integrated facilities across 47 sites. Driving operational excellence and sustainability initiatives for a global Fortune 500 company.",
+    tags: ["Facilities", "Operations", "Management"],
+    status: "Current Role",
+    link: "/about"
   },
   {
-    title: "This Website",
-    description: "Personal portfolio built with Astro, Tailwind CSS, and deployed to Cloudflare Pages.",
-    tags: ["Astro", "Tailwind", "Cloudflare"],
-    status: "In Progress"
+    title: "unjoe.me",
+    description: "This personal portfolio built with Astro and deployed to Cloudflare Pages. Dark-themed design with interactive elements and blog functionality.",
+    tags: ["Astro", "Cloudflare", "Portfolio"],
+    status: "Active",
+    link: "https://github.com/jrc1883/unjoe-me"
   }
 ];
 ---
@@ -37,11 +61,11 @@ const projects = [
       <div class="container">
         <header class="page-header">
           <h1>Projects</h1>
-          <p>A selection of projects and work I have been involved with.</p>
+          <p>AI systems, leadership roles, and engineering work spanning 20+ years.</p>
         </header>
         <div class="projects-grid">
           {projects.map((project) => (
-            <div class="project-card">
+            <a href={project.link} class="project-card">
               <div class="project-status">{project.status}</div>
               <h2>{project.title}</h2>
               <p>{project.description}</p>
@@ -50,7 +74,7 @@ const projects = [
                   <span class="tag">{tag}</span>
                 ))}
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
@@ -65,12 +89,13 @@ const projects = [
   .page-header { padding: 4rem 0 2rem; }
   .page-header h1 { font-size: 2.5rem; margin: 0 0 0.5rem; }
   .page-header p { color: #a1a1aa; margin: 0; }
-  .projects-grid { display: grid; gap: 1.5rem; padding-bottom: 4rem; }
-  .project-card { background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 1.5rem; transition: all 0.3s; }
-  .project-card:hover { background: #1f1f23; border-color: #3f3f46; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; padding-bottom: 4rem; }
+  .project-card { background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 1.5rem; transition: all 0.3s; text-decoration: none; color: inherit; display: block; }
+  .project-card:hover { background: #1f1f23; border-color: #3f3f46; transform: translateY(-2px); }
   .project-status { display: inline-block; font-size: 0.75rem; color: #3b82f6; background: rgba(59,130,246,0.1); padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 1rem; }
-  .project-card h2 { font-size: 1.5rem; margin: 0 0 0.75rem; }
-  .project-card p { color: #a1a1aa; margin: 0 0 1rem; }
+  .project-card h2 { font-size: 1.25rem; margin: 0 0 0.75rem; color: #fafafa; }
+  .project-card p { color: #a1a1aa; margin: 0 0 1rem; font-size: 0.9375rem; line-height: 1.6; }
   .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
   .tag { background: #27272a; color: #71717a; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; }
+  @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
 </style>
