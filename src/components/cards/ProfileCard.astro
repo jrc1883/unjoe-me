@@ -1,39 +1,111 @@
 ---
-import { SOCIAL_LINKS } from '../../consts';
+const socialLinks = [
+  { name: 'GitHub', url: 'https://github.com/jrc1883', icon: 'github' },
+  { name: 'LinkedIn', url: 'https://linkedin.com/in/yourprofile', icon: 'linkedin' },
+  { name: 'Bluesky', url: 'https://bsky.app/', icon: 'bluesky' },
+  { name: 'Email', url: 'mailto:contact@unjoe.me', icon: 'email' },
+];
 ---
 
 <div class="profile-card">
-  <div class="profile-visual">
-    <div class="map-container">
-      <span class="location-label">Illinois</span>
-      <!-- USA Map SVG -->
-      <svg viewBox="0 0 960 600" class="usa-map">
-        <path class="usa-outline" d="M158,453 L185,453 L188,505 L202,511 L212,476 L236,478 L237,502 L256,508 L267,485 L284,505 L309,499 L322,481 L333,483 L345,462 L367,446 L389,446 L395,436 L421,432 L432,447 L455,438 L469,447 L504,423 L532,421 L550,411 L572,422 L597,409 L611,421 L644,402 L676,405 L698,395 L716,408 L735,392 L756,410 L765,393 L800,398 L812,385 L830,402 L858,367 L872,384 L885,364 L905,389 L905,195 L882,180 L865,188 L844,168 L821,178 L798,152 L775,165 L751,142 L735,162 L702,138 L682,155 L653,132 L628,148 L598,125 L576,145 L545,118 L520,142 L488,112 L464,138 L432,108 L405,135 L372,102 L348,132 L312,98 L288,128 L252,95 L228,125 L192,92 L165,122 L128,88 L105,118 L68,85 L45,115 L45,380 L68,395 L92,378 L115,402 L138,385 L158,415 Z"/>
-        <!-- Illinois highlight -->
-        <path class="state-highlight" d="M628,220 L635,225 L642,235 L645,252 L640,268 L632,282 L620,288 L608,285 L598,275 L595,260 L600,245 L610,232 L620,222 Z"/>
-        <!-- Location dot -->
-        <circle class="location-dot" cx="622" cy="255" r="8"/>
-        <circle class="location-dot-inner" cx="622" cy="255" r="4"/>
-      </svg>
+  <div class="location-map">
+    <!-- Actual Illinois state outline -->
+    <svg viewBox="0 0 200 300" class="illinois-map">
+      <defs>
+        <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#1e3a5f;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#0f2744;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <!-- Illinois state shape - accurate outline -->
+      <path class="state-outline" d="
+        M 155 10
+        L 160 15
+        L 162 25
+        L 160 40
+        L 158 55
+        L 155 70
+        L 152 85
+        L 150 100
+        L 148 115
+        L 145 130
+        L 142 145
+        L 140 160
+        L 138 175
+        L 140 190
+        L 145 200
+        L 150 210
+        L 148 220
+        L 142 230
+        L 130 240
+        L 115 250
+        L 100 260
+        L 85 270
+        L 70 280
+        L 55 285
+        L 45 280
+        L 40 270
+        L 42 255
+        L 45 240
+        L 48 225
+        L 50 210
+        L 48 195
+        L 45 180
+        L 42 165
+        L 40 150
+        L 42 135
+        L 45 120
+        L 48 105
+        L 50 90
+        L 52 75
+        L 55 60
+        L 58 45
+        L 60 30
+        L 65 20
+        L 75 12
+        L 90 8
+        L 105 6
+        L 120 5
+        L 135 6
+        L 150 8
+        Z
+      " fill="url(#mapGradient)" stroke="#3b82f6" stroke-width="1.5"/>
+
+      <!-- Location dot for Chicago area -->
+      <circle class="location-dot" cx="145" cy="35" r="6" fill="#22c55e">
+        <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="145" cy="35" r="3" fill="#fff"/>
+    </svg>
+
+    <div class="location-label">
+      <span class="location-icon">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </span>
+      Illinois
     </div>
   </div>
 
-  <div class="social-row">
-    <a href={SOCIAL_LINKS.github} target="_blank" aria-label="GitHub" class="social-icon">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-      </svg>
-    </a>
-    <a href={SOCIAL_LINKS.linkedin} target="_blank" aria-label="LinkedIn" class="social-icon">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-      </svg>
-    </a>
-    <a href={SOCIAL_LINKS.email} aria-label="Email" class="social-icon">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
-      </svg>
-    </a>
+  <div class="social-links">
+    {socialLinks.map(link => (
+      <a href={link.url} class="social-btn" title={link.name} target="_blank" rel="noopener">
+        {link.icon === 'github' && (
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        )}
+        {link.icon === 'linkedin' && (
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        )}
+        {link.icon === 'bluesky' && (
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/></svg>
+        )}
+        {link.icon === 'email' && (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        )}
+      </a>
+    ))}
   </div>
 </div>
 
@@ -41,86 +113,88 @@ import { SOCIAL_LINKS } from '../../consts';
   .profile-card {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     height: 100%;
+    gap: 1rem;
   }
 
-  .profile-visual {
+  .location-map {
     flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-
-  .map-container {
     position: relative;
-    width: 100%;
-    max-width: 180px;
   }
 
-  .location-label {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    background: #3b82f6;
-    color: white;
-    font-size: 0.625rem;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 4px;
-    z-index: 10;
-  }
-
-  .usa-map {
+  .illinois-map {
     width: 100%;
+    max-width: 140px;
     height: auto;
+    transition: transform 0.3s ease;
   }
 
-  .usa-outline {
-    fill: #2a2a3a;
-    stroke: #3f3f4f;
-    stroke-width: 2;
+  .location-map:hover .illinois-map {
+    transform: scale(1.05);
   }
 
-  .state-highlight {
-    fill: #3b82f6;
-    opacity: 0.3;
+  .state-outline {
+    transition: all 0.3s ease;
+  }
+
+  .location-map:hover .state-outline {
+    fill: #1e4976;
+    stroke: #60a5fa;
   }
 
   .location-dot {
-    fill: #3b82f6;
+    filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.6));
   }
 
-  .location-dot-inner {
-    fill: white;
-  }
-
-  .social-row {
+  .location-label {
     display: flex;
-    gap: 0.75rem;
-    justify-content: center;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #22c55e;
   }
 
-  .social-icon {
-    width: 36px;
-    height: 36px;
+  .location-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  .social-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+
+  .social-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--card-bg, #18181b);
-    border: 1px solid var(--border, #27272a);
+    padding: 0.625rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 8px;
-    color: var(--text-muted, #71717a);
+    color: var(--text-secondary);
     transition: all 0.2s ease;
   }
 
-  .social-icon:hover {
-    color: var(--text-primary, #fafafa);
-    border-color: var(--text-muted);
+  .social-btn:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    color: var(--text-primary);
     transform: translateY(-2px);
   }
 
-  .social-icon svg {
+  .social-btn svg {
     width: 18px;
     height: 18px;
   }

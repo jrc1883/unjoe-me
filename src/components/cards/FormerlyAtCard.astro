@@ -1,0 +1,113 @@
+---
+const companies = [
+  {
+    name: 'U.S. Navy',
+    logo: 'navy',
+    url: 'https://www.navy.mil/',
+  },
+  {
+    name: 'Mars, Inc.',
+    logo: 'mars',
+    url: 'https://www.mars.com/',
+  },
+];
+---
+
+<div class="formerly-card">
+  <span class="formerly-label">Formerly at</span>
+  <div class="company-list">
+    {companies.map(company => (
+      <a href={company.url} class="company-item" target="_blank" rel="noopener" title={company.name}>
+        {company.logo === 'navy' && (
+          <div class="company-logo navy-logo">
+            <!-- US Navy Eagle emblem simplified -->
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3"/>
+              <text x="50" y="35" text-anchor="middle" font-size="10" font-weight="bold" fill="currentColor">U.S.</text>
+              <text x="50" y="55" text-anchor="middle" font-size="14" font-weight="bold" fill="currentColor">NAVY</text>
+              <path d="M30 70 L50 62 L70 70 L50 78 Z" fill="currentColor"/>
+              <path d="M35 30 L50 20 L65 30" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </div>
+        )}
+        {company.logo === 'mars' && (
+          <div class="company-logo mars-logo">
+            <!-- Mars wordmark style -->
+            <svg viewBox="0 0 120 40" fill="currentColor">
+              <text x="60" y="30" text-anchor="middle" font-size="28" font-weight="bold" font-family="Arial, sans-serif" fill="#8B4513">MARS</text>
+            </svg>
+          </div>
+        )}
+        <span class="company-name">{company.name}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .formerly-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+  }
+
+  .formerly-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .company-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .company-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .company-item:hover {
+    background: var(--card-hover);
+    border-color: #3f3f46;
+    transform: translateX(4px);
+  }
+
+  .company-logo {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .company-logo svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .navy-logo {
+    color: #003366;
+  }
+
+  .mars-logo svg {
+    width: 60px;
+  }
+
+  .company-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+</style>

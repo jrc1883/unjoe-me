@@ -9,6 +9,7 @@ import BentoCard from '../components/BentoCard.astro';
 import ProfileCard from '../components/cards/ProfileCard.astro';
 import ResumeCard from '../components/cards/ResumeCard.astro';
 import TechStackCard from '../components/cards/TechStackCard.astro';
+import FormerlyAtCard from '../components/cards/FormerlyAtCard.astro';
 import InterestsSection from '../components/InterestsSection.astro';
 import StoryTimeline from '../components/StoryTimeline.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, SOCIAL_LINKS } from '../consts';
@@ -36,11 +37,8 @@ const posts = (await getCollection('blog'))
           <ProfileCard />
         </BentoCard>
 
-        <BentoCard title="Formerly at" colSpan={1}>
-          <div class="formerly-list">
-            <span class="company">⚓ U.S. Navy</span>
-            <span class="company">🏢 Mars Inc.</span>
-          </div>
+        <BentoCard colSpan={1}>
+          <FormerlyAtCard />
         </BentoCard>
 
         <BentoCard colSpan={1} rowSpan={2}>
@@ -152,8 +150,6 @@ const posts = (await getCollection('blog'))
   .hero-name { text-align: center; padding: 4rem 1rem 2rem; }
   .name { font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; margin: 0; letter-spacing: -0.02em; }
   .tagline { color: var(--text-muted); font-size: 0.9375rem; margin: 0.5rem 0 0; }
-  .formerly-list { display: flex; flex-direction: column; gap: 0.5rem; }
-  .company { font-size: 0.875rem; color: var(--text-secondary); }
   .container { max-width: 1000px; margin: 0 auto; padding: 0 1rem; }
   .section { padding: 3rem 0; }
   .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
