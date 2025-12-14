@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, SOCIAL_LINKS } from '../consts';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="hero">
+        <div class="container">
+          <p class="greeting">Hi, I am Joseph,</p>
+          <h1 class="headline">an engineering leader building <span class="accent">systems that matter</span>.</h1>
+          <p class="bio">21+ years U.S. Navy veteran, engineering professional, and lifelong builder.</p>
+          <div class="hero-links">
+            <a href="/about" class="btn-primary">About Me</a>
+            <a href={SOCIAL_LINKS.github} target="_blank" class="btn-secondary">GitHub</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Featured Projects</h2>
+            <a href="/projects" class="see-all">View all</a>
+          </div>
+          <div class="project-card">
+            <h3>Coming Soon</h3>
+            <p>Featured projects will be showcased here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Latest Articles</h2>
+            <a href="/blog" class="see-all">View all</a>
+          </div>
+          <div class="articles-grid">
+            {posts.length > 0 ? posts.map((post) => (
+              <a href={`/blog/${post.slug}/`} class="article-card">
+                <span class="article-date"><FormattedDate date={post.data.pubDate} /></span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </a>
+            )) : (
+              <div class="article-card">
+                <span class="article-date">Coming soon</span>
+                <h3>First Article</h3>
+                <p>Stay tuned for articles about engineering and leadership.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="about-card">
+            <h2>About Me</h2>
+            <p>Engineering leader with 21+ years of U.S. Navy service, an MBA, and PMP certification.</p>
+            <a href="/about" class="learn-more">Learn more</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  body { background-color: #0a0a0b; color: #fafafa; font-family: system-ui, sans-serif; margin: 0; line-height: 1.6; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+  .hero { padding: 6rem 0 4rem; }
+  .greeting { color: #a1a1aa; font-size: 1.25rem; margin: 0 0 0.5rem; }
+  .headline { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.1; margin: 0 0 1.5rem; }
+  .accent { color: #3b82f6; }
+  .bio { font-size: 1.125rem; color: #a1a1aa; margin: 0 0 2rem; max-width: 600px; }
+  .hero-links { display: flex; gap: 1rem; }
+  .btn-primary { background: #3b82f6; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; }
+  .btn-primary:hover { background: #60a5fa; }
+  .btn-secondary { background: #1a1a1d; color: #fafafa; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; border: 1px solid #27272a; }
+  .btn-secondary:hover { background: #27272a; }
+  .section { padding: 3rem 0; }
+  .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .section-header h2 { font-size: 1.5rem; margin: 0; }
+  .see-all { color: #71717a; font-size: 0.875rem; text-decoration: none; }
+  .see-all:hover { color: #fafafa; }
+  .project-card, .article-card, .about-card { background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 1.5rem; transition: all 0.3s; }
+  .project-card:hover, .article-card:hover { background: #1f1f23; border-color: #3f3f46; transform: translateY(-2px); }
+  .project-card h3, .article-card h3 { font-size: 1.25rem; margin: 0 0 0.5rem; color: #fafafa; }
+  .project-card p, .article-card p, .about-card p { color: #a1a1aa; margin: 0 0 1rem; }
+  .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .article-card { text-decoration: none; color: inherit; display: block; }
+  .article-date { color: #71717a; font-size: 0.875rem; display: block; margin-bottom: 0.5rem; }
+  .about-card { max-width: 700px; }
+  .about-card h2 { margin: 0 0 1rem; }
+  .learn-more { color: #3b82f6; text-decoration: none; font-weight: 500; }
+  .learn-more:hover { color: #60a5fa; }
+  @media (max-width: 640px) { .hero { padding: 4rem 0 3rem; } .articles-grid { grid-template-columns: 1fr; } }
+</style>
