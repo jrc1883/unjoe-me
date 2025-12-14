@@ -1,60 +1,81 @@
 ---
-const interests = [
-  {
-    category: 'Building',
-    items: [
-      { name: 'Systems', icon: '⚙️' },
-      { name: 'AI Agents', icon: '🤖' },
-      { name: 'Automation', icon: '🔄' },
-      { name: 'Home Lab', icon: '🏠' },
-    ]
-  },
-  {
-    category: 'Leading',
-    items: [
-      { name: 'Teams', icon: '👥' },
-      { name: 'Programs', icon: '📋' },
-      { name: 'Operations', icon: '🎯' },
-      { name: 'Strategy', icon: '♟️' },
-    ]
-  },
-  {
-    category: 'Domains',
-    items: [
-      { name: 'Defense', icon: '🛡️' },
-      { name: 'Facilities', icon: '🏢' },
-      { name: 'Energy', icon: '⚡' },
-      { name: 'Gov Tech', icon: '🏛️' },
-    ]
-  },
-  {
-    category: 'Lifestyle',
-    items: [
-      { name: 'Family', icon: '👨‍👩‍👧‍👦' },
-      { name: 'Faith', icon: '✝️' },
-      { name: 'Learning', icon: '📚' },
-      { name: 'Fitness', icon: '💪' },
-    ]
-  },
-];
 ---
 
 <section class="interests-section">
   <h2 class="section-title">My Interests</h2>
 
   <div class="interests-grid">
-    {interests.map(group => (
-      <div class="interest-group">
-        <span class="group-label">{group.category}</span>
-        <div class="interest-items">
-          {group.items.map(item => (
-            <div class="interest-item" title={item.name}>
-              <span class="item-icon">{item.icon}</span>
-            </div>
-          ))}
+    <div class="interest-group">
+      <span class="group-label">Building</span>
+      <div class="interest-items">
+        <div class="interest-item" title="Systems">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <div class="interest-item" title="AI Agents">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="4"/><path d="M12 9v2"/><path d="M8 16h.01"/><path d="M16 16h.01"/></svg>
+        </div>
+        <div class="interest-item" title="Automation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+        </div>
+        <div class="interest-item" title="Home Lab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><path d="M6 12h.01M6 16h.01"/></svg>
         </div>
       </div>
-    ))}
+    </div>
+
+    <div class="interest-group">
+      <span class="group-label">Leading</span>
+      <div class="interest-items">
+        <div class="interest-item" title="Teams">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="interest-item" title="Programs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+        </div>
+        <div class="interest-item" title="Operations">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <div class="interest-item" title="Strategy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="interest-group">
+      <span class="group-label">Domains</span>
+      <div class="interest-items">
+        <div class="interest-item" title="Defense">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="interest-item" title="Facilities">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
+        </div>
+        <div class="interest-item" title="Energy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="interest-item" title="Gov Tech">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M10 9h4"/><path d="M10 13h4"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="interest-group">
+      <span class="group-label">Lifestyle</span>
+      <div class="interest-items">
+        <div class="interest-item" title="Family">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="interest-item" title="Faith">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"/><path d="M4 10h16"/><path d="M12 10v12"/></svg>
+        </div>
+        <div class="interest-item" title="Learning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="interest-item" title="Fitness">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 6.5c.8 0 1.4.6 1.4 1.4v8.2c0 .8-.6 1.4-1.4 1.4H3.8c-.8 0-1.4-.6-1.4-1.4V7.9c0-.8.6-1.4 1.4-1.4"/><path d="M12 6.5v11"/><path d="M7 9v6"/><path d="M17 9v6"/></svg>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -108,22 +129,25 @@ const interests = [
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 0.75rem;
+    padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
     cursor: default;
+    color: var(--text-muted);
   }
 
   .interest-item:hover {
     background: var(--card-hover);
     border-color: var(--accent);
+    color: var(--text-primary);
     transform: translateY(-2px);
   }
 
-  .item-icon {
-    font-size: 1.5rem;
+  .interest-item svg {
+    width: 24px;
+    height: 24px;
   }
 
   @media (max-width: 900px) {
