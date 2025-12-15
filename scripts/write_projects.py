@@ -1,4 +1,6 @@
----
+"""Write the enhanced projects page"""
+
+content = '''---
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -308,3 +310,10 @@ const careerProjects = [
     .career-header { flex-direction: column; gap: 0.5rem; }
   }
 </style>
+'''
+
+import os
+output_path = r"C:\Users\Josep\onedrive\documents\elshaddai\JosephCareer\website\src\pages\projects\index.astro"
+with open(output_path, 'w', encoding='utf-8') as f:
+    f.write(content)
+print(f"Written to {output_path}")
