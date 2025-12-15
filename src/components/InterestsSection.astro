@@ -79,6 +79,7 @@ const iconPaths: Record<string, string> = {
               <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d={iconPaths[item.icon]} />
               </svg>
+              <span class="item-label">{item.name}</span>
             </div>
           ))}
         </div>
@@ -140,13 +141,18 @@ const iconPaths: Record<string, string> = {
     padding: 0.5rem 1rem;
     display: inline-block;
     min-width: 180px;
-    min-height: 2rem;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+    height: 2rem;
+    visibility: hidden;
   }
 
   .breadcrumb-display.active {
-    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (max-width: 900px) {
+    .breadcrumb-display {
+      display: none;
+    }
   }
 
   .breadcrumb-text {
@@ -195,6 +201,8 @@ const iconPaths: Record<string, string> = {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
     transition: all 0.2s ease;
     cursor: pointer;
   }
@@ -214,6 +222,23 @@ const iconPaths: Record<string, string> = {
     height: 24px;
     color: var(--text-secondary);
     transition: color 0.2s ease;
+  }
+
+  .item-label {
+    display: none;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .item-label {
+      display: block;
+    }
+
+    .interest-item {
+      padding: 1rem 0.5rem;
+    }
   }
 
   @media (max-width: 900px) {

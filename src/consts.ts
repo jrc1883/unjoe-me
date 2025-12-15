@@ -6,8 +6,8 @@ export const SITE_DESCRIPTION = 'Engineering leader, Navy veteran, and builder o
 
 export const SOCIAL_LINKS = {
   github: 'https://github.com/jrc1883',
-  linkedin: 'https://linkedin.com/in/josephcannon', // Update with your actual LinkedIn
-  email: 'mailto:joe@unjoe.me', // Update with your actual email
+  linkedin: 'https://linkedin.com/in/josephcannon',
+  email: 'mailto:joseph.cannon@outlook.com',
 };
 
 export const NAV_ITEMS = [
