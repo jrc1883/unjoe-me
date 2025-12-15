@@ -1,0 +1,98 @@
+---
+title: "From Navy Engineering to AI Agents: My Path to Building PopKit"
+description: "How 21 years of Navy engineering and leadership led me to build a 30+ agent AI system for software development workflows."
+pubDate: 2025-12-12
+---
+
+# From Navy Engineering to AI Agents: My Path to Building PopKit
+
+People sometimes ask how a Machinist's Mate who spent 21 years keeping Navy ships running ended up building AI agent systems. The answer is simpler than you'd think: the problems are the same, just at different scales.
+
+## The Engineering Mindset
+
+In the Navy, I was a Machinist's Mate - the rating responsible for the mechanical systems that keep ships operational. Propulsion. Auxiliary equipment. The systems that, if they fail, you don't complete the mission.
+
+What they don't tell you about that job is how much of it is system orchestration. A ship isn't one system - it's hundreds of interconnected systems that need to work together. Steam from the boilers powers the turbines. Cooling water keeps everything from overheating. Electrical systems control the whole dance.
+
+When I look at modern software development, I see the same pattern. Different tools. Different services. Different specialists. All needing to coordinate toward a common mission.
+
+## The Problem with AI Tools Today
+
+When I started using Claude Code for development work, I quickly hit a familiar problem: single-point solutions don't scale.
+
+Claude is incredible at individual tasks. Write this code. Review that function. Debug this error. But software development isn't individual tasks - it's orchestrated workflows. You need to assess security *while* checking performance *while* maintaining architectural patterns *while* keeping documentation updated.
+
+It reminded me of trying to run a ship with one person per system, none of them talking to each other. That's not how you operate.
+
+## Enter PopKit
+
+PopKit started as my attempt to bring Navy-style operational coordination to AI-assisted development. Instead of one AI doing everything, what if you had specialized agents - each expert in their domain - coordinated through a common framework?
+
+The result is 30+ specialized agents:
+
+**Assessment Agents**
+- Security auditor for vulnerability scanning
+- Performance tester for efficiency analysis
+- Technical architect for structural review
+- Documentation auditor for accuracy checks
+- UX reviewer for usability evaluation
+
+**Development Agents**
+- Code reviewer for quality checks
+- Test writer/fixer for coverage
+- Refactoring expert for improvements
+- Bug whisperer for debugging
+- API designer for interface work
+
+**Operations Agents**
+- DevOps automator for CI/CD
+- Deployment validator for releases
+- Rollback specialist for recovery
+- Log analyzer for troubleshooting
+- Metrics collector for observability
+
+## Multi-Agent Coordination
+
+Here's where the Navy training really shows up. In damage control, you don't have everyone doing everything. You have teams with specific responsibilities, coordinated through a central command structure.
+
+PopKit works the same way. Each agent has its specialty and its toolset. The orchestration layer coordinates them toward the objective. Just like a well-run engineering department.
+
+When I run `/popkit:assess all` on a codebase, it's not one agent doing sequential checks. It's multiple specialized agents working in parallel, each contributing their expertise, with results synthesized into actionable recommendations.
+
+## The Power Mode Innovation
+
+One feature I'm particularly proud of is "Power Mode" - the ability to spawn multiple agents that coordinate through a Redis pub/sub mesh network. It's essentially a swarm intelligence pattern for software development.
+
+Think about how Navy damage control teams operate. Multiple teams addressing different casualties simultaneously, all reporting to damage control central, which coordinates the overall response. Power Mode brings that same pattern to code.
+
+Need to refactor a large codebase? Spin up multiple refactoring agents, each handling a different module, with a coordinator ensuring consistency. It's not just parallel - it's coordinated parallel.
+
+## What the Navy Taught Me About Building AI Systems
+
+**Systems Thinking**: Everything is connected. You can't optimize one component without understanding its impact on others.
+
+**Redundancy**: Critical systems need backups. PopKit agents can fail gracefully and be retried.
+
+**Specialization with Coordination**: Specialists are more effective than generalists, but only if properly coordinated.
+
+**Documentation**: If it's not documented, it didn't happen. Every PopKit agent documents its actions.
+
+**Training**: Systems are only as good as the people (or agents) operating them. Agent prompts are carefully crafted for their specific roles.
+
+## Building in the Open
+
+PopKit is open source because I believe this pattern of multi-agent coordination should be available to everyone. The Claude Code community has been incredible, and I want to contribute back.
+
+The repository includes not just the agents but the architectural patterns - how to structure agent prompts, how to coordinate workflows, how to build assessment frameworks. If you're building AI tooling, there might be something useful there.
+
+## The Unexpected Connection
+
+Twenty-one years ago, I never imagined I'd be building AI systems. But looking back, the path makes sense. The Navy taught me to think in systems, to coordinate specialists, to build for reliability under pressure.
+
+Those skills translate directly to the AI agent world. Different domain, same principles.
+
+If you're coming from a non-traditional background and thinking about building AI tools, don't underestimate what you already know. The best frameworks often come from people who've solved similar problems in completely different contexts.
+
+---
+
+*PopKit is available on GitHub at github.com/jrc1883/popkit. PRs welcome.*
