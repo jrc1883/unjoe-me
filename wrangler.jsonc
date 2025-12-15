@@ -1,6 +1,6 @@
 {
 	"main": "dist/_worker.js/index.js",
-	"name": "website",
+	"name": "unjoe-me",
   "compatibility_date": "2025-12-14",
   "compatibility_flags": [
     "nodejs_compat",
