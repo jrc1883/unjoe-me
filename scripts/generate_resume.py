@@ -108,7 +108,7 @@ def create_resume():
     story.append(Paragraph("JOSEPH CANNON", name_style))
     story.append(Paragraph(
         "MMCS (E-8), USN (Ret.) | PMP | LEED AP | MBA<br/>"
-        "Yorkville, IL | jrc1883@gmail.com | linkedin.com/in/josephcannon | unjoe.me",
+        "Yorkville, IL | joseph.canon@outlook.com | linkedin.com/in/josephcannon | unjoe.me",
         contact_style
     ))
 
