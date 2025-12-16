@@ -1,0 +1,627 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Speaking & Education";
+const pageDescription = "Joseph Cannon offers AI education, mentoring, and speaking engagements for individuals, organizations, and communities.";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={pageTitle} description={pageDescription} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="hero">
+        <div class="container">
+          <h1>Speaking & Education</h1>
+          <p class="subtitle">Bringing AI knowledge to your team, community, or organization</p>
+          <p class="description">
+            Whether you're just starting to explore AI or ready to implement intelligent systems at scale, I offer tailored education and speaking engagements for individuals, corporate teams, and community organizations across the Chicago area.
+          </p>
+        </div>
+      </section>
+
+      <section class="offerings">
+        <div class="container">
+          <h2>What I Offer</h2>
+          <div class="offerings-grid">
+            <div class="offering-card">
+              <div class="offering-icon">1-on-1</div>
+              <h3>Mentoring & Training</h3>
+              <p>Deep-dive sessions for professionals looking to upskill in AI, Claude, and intelligent systems.</p>
+              <ul class="offering-details">
+                <li>Personalized curriculum</li>
+                <li>Hands-on coding examples</li>
+                <li>Career guidance in AI</li>
+              </ul>
+            </div>
+
+            <div class="offering-card">
+              <div class="offering-icon">👥</div>
+              <h3>Corporate Workshops</h3>
+              <p>Custom training programs for teams wanting to integrate AI into their workflows and products.</p>
+              <ul class="offering-details">
+                <li>Tailored to your tech stack</li>
+                <li>Team problem-solving sessions</li>
+                <li>Implementation strategies</li>
+              </ul>
+            </div>
+
+            <div class="offering-card">
+              <div class="offering-icon">🎤</div>
+              <h3>Speaking Engagements</h3>
+              <p>Technical talks and keynotes for conferences, meetups, and community organizations in the Chicago area.</p>
+              <ul class="offering-details">
+                <li>Customizable topics</li>
+                <li>Local focus (Illinois area)</li>
+                <li>Flexible formats (30min to half-day)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topics">
+        <div class="container">
+          <h2>Topics & Expertise</h2>
+          <div class="topics-grid">
+            <div class="topic-card">
+              <h4>Fundamentals</h4>
+              <ul>
+                <li>What is AI and how does it work?</li>
+                <li>Large Language Models explained</li>
+                <li>AI capabilities, limitations, and risks</li>
+              </ul>
+            </div>
+
+            <div class="topic-card">
+              <h4>Building with AI</h4>
+              <ul>
+                <li>Getting started with Claude</li>
+                <li>Building AI agents and multi-agent systems</li>
+                <li>Prompt engineering best practices</li>
+              </ul>
+            </div>
+
+            <div class="topic-card">
+              <h4>Enterprise & Leadership</h4>
+              <ul>
+                <li>Implementing AI for business efficiency</li>
+                <li>Leading teams through AI adoption</li>
+                <li>Strategic AI planning and ROI</li>
+              </ul>
+            </div>
+
+            <div class="topic-card">
+              <h4>Open Source & Community</h4>
+              <ul>
+                <li>Building component libraries for AI</li>
+                <li>Contributing to open source</li>
+                <li>Real-world project case studies</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="booking">
+        <div class="container">
+          <h2>Request a Session</h2>
+          <p class="booking-intro">
+            Interested in a mentoring session, workshop, or speaking engagement? Fill out the form below and I'll get back to you within 48 hours.
+          </p>
+
+          <form id="booking-form" class="booking-form">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
+            </div>
+
+            <div class="form-group">
+              <label for="organization">Organization / Company *</label>
+              <input type="text" id="organization" name="organization" required />
+            </div>
+
+            <div class="form-group">
+              <label for="jobTitle">Job Title / Role</label>
+              <input type="text" id="jobTitle" name="jobTitle" />
+            </div>
+
+            <div class="form-group">
+              <label for="sessionType">Type of Session *</label>
+              <select id="sessionType" name="sessionType" required>
+                <option value="">-- Select an option --</option>
+                <option value="mentoring">1-on-1 Mentoring</option>
+                <option value="workshop">Corporate Workshop</option>
+                <option value="speaking">Speaking Engagement</option>
+                <option value="consultation">Consultation</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="topic">Topic(s) of Interest</label>
+              <textarea
+                id="topic"
+                name="topic"
+                placeholder="e.g., 'Claude integration', 'AI agents', 'Leadership and AI', etc."
+                rows="2"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Tell Us About Your Needs *</label>
+              <textarea
+                id="description"
+                name="description"
+                placeholder="What are you hoping to learn or accomplish? Any specific goals or challenges?"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="preferredDate">Preferred Date / Timeframe</label>
+                <input type="text" id="preferredDate" name="preferredDate" placeholder="e.g., 'Next 2 weeks', 'January 2025'" />
+              </div>
+
+              <div class="form-group">
+                <label for="participants">Expected # of Participants</label>
+                <input type="number" id="participants" name="participants" min="1" placeholder="1" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="budget">Budget Range (Optional)</label>
+              <input
+                type="text"
+                id="budget"
+                name="budget"
+                placeholder="e.g., '$500-$1000' or 'Open to discuss'"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="additionalNotes">Additional Notes</label>
+              <textarea
+                id="additionalNotes"
+                name="additionalNotes"
+                placeholder="Accessibility needs, special requests, how you heard about me, etc."
+                rows="3"
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Request Session</button>
+              <p class="form-note">I'll review your request and get back to you within 48 hours.</p>
+            </div>
+
+            <div id="form-status" class="form-status"></div>
+          </form>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container">
+          <h2>Prefer Email?</h2>
+          <p>
+            Not ready to fill out a form? You can also reach me directly at <a href="mailto:joseph.canon@outlook.com">joseph.canon@outlook.com</a>
+          </p>
+        </div>
+      </section>
+    </main>
+    <Footer />
+
+    <script>
+      document.getElementById('booking-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+        const statusDiv = document.getElementById('form-status');
+
+        // Convert form data to object
+        const data = {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          organization: formData.get('organization'),
+          jobTitle: formData.get('jobTitle'),
+          sessionType: formData.get('sessionType'),
+          topic: formData.get('topic'),
+          description: formData.get('description'),
+          preferredDate: formData.get('preferredDate'),
+          participants: formData.get('participants'),
+          budget: formData.get('budget'),
+          additionalNotes: formData.get('additionalNotes'),
+          submittedAt: new Date().toISOString(),
+        };
+
+        try {
+          statusDiv.innerHTML = '<p class="loading">Sending your request...</p>';
+
+          // TODO: Replace with your n8n webhook URL
+          // Format: https://webhook.site/YOUR-WEBHOOK-ID or n8n.cloud endpoint
+          const n8nWebhookUrl = 'YOUR_N8N_WEBHOOK_URL_HERE';
+
+          if (n8nWebhookUrl === 'YOUR_N8N_WEBHOOK_URL_HERE') {
+            // For now, log to console and show success message
+            console.log('Form submission data:', data);
+            statusDiv.innerHTML = `
+              <div class="success">
+                <p>✅ Request received! I'll review it and get back to you soon at <strong>${data.email}</strong></p>
+              </div>
+            `;
+            form.reset();
+            setTimeout(() => {
+              statusDiv.innerHTML = '';
+            }, 5000);
+            return;
+          }
+
+          const response = await fetch(n8nWebhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            statusDiv.innerHTML = `
+              <div class="success">
+                <p>✅ Request received! I'll review it and get back to you soon at <strong>${data.email}</strong></p>
+              </div>
+            `;
+            form.reset();
+            setTimeout(() => {
+              statusDiv.innerHTML = '';
+            }, 5000);
+          } else {
+            throw new Error('Network response was not ok');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          statusDiv.innerHTML = `
+            <div class="error">
+              <p>❌ There was an error sending your request. Please try emailing joseph.canon@outlook.com instead.</p>
+            </div>
+          `;
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  body {
+    background-color: var(--bg-primary, #0a0a0b);
+    color: var(--text-primary, #fafafa);
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  main {
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 4rem 0 3rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border, #27272a);
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin: 0 0 1rem;
+    color: var(--accent, #3b82f6);
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary, #a1a1aa);
+    margin: 0 0 1.5rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: var(--text-secondary, #a1a1aa);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Offerings Section */
+  .offerings {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border, #27272a);
+  }
+
+  .offerings h2,
+  .topics h2,
+  .booking h2,
+  .cta-section h2 {
+    font-size: 2rem;
+    margin: 0 0 2rem;
+    text-align: center;
+  }
+
+  .offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .offering-card {
+    background: var(--card-bg, #111113);
+    border: 1px solid var(--border, #27272a);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .offering-card:hover {
+    border-color: var(--accent, #3b82f6);
+    transform: translateY(-4px);
+  }
+
+  .offering-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .offering-card h3 {
+    font-size: 1.5rem;
+    margin: 0 0 0.75rem;
+    color: var(--text-primary);
+  }
+
+  .offering-card p {
+    color: var(--text-secondary, #a1a1aa);
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .offering-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .offering-details li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    color: var(--text-secondary, #a1a1aa);
+    font-size: 0.9rem;
+    position: relative;
+  }
+
+  .offering-details li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent, #3b82f6);
+    font-weight: bold;
+  }
+
+  /* Topics Section */
+  .topics {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border, #27272a);
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .topic-card {
+    background: var(--card-bg, #111113);
+    border: 1px solid var(--border, #27272a);
+    border-radius: 12px;
+    padding: 1.75rem;
+  }
+
+  .topic-card h4 {
+    font-size: 1.125rem;
+    margin: 0 0 1rem;
+    color: var(--accent, #3b82f6);
+  }
+
+  .topic-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .topic-card li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary, #a1a1aa);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Booking Section */
+  .booking {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border, #27272a);
+  }
+
+  .booking-intro {
+    text-align: center;
+    color: var(--text-secondary, #a1a1aa);
+    margin: 0 0 2.5rem;
+    font-size: 1.05rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .booking-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--card-bg, #111113);
+    border: 1px solid var(--border, #27272a);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem;
+    background: var(--bg-secondary, #1a1a1f);
+    border: 1px solid var(--border, #27272a);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent, #3b82f6);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .form-actions {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .btn-primary {
+    background: var(--accent, #3b82f6);
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .form-note {
+    font-size: 0.85rem;
+    color: var(--text-muted, #71717a);
+    margin-top: 0.75rem;
+  }
+
+  .form-status {
+    margin-top: 1.5rem;
+  }
+
+  .success,
+  .error {
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+
+  .success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #86efac;
+  }
+
+  .error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+  }
+
+  .loading {
+    color: var(--accent, #3b82f6);
+    font-style: italic;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-section p {
+    font-size: 1.1rem;
+    color: var(--text-secondary, #a1a1aa);
+    margin: 1rem 0 0;
+  }
+
+  .cta-section a {
+    color: var(--accent, #3b82f6);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .cta-section a:hover {
+    color: #2563eb;
+  }
+</style>

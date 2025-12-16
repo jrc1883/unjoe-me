@@ -14,5 +14,6 @@ export const SOCIAL_LINKS = {
 export const NAV_ITEMS = [
   { label: 'Projects', href: '/projects' },
   { label: 'Articles', href: '/blog' },
+  { label: 'Speaking', href: '/speaking' },
   { label: 'About', href: '/about' },
 ];

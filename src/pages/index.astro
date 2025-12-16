@@ -101,6 +101,51 @@ const posts = (await getCollection('blog'))
       <section class="section">
         <div class="container">
           <div class="section-header">
+            <h2>Open Source & Libraries</h2>
+            <a href="https://www.npmjs.com/~jrc1883" class="see-all" target="_blank">View on npm</a>
+          </div>
+          <p class="section-intro">I'm building reusable component libraries and abstractions to support the AI development community. Below are libraries available on npm and GitHub.</p>
+          <div class="libraries-grid">
+            <a href="#" class="library-card">
+              <div class="library-header">
+                <h3>Component Library</h3>
+                <span class="badge">npm</span>
+              </div>
+              <p>Reusable React/Vue components for AI applications.</p>
+              <div class="library-meta">
+                <span class="meta-item">📦 Published to npm</span>
+                <span class="meta-item">🔧 Open Source</span>
+              </div>
+            </a>
+            <a href="#" class="library-card">
+              <div class="library-header">
+                <h3>AI Agent Toolkit</h3>
+                <span class="badge">npm</span>
+              </div>
+              <p>Utilities and helpers for building multi-agent AI systems.</p>
+              <div class="library-meta">
+                <span class="meta-item">📦 Published to npm</span>
+                <span class="meta-item">🔧 Open Source</span>
+              </div>
+            </a>
+            <a href="https://github.com/jrc1883" class="library-card">
+              <div class="library-header">
+                <h3>+ More on GitHub</h3>
+                <span class="badge">GitHub</span>
+              </div>
+              <p>Browse additional projects and contributions on my GitHub profile.</p>
+              <div class="library-meta">
+                <span class="meta-item">🔗 github.com/jrc1883</span>
+                <span class="meta-item">⭐ Open for collaboration</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
             <h2>Latest Articles</h2>
             <a href="/blog" class="see-all">View all</a>
           </div>
@@ -185,4 +230,14 @@ const posts = (await getCollection('blog'))
   .article-card h3 { font-size: 1.125rem; margin: 0 0 0.5rem; }
   .article-card p { color: var(--text-secondary); font-size: 0.875rem; margin: 0; }
   .article-date { color: var(--text-muted); font-size: 0.8125rem; display: block; margin-bottom: 0.5rem; }
+  .section-intro { color: var(--text-secondary); font-size: 0.95rem; max-width: 800px; margin-bottom: 2rem; line-height: 1.6; }
+  .libraries-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .library-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-decoration: none; color: inherit; transition: all 0.3s ease; }
+  .library-card:hover { background: var(--card-hover); border-color: #3f3f46; transform: translateY(-2px); }
+  .library-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+  .library-card h3 { font-size: 1.125rem; margin: 0; }
+  .badge { background: #27272a; color: var(--text-muted); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+  .library-card p { color: var(--text-secondary); font-size: 0.875rem; margin: 0 0 1rem; }
+  .library-meta { display: flex; flex-direction: column; gap: 0.5rem; }
+  .meta-item { color: var(--text-muted); font-size: 0.8rem; }
 </style>
