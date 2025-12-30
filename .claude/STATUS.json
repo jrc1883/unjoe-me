@@ -1,0 +1,15 @@
+{
+  "project": "unjoe.me",
+  "version": "0.1.0",
+  "initialized": "2025-12-13",
+  "lastActivity": "2025-12-13",
+  "status": "in_development",
+  "currentPhase": "initial_setup",
+  "milestones": {
+    "project_init": "completed",
+    "dark_theme_layout": "in_progress",
+    "blog_system": "pending",
+    "github_deployment": "pending",
+    "cloudflare_pages": "pending"
+  }
+}
