@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-:root {
+/* Dark theme (default) */
+:root,
+html[data-theme="dark"] {
   --bg-primary: #0a0a0b;
   --bg-secondary: #111113;
   --bg-tertiary: #1a1a1d;
@@ -14,12 +16,31 @@
   --card-hover: #1f1f23;
 }
 
+/* Light theme */
+html[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  --text-primary: #1a1a1a;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --border: #e4e4e7;
+  --card-bg: #ffffff;
+  --card-hover: #f9fafb;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Smooth theme transitions - Josh Comeau style */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 body {
@@ -30,6 +51,10 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
+  /* Smooth theme transitions */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 a {
