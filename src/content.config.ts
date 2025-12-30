@@ -13,6 +13,9 @@ const blog = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: image().optional(),
+			heroImageAlt: z.string().optional(),
+			// Meta prompt for AI image generation (future automation)
+			heroImagePrompt: z.string().optional(),
 			// Tags for categorization and filtering
 			tags: z.array(z.string()).default([]),
 			// Optional: Featured flag for highlighting important posts

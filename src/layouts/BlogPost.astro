@@ -8,11 +8,15 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { getReadingTime, formatReadingTime } from '../utils/reading-time';
 import { findRelatedPosts } from '../utils/related-posts';
+import { getFallbackHero } from '../utils/hero-fallback';
 
 type Props = CollectionEntry<'blog'>['data'] & { body: string; id: string };
 
-const { title, description, pubDate, updatedDate, heroImage, body, tags = [], id } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, body, tags = [], id } = Astro.props;
 const readingTime = getReadingTime(body);
+
+// Generate gradient fallback if no hero image
+const fallbackHero = !heroImage ? getFallbackHero(tags, title) : null;
 
 // Fetch all posts for related posts functionality
 const allPosts = await getCollection('blog');
@@ -38,12 +42,44 @@ const relatedPosts = findRelatedPosts(id, tags, allPosts, 3);
 			}
 			.hero-image {
 				width: 100%;
+				position: relative;
+				overflow: hidden;
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
+			}
+			.hero-gradient {
+				width: 100%;
+				height: 400px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 12px;
+				position: relative;
+				overflow: hidden;
+			}
+			.hero-gradient::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				opacity: 0.1;
+				background-image:
+					radial-gradient(circle at 25% 25%, currentColor 2px, transparent 2px),
+					radial-gradient(circle at 75% 75%, currentColor 2px, transparent 2px);
+				background-size: 50px 50px;
+			}
+			.hero-gradient-title {
+				position: relative;
+				z-index: 1;
+				font-size: clamp(2rem, 5vw, 3.5rem);
+				font-weight: 700;
+				text-align: center;
+				padding: 2rem;
+				max-width: 80%;
+				line-height: 1.2;
 			}
 			.prose {
 				width: 720px;
@@ -275,9 +311,23 @@ const relatedPosts = findRelatedPosts(id, tags, allPosts, 3);
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
+				{heroImage ? (
+					<div class="hero-image">
+						<Image
+							width={1020}
+							height={510}
+							src={heroImage}
+							alt={heroImageAlt || `Hero image for ${title}`}
+						/>
+					</div>
+				) : fallbackHero && (
+					<div
+						class="hero-gradient"
+						style={`background: ${fallbackHero.gradient}; color: ${fallbackHero.accentColor};`}
+					>
+						<h2 class="hero-gradient-title">{fallbackHero.title}</h2>
+					</div>
+				)}
 				<div class="prose">
 					<div class="title">
 						<div class="date">
