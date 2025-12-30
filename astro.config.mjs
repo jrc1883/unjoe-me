@@ -15,10 +15,5 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    resolve: {
-      alias: {
-        '@elshaddai/portfolio-ui': '../../packages/portfolio-ui/src',
-      },
-    },
   },
 });
