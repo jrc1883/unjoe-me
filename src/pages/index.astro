@@ -1,17 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../../packages/portfolio-ui/src/components/utils/BaseHead.astro';
+import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import FormattedDate from '../../packages/portfolio-ui/src/components/utils/FormattedDate.astro';
-import BentoGrid from '../../packages/portfolio-ui/src/components/grids/BentoGrid.astro';
-import BentoCard from '../../packages/portfolio-ui/src/components/cards/BentoCard.astro';
-import ProfileCard from '../../packages/portfolio-ui/src/components/cards/ProfileCard.astro';
-import ResumeCard from '../../packages/portfolio-ui/src/components/cards/ResumeCard.astro';
-import TechStackCard from '../../packages/portfolio-ui/src/components/cards/TechStackCard.astro';
-import FormerlyAtCard from '../../packages/portfolio-ui/src/components/cards/FormerlyAtCard.astro';
-import InterestsSection from '../../packages/portfolio-ui/src/components/sections/InterestsSection.astro';
-import StoryTimeline from '../../packages/portfolio-ui/src/components/sections/StoryTimeline.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import BentoGrid from '../components/BentoGrid.astro';
+import BentoCard from '../components/BentoCard.astro';
+import ProfileCard from '../components/cards/ProfileCard.astro';
+import ResumeCard from '../components/cards/ResumeCard.astro';
+import TechStackCard from '../components/cards/TechStackCard.astro';
+import FormerlyAtCard from '../components/cards/FormerlyAtCard.astro';
+import InterestsSection from '../components/InterestsSection.astro';
+import StoryTimeline from '../components/StoryTimeline.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, SOCIAL_LINKS } from '../consts';
 
 const posts = (await getCollection('blog'))
