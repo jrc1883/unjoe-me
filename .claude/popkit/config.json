@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "project_name": "unjoe-portfolio",
+  "project_prefix": "up",
+  "default_routines": {
+    "morning": "pk",
+    "nightly": "pk"
+  },
+  "initialized_at": "2025-12-30T00:54:52.928942",
+  "popkit_version": "1.2.0",
+  "tier": "free",
+  "features": {
+    "power_mode": "not_configured",
+    "deployments": [],
+    "custom_routines": []
+  }
+}

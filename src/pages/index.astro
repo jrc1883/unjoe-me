@@ -1,0 +1,188 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../packages/portfolio-ui/src/components/utils/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../../packages/portfolio-ui/src/components/utils/FormattedDate.astro';
+import BentoGrid from '../../packages/portfolio-ui/src/components/grids/BentoGrid.astro';
+import BentoCard from '../../packages/portfolio-ui/src/components/cards/BentoCard.astro';
+import ProfileCard from '../../packages/portfolio-ui/src/components/cards/ProfileCard.astro';
+import ResumeCard from '../../packages/portfolio-ui/src/components/cards/ResumeCard.astro';
+import TechStackCard from '../../packages/portfolio-ui/src/components/cards/TechStackCard.astro';
+import FormerlyAtCard from '../../packages/portfolio-ui/src/components/cards/FormerlyAtCard.astro';
+import InterestsSection from '../../packages/portfolio-ui/src/components/sections/InterestsSection.astro';
+import StoryTimeline from '../../packages/portfolio-ui/src/components/sections/StoryTimeline.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, SOCIAL_LINKS } from '../consts';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="hero-name">
+        <h1 class="name">
+          <span class="name-first">Joseph</span>
+          <span class="name-last">Cannon</span>
+        </h1>
+        <p class="hero-tagline">Veteran engineer building intelligent systems for tomorrow.</p>
+        <p class="tagline">
+          <span class="tag-word">Engineering</span>
+          <span class="tag-sep">/</span>
+          <span class="tag-word highlight">Leadership</span>
+          <span class="tag-sep">/</span>
+          <span class="tag-word">AI</span>
+        </p>
+      </section>
+
+      <BentoGrid>
+        <BentoCard rowSpan={2}>
+          <ProfileCard />
+        </BentoCard>
+
+        <BentoCard colSpan={1}>
+          <FormerlyAtCard />
+        </BentoCard>
+
+        <BentoCard colSpan={1} rowSpan={2}>
+          <ResumeCard />
+        </BentoCard>
+
+        <BentoCard rowSpan={2}>
+          <TechStackCard />
+        </BentoCard>
+      </BentoGrid>
+
+      <InterestsSection />
+      <StoryTimeline />
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Featured Projects</h2>
+            <a href="/projects" class="see-all">View all</a>
+          </div>
+          <div class="projects-grid">
+            <a href="https://github.com/jrc1883/popkit" class="project-card">
+              <h3>PopKit</h3>
+              <p>Claude Code plugin ecosystem with 30+ specialized agents for development workflows.</p>
+              <div class="project-tags">
+                <span class="tag">TypeScript</span>
+                <span class="tag">Claude Code</span>
+              </div>
+            </a>
+            <a href="#" class="project-card">
+              <h3>OPTIMUS</h3>
+              <p>Multi-agent orchestration system for complex task automation.</p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Multi-Agent</span>
+              </div>
+            </a>
+            <a href="#" class="project-card">
+              <h3>Genesis Family OS</h3>
+              <p>Family management system integrating schedules, tasks, and home automation.</p>
+              <div class="project-tags">
+                <span class="tag">Full Stack</span>
+                <span class="tag">AI</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Latest Articles</h2>
+            <a href="/blog" class="see-all">View all</a>
+          </div>
+          <div class="articles-grid">
+            {posts.length > 0 ? posts.map((post) => (
+              <a href={`/blog/${post.slug}/`} class="article-card">
+                <span class="article-date"><FormattedDate date={post.data.pubDate} /></span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </a>
+            )) : (
+              <div class="article-card">
+                <span class="article-date">Coming soon</span>
+                <h3>First Article</h3>
+                <p>Stay tuned for articles about engineering, AI, and leadership.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    </main>
+    <Footer />
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const expandableCards = document.querySelectorAll('[data-expandable="true"]');
+        expandableCards.forEach(card => {
+          const expandBtn = card.querySelector('.expand-btn');
+          const expandContent = card.querySelector('.expand-content');
+          if (expandBtn && expandContent) {
+            expandBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const isExpanded = card.classList.contains('expanded');
+              expandableCards.forEach(c => {
+                if (c !== card) {
+                  c.classList.remove('expanded');
+                  const content = c.querySelector('.expand-content');
+                  if (content) content.style.maxHeight = '0';
+                }
+              });
+              card.classList.toggle('expanded');
+              if (!isExpanded) {
+                expandContent.style.maxHeight = expandContent.scrollHeight + 'px';
+              } else {
+                expandContent.style.maxHeight = '0';
+              }
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  body { background-color: var(--bg-primary, #0a0a0b); color: var(--text-primary, #fafafa); font-family: system-ui, sans-serif; margin: 0; line-height: 1.6; }
+  .hero-name { text-align: center; padding: 4rem 1rem 2rem; }
+  .name { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 700; margin: 0; letter-spacing: -0.03em; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+  .name-first { color: var(--text-primary); }
+  .name-last { color: var(--accent); }
+  .hero-tagline { color: var(--text-secondary); font-size: 1.125rem; margin: 0.75rem 0 0; font-weight: 400; letter-spacing: 0.01em; }
+  .tagline { color: var(--text-muted); font-size: 1rem; margin: 1rem 0 0; display: flex; justify-content: center; align-items: center; gap: 0.75rem; }
+  .tag-word { transition: color 0.2s ease; }
+  .tag-word.highlight { color: var(--accent); font-weight: 500; }
+  .tag-sep { color: var(--text-muted); opacity: 0.5; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 1rem; }
+  .section { padding: 3rem 0; }
+  .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .section-header h2 { font-size: 1.5rem; margin: 0; }
+  .see-all { color: var(--text-muted); font-size: 0.875rem; text-decoration: none; }
+  .see-all:hover { color: var(--text-primary); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .project-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-decoration: none; color: inherit; transition: all 0.3s ease; }
+  .project-card:hover { background: var(--card-hover); border-color: #3f3f46; transform: translateY(-2px); }
+  .project-card h3 { font-size: 1.125rem; margin: 0 0 0.5rem; }
+  .project-card p { color: var(--text-secondary); font-size: 0.875rem; margin: 0 0 1rem; }
+  .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .tag { background: #27272a; color: var(--text-muted); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; }
+  .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .article-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-decoration: none; color: inherit; transition: all 0.3s ease; }
+  .article-card:hover { background: var(--card-hover); border-color: #3f3f46; transform: translateY(-2px); }
+  .article-card h3 { font-size: 1.125rem; margin: 0 0 0.5rem; }
+  .article-card p { color: var(--text-secondary); font-size: 0.875rem; margin: 0; }
+  .article-date { color: var(--text-muted); font-size: 0.8125rem; display: block; margin-bottom: 0.5rem; }
+</style>

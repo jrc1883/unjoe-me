@@ -1,0 +1,18 @@
+[
+  {
+    "session_id": "0263c948-2381-47c0-98ac-51535c028a06",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\0263c948-2381-47c0-98ac-51535c028a06.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "hook_event_name": "SessionStart",
+    "source": "startup",
+    "timestamp": "2025-12-30T00:54:52.160573"
+  },
+  {
+    "session_id": "f357e10d-9f17-4353-b1d3-6784d45d4aed",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\f357e10d-9f17-4353-b1d3-6784d45d4aed.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "hook_event_name": "SessionStart",
+    "source": "startup",
+    "timestamp": "2025-12-30T00:57:21.163164"
+  }
+]

@@ -1,0 +1,12 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://unjoe.me/sitemap-index.xml
+
+# Disallow admin/private paths (none currently)
+# Disallow: /admin/
+
+# Crawl-delay for polite bots
+Crawl-delay: 10

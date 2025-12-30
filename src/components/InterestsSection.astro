@@ -1,0 +1,255 @@
+---
+const interests = [
+  {
+    category: 'Building',
+    items: [
+      { name: 'Systems', icon: 'settings' },
+      { name: 'AI Agents', icon: 'robot' },
+      { name: 'Automation', icon: 'refresh' },
+      { name: 'Home Lab', icon: 'server' },
+    ]
+  },
+  {
+    category: 'Leading',
+    items: [
+      { name: 'Teams', icon: 'users' },
+      { name: 'Programs', icon: 'clipboard' },
+      { name: 'Operations', icon: 'target' },
+      { name: 'Strategy', icon: 'layers' },
+    ]
+  },
+  {
+    category: 'Domains',
+    items: [
+      { name: 'Defense', icon: 'shield' },
+      { name: 'Facilities', icon: 'building' },
+      { name: 'Energy', icon: 'zap' },
+      { name: 'Gov Tech', icon: 'landmark' },
+    ]
+  },
+  {
+    category: 'Lifestyle',
+    items: [
+      { name: 'Family', icon: 'home' },
+      { name: 'Faith', icon: 'heart' },
+      { name: 'Learning', icon: 'book' },
+      { name: 'Fitness', icon: 'dumbbell' },
+    ]
+  },
+];
+
+const iconPaths: Record<string, string> = {
+  settings: 'M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
+  robot: 'M12 8V4H8 M5 12H2 M22 12h-3 M17 9.5V14a5 5 0 0 1-10 0V9.5 M7 9.5a5 5 0 0 1 10 0 M9 13h.01 M15 13h.01',
+  refresh: 'M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8 M21 3v5h-5 M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16 M3 21v-5h5',
+  server: 'M2 9a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9z M2 17a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2z M6 10h.01 M6 18h.01',
+  users: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75',
+  clipboard: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2 M9 2h6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z',
+  target: 'M12 12m-2 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0 M12 12m-6 0a6 6 0 1 0 12 0 6 6 0 1 0-12 0 M12 12m-10 0a10 10 0 1 0 20 0 10 10 0 1 0-20 0 M12 2v4 M12 18v4 M2 12h4 M18 12h4',
+  layers: 'M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z M2 12l8.58 3.91a2 2 0 0 0 1.66 0L21 12 M2 17l8.58 3.91a2 2 0 0 0 1.66 0L21 17',
+  shield: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  building: 'M3 21h18 M5 21V7l8-4v18 M19 21V11l-6-4 M9 9v.01 M9 12v.01 M9 15v.01 M9 18v.01',
+  zap: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+  landmark: 'M3 22h18 M6 18v-7 M10 18v-7 M14 18v-7 M18 18v-7 M3 11l9-7 9 7',
+  home: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10',
+  heart: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z',
+  book: 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20 M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15Z',
+  dumbbell: 'M6.5 6.5h11 M6.5 17.5h11 M3 11h3v6H3zM18 11h3v6h-3z M6 8h3v12H6z M15 8h3v12h-3z',
+};
+---
+
+<section class="interests-section">
+  <h2 class="section-title">My Interests</h2>
+
+  <div class="breadcrumb-display" id="interest-breadcrumb">
+    <span class="breadcrumb-text"></span>
+  </div>
+
+  <div class="interests-grid">
+    {interests.map(group => (
+      <div class="interest-group">
+        <span class="group-label">{group.category}</span>
+        <div class="interest-items">
+          {group.items.map(item => (
+            <div
+              class="interest-item"
+              data-category={group.category}
+              data-name={item.name}
+            >
+              <svg class="item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+              <span class="item-label">{item.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('.interest-item');
+    const breadcrumb = document.getElementById('interest-breadcrumb');
+    const breadcrumbText = breadcrumb?.querySelector('.breadcrumb-text');
+
+    items.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const category = item.getAttribute('data-category');
+        const name = item.getAttribute('data-name');
+        if (breadcrumbText) {
+          breadcrumbText.innerHTML = `<span class="bc-category">${category}</span> / <span class="bc-name">${name}</span>`;
+        }
+        breadcrumb?.classList.add('active');
+      });
+
+      item.addEventListener('mouseleave', () => {
+        if (breadcrumbText) {
+          breadcrumbText.textContent = '';
+        }
+        breadcrumb?.classList.remove('active');
+      });
+    });
+  });
+</script>
+
+<style>
+  .interests-section {
+    padding: 3rem 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 1rem 0;
+    padding: 0.5rem 1rem;
+    background: var(--card-bg);
+    border-radius: 999px;
+    display: inline-block;
+  }
+
+  .breadcrumb-display {
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    min-width: 180px;
+    height: 2rem;
+    visibility: hidden;
+  }
+
+  .breadcrumb-display.active {
+    visibility: visible;
+  }
+
+  @media (max-width: 900px) {
+    .breadcrumb-display {
+      display: none;
+    }
+  }
+
+  .breadcrumb-text {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+  }
+
+  :global(.bc-category) {
+    color: var(--text-muted);
+  }
+
+  :global(.bc-name) {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .interest-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .group-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .interest-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .interest-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .interest-item:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .interest-item:hover .item-icon {
+    color: var(--accent);
+  }
+
+  .item-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .item-label {
+    display: none;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .item-label {
+      display: block;
+    }
+
+    .interest-item {
+      padding: 1rem 0.5rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .interests-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .interests-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,42 @@
+[
+  {
+    "session_id": "0263c948-2381-47c0-98ac-51535c028a06",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\0263c948-2381-47c0-98ac-51535c028a06.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "permission_mode": "default",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "a0e70fe",
+    "agent_transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\agent-a0e70fe.jsonl"
+  },
+  {
+    "session_id": "0263c948-2381-47c0-98ac-51535c028a06",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\0263c948-2381-47c0-98ac-51535c028a06.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "permission_mode": "default",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "ae971c4",
+    "agent_transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\agent-ae971c4.jsonl"
+  },
+  {
+    "session_id": "f357e10d-9f17-4353-b1d3-6784d45d4aed",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\f357e10d-9f17-4353-b1d3-6784d45d4aed.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "permission_mode": "default",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "a048993",
+    "agent_transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\agent-a048993.jsonl"
+  },
+  {
+    "session_id": "f357e10d-9f17-4353-b1d3-6784d45d4aed",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\f357e10d-9f17-4353-b1d3-6784d45d4aed.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "permission_mode": "default",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "abd074f",
+    "agent_transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\agent-abd074f.jsonl"
+  }
+]
