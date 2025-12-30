@@ -2,6 +2,7 @@
 title: "Emergency Preparedness in the Digital Age: What 21 Years in the Navy Taught Me"
 description: "How Navy damage control training shapes my approach to family emergency preparedness, and why most digital emergency plans will fail."
 pubDate: 2025-12-04
+tags: ['technical', 'family-tech', 'preparedness']
 ---
 
 # Emergency Preparedness in the Digital Age: What 21 Years in the Navy Taught Me

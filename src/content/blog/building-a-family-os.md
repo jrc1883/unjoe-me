@@ -2,6 +2,7 @@
 title: "Building a Family OS: Why I Created Genesis"
 description: "After 21 years in the Navy managing complex systems and leading teams, I realized families need their own operating system. Here's why I'm building Genesis."
 pubDate: 2025-12-14
+tags: ['projects', 'family-tech', 'systems-thinking']
 ---
 
 # Building a Family OS: Why I Created Genesis

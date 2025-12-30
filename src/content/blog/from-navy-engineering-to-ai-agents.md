@@ -2,6 +2,7 @@
 title: "From Navy Engineering to AI Agents: My Path to Building PopKit"
 description: "How 21 years of Navy engineering and leadership led me to build a 30+ agent AI system for software development workflows."
 pubDate: 2025-12-12
+tags: ['career', 'ai', 'automation', 'navy']
 ---
 
 # From Navy Engineering to AI Agents: My Path to Building PopKit

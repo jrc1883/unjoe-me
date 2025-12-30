@@ -2,6 +2,7 @@
 title: "The ElShaddai Philosophy: Why I Name My Projects After God"
 description: "The meaning behind 'ElShaddai' and how faith influences my approach to building software that serves families and communities."
 pubDate: 2025-12-06
+tags: ['philosophy', 'faith', 'purpose']
 ---
 
 # The ElShaddai Philosophy: Why I Name My Projects After God

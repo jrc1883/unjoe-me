@@ -2,6 +2,7 @@
 title: '21 Years of Naval Service: Leadership Lessons'
 description: 'Reflections on two decades leading sailors, from E-4 work center supervisor to Senior Chief Petty Officer.'
 pubDate: 'Dec 14 2025'
+tags: ['leadership', 'navy', 'career']
 ---
 
 After 21 years in the U.S. Navy, retiring as a Senior Chief Petty Officer (E-8) in February 2024, I've had the privilege of leading sailors across every level of the enlisted ranks. Here are the leadership lessons that shaped me.

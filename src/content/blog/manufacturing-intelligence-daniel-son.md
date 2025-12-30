@@ -2,6 +2,7 @@
 title: "Manufacturing Intelligence: Building Daniel-Son from the Factory Floor Up"
 description: "How my experience managing 47 manufacturing facilities led me to build a real-time OEE tracking platform with 126 React components and offline-first architecture."
 pubDate: 2025-12-08
+tags: ['projects', 'engineering', 'saas', 'manufacturing']
 ---
 
 # Manufacturing Intelligence: Building Daniel-Son from the Factory Floor Up

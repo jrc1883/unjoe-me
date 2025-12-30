@@ -2,6 +2,7 @@
 title: "When Compassion Becomes a Weapon"
 description: "How a Christmas story about refugees became rhetorical manipulation—and what gets sacrificed when emotion overrides truth."
 pubDate: 'Dec 30 2025'
+tags: ['philosophy', 'critical-thinking', 'culture']
 ---
 
 A friend posted something on Facebook that I couldn't ignore.

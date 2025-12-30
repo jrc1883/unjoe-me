@@ -2,6 +2,7 @@
 title: 'From Building Energy to Enterprise Operations'
 description: 'How my Enovity engineering experience shaped my approach to large-scale facilities management at Mars.'
 pubDate: 'Dec 12 2025'
+tags: ['career', 'leadership', 'journey']
 ---
 
 From 2008 to 2013, I worked as a Systems Engineer at Enovity, Inc. in San Francisco, analyzing building energy systems across government facilities, hospitals, and manufacturing plants. That experience fundamentally shaped how I approach large-scale operations today.

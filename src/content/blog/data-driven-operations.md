@@ -2,6 +2,7 @@
 title: 'Building Data-Driven Operations at Scale'
 description: 'How Power BI dashboards and SAP analytics drove $815K in savings at Mars.'
 pubDate: 'Dec 10 2025'
+tags: ['technical', 'engineering', 'operations']
 ---
 
 When I transitioned from Process Engineer to MEGA Regional Project Manager at Mars in 2019, the scope of my work expanded from a single facility to dozens of sites across North America and Latin America. The key to managing that scale wasn't working harder. It was building better systems for visibility.

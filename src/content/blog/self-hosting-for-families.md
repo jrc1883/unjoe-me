@@ -2,6 +2,7 @@
 title: "Self-Hosting for Families: My Unraid Journey"
 description: "Why I run my own home server with Unraid, and how self-hosting changes your relationship with technology and data ownership."
 pubDate: 2025-12-10
+tags: ['technical', 'family-tech', 'security']
 ---
 
 # Self-Hosting for Families: My Unraid Journey
