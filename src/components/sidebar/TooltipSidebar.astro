@@ -1,0 +1,475 @@
+---
+/**
+ * TooltipSidebar - Desktop right sidebar for displaying tooltip content
+ *
+ * Shows on desktop (>1024px) when hovering over <Ref> elements
+ * Hidden on mobile/tablet - they use floating tooltips instead
+ */
+---
+
+<aside id="tooltip-sidebar" class="tooltip-sidebar" aria-live="polite" role="complementary">
+  <div class="tooltip-sidebar-content" id="tooltip-sidebar-content">
+    <div class="tooltip-sidebar-placeholder">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 8v4 M12 16h.01"/>
+      </svg>
+      <p>Hover over highlighted references to see context</p>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .tooltip-sidebar {
+    position: fixed;
+    top: 100px;
+    right: 0;
+    width: 280px;
+    max-height: calc(100vh - 120px);
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .tooltip-sidebar.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .tooltip-sidebar-content {
+    position: relative;
+  }
+
+  .tooltip-sidebar-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--text-muted);
+    min-height: 200px;
+  }
+
+  .tooltip-sidebar-placeholder svg {
+    opacity: 0.3;
+  }
+
+  .tooltip-sidebar-placeholder p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    max-width: 200px;
+  }
+
+  /* Hide on mobile/tablet */
+  @media (max-width: 1024px) {
+    .tooltip-sidebar {
+      display: none;
+    }
+  }
+
+  /* Smooth scrollbar */
+  .tooltip-sidebar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .tooltip-sidebar::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+  }
+
+  .tooltip-sidebar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+
+  .tooltip-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+
+  /* Animation for content changes */
+  @keyframes tooltipContentFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .tooltip-sidebar-content > *:not(.tooltip-sidebar-placeholder) {
+    animation: tooltipContentFadeIn 250ms ease-out;
+  }
+</style>
+
+<script>
+  // Tooltip sidebar state management
+  class TooltipManager {
+    private sidebar: HTMLElement | null;
+    private content: HTMLElement | null;
+    private activeRef: HTMLElement | null = null;
+    private isHoveringSidebar: boolean = false;
+    private isHoveringRef: boolean = false;
+    private hideTimeout: number | null = null;
+
+    constructor() {
+      this.sidebar = document.getElementById('tooltip-sidebar');
+      this.content = document.getElementById('tooltip-sidebar-content');
+      this.init();
+    }
+
+    private init() {
+      if (!this.sidebar || !this.content) return;
+
+      // Track mouse entering/leaving sidebar
+      this.sidebar.addEventListener('mouseenter', () => {
+        this.isHoveringSidebar = true;
+        this.cancelHide();
+      });
+
+      this.sidebar.addEventListener('mouseleave', () => {
+        this.isHoveringSidebar = false;
+        this.scheduleHide();
+      });
+
+      // Set up listeners for all <Ref> elements
+      this.initRefListeners();
+    }
+
+    private initRefListeners() {
+      const refs = document.querySelectorAll('[data-ref-type]');
+
+      refs.forEach((ref) => {
+        const wrapper = ref as HTMLElement;
+        const link = wrapper.querySelector('.ref-link') as HTMLElement;
+
+        if (!link) return;
+
+        // Hover events
+        link.addEventListener('mouseenter', () => {
+          this.isHoveringRef = true;
+          this.cancelHide();
+          this.show(wrapper);
+        });
+
+        link.addEventListener('mouseleave', () => {
+          this.isHoveringRef = false;
+          this.scheduleHide();
+        });
+
+        // Keyboard events
+        link.addEventListener('focus', () => {
+          this.show(wrapper);
+        });
+
+        link.addEventListener('blur', () => {
+          if (!this.isHoveringRef && !this.isHoveringSidebar) {
+            this.hide();
+          }
+        });
+
+        // Click to navigate (default behavior), but also toggle sticky
+        link.addEventListener('click', (e) => {
+          const refType = wrapper.dataset.refType;
+          // For Bible refs, prevent navigation and toggle sticky instead
+          if (refType === 'bible') {
+            e.preventDefault();
+            wrapper.classList.toggle('sticky');
+          }
+        });
+      });
+    }
+
+    private show(refWrapper: HTMLElement) {
+      if (!this.sidebar || !this.content) return;
+
+      // Mark previous ref as inactive
+      if (this.activeRef && this.activeRef !== refWrapper) {
+        this.activeRef.classList.remove('active');
+      }
+
+      // Mark current ref as active
+      this.activeRef = refWrapper;
+      refWrapper.classList.add('active');
+
+      // Get tooltip data
+      const refType = refWrapper.dataset.refType;
+      const refDataStr = refWrapper.dataset.refData;
+
+      if (!refDataStr) return;
+
+      let refData;
+      try {
+        refData = JSON.parse(refDataStr);
+      } catch (e) {
+        console.error('Failed to parse ref data:', e);
+        return;
+      }
+
+      // Render appropriate tooltip content
+      this.renderTooltip(refType as string, refData);
+
+      // Show sidebar
+      this.sidebar.classList.add('active');
+    }
+
+    private hide() {
+      if (!this.sidebar || !this.content) return;
+
+      // Don't hide if hovering sidebar or ref
+      if (this.isHoveringSidebar || this.isHoveringRef) return;
+
+      // Don't hide if sticky
+      if (this.activeRef?.classList.contains('sticky')) return;
+
+      // Hide sidebar
+      this.sidebar.classList.remove('active');
+
+      // Mark ref as inactive
+      if (this.activeRef) {
+        this.activeRef.classList.remove('active');
+        this.activeRef = null;
+      }
+    }
+
+    private scheduleHide() {
+      this.cancelHide();
+      this.hideTimeout = window.setTimeout(() => {
+        this.hide();
+      }, 300);
+    }
+
+    private cancelHide() {
+      if (this.hideTimeout) {
+        window.clearTimeout(this.hideTimeout);
+        this.hideTimeout = null;
+      }
+    }
+
+    private renderTooltip(type: string, data: any) {
+      if (!this.content) return;
+
+      switch (type) {
+        case 'bible':
+          this.content.innerHTML = this.renderBibleTooltip(data);
+          break;
+        case 'link':
+          this.content.innerHTML = this.renderLinkTooltip(data);
+          break;
+        case 'term':
+          this.content.innerHTML = this.renderTermTooltip(data);
+          break;
+        case 'custom':
+          this.content.innerHTML = this.renderCustomTooltip(data);
+          break;
+        default:
+          this.content.innerHTML = '<div class="tooltip-sidebar-placeholder">Unknown reference type</div>';
+      }
+    }
+
+    private renderBibleTooltip(data: any): string {
+      return `
+        <div class="bible-tooltip">
+          <div class="bible-tooltip-header">
+            <h4>${data.reference}</h4>
+            <span class="bible-translation">${data.translation}</span>
+          </div>
+          <div class="bible-tooltip-text">
+            ${data.text}
+          </div>
+          <div class="bible-tooltip-footer">
+            <a
+              href="https://www.esv.org/${encodeURIComponent(data.reference)}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bible-read-more"
+            >
+              Read Full Chapter →
+            </a>
+            <div class="bible-copyright">${data.copyright}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    private renderLinkTooltip(data: any): string {
+      if (data.isInternal) {
+        return `
+          <div class="link-tooltip">
+            <div class="link-tooltip-header">
+              <span class="link-type">Internal Post</span>
+            </div>
+            <div class="link-tooltip-text">
+              <a href="${data.url}" class="link-tooltip-url">${data.url}</a>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="link-tooltip">
+          <div class="link-tooltip-header">
+            <span class="link-type">External Link</span>
+          </div>
+          <div class="link-tooltip-text">
+            <a href="${data.url}" target="_blank" rel="noopener noreferrer" class="link-tooltip-url">
+              ${new URL(data.url).hostname}
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    private renderTermTooltip(data: any): string {
+      return `
+        <div class="term-tooltip">
+          <div class="term-tooltip-header">
+            <h4>${data.term}</h4>
+          </div>
+          <div class="term-tooltip-text">
+            ${data.definition}
+          </div>
+        </div>
+      `;
+    }
+
+    private renderCustomTooltip(data: any): string {
+      return `
+        <div class="custom-tooltip">
+          <div class="custom-tooltip-text">
+            ${data.content}
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // Initialize on page load
+  if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new TooltipManager();
+    });
+  }
+</script>
+
+<style is:global>
+  /* Bible Tooltip Styles */
+  .bible-tooltip {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .bible-tooltip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bible-tooltip-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .bible-translation {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg-tertiary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .bible-tooltip-text {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .bible-tooltip-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .bible-read-more {
+    font-size: 0.875rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .bible-read-more:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+
+  .bible-copyright {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* Link Tooltip Styles */
+  .link-tooltip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .link-type {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .link-tooltip-url {
+    font-size: 0.875rem;
+    color: var(--accent);
+    word-break: break-all;
+  }
+
+  /* Term Tooltip Styles */
+  .term-tooltip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .term-tooltip-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .term-tooltip-text {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* Custom Tooltip Styles */
+  .custom-tooltip-text {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+</style>
