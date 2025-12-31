@@ -132,10 +132,10 @@ img {
 
 /* Medium-style paragraph typography */
 .prose p {
-  margin-bottom: 1.875em; /* 30px at base font */
+  margin-bottom: 2em; /* Generous paragraph spacing like Medium */
   color: var(--text-secondary);
-  font-size: 1.125rem; /* 18px - more readable than default */
-  line-height: 1.7; /* Medium uses ~1.58-1.7 */
+  font-size: 1.3125rem; /* 21px - matches Medium exactly */
+  line-height: 1.58; /* Medium's tighter line-height for density */
   letter-spacing: -0.003em;
 }
 
@@ -184,16 +184,23 @@ img {
   margin: 1.5em 0;
   padding-left: 1.5em;
   color: var(--text-secondary);
-  font-size: 1.125rem;
-  line-height: 1.7;
+  font-size: 1.3125rem; /* Match body font size */
+  line-height: 1.58; /* Match body line-height */
 }
 
 .prose li {
-  margin-bottom: 0.75em;
+  margin-bottom: 0.5em; /* Tighter spacing between list items */
 }
 
 .prose li p {
-  margin-bottom: 0.75em;
+  margin-bottom: 0.5em;
+}
+
+/* Nested lists - even tighter */
+.prose li > ul,
+.prose li > ol {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
 }
 
 /* Blockquotes - Medium-style pull quotes */
