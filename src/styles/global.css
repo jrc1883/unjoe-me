@@ -126,7 +126,7 @@ img {
 
 /* Prose styling for blog posts - Medium-inspired typography */
 .prose {
-  max-width: 720px;
+  max-width: 850px; /* Wider to match header - more horizontal space */
   margin: 0 auto;
 }
 

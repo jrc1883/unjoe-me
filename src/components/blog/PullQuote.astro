@@ -1,0 +1,134 @@
+---
+/**
+ * PullQuote - Sidebar quote component for highlighting key passages
+ * Styled like Medium/professional articles
+ *
+ * Usage:
+ *   <PullQuote>
+ *     "If God's words stay outside us, they cannot bear fruit in us."
+ *   </PullQuote>
+ *
+ *   <PullQuote attribution="Romans 13:4">
+ *     For he is God's servant for your good.
+ *   </PullQuote>
+ *
+ * Props:
+ *   - attribution?: Citation/source (e.g., "Romans 13:4", "John Adams")
+ *   - side?: 'left' | 'right' (default: 'right')
+ */
+
+interface Props {
+  attribution?: string;
+  side?: 'left' | 'right';
+}
+
+const { attribution, side = 'right' } = Astro.props;
+---
+
+<aside class={`pull-quote pull-quote-${side}`}>
+  <div class="pull-quote-content">
+    <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+    <blockquote class="quote-text">
+      <slot />
+    </blockquote>
+    {attribution && (
+      <cite class="quote-attribution">&mdash; {attribution}</cite>
+    )}
+  </div>
+</aside>
+
+<style>
+  .pull-quote {
+    position: relative;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    max-width: 400px;
+  }
+
+  /* Desktop: Float to side */
+  @media (min-width: 1024px) {
+    .pull-quote-right {
+      float: right;
+      margin-left: 2rem;
+      margin-right: -100px; /* Extend into margin */
+    }
+
+    .pull-quote-left {
+      float: left;
+      margin-right: 2rem;
+      margin-left: -100px; /* Extend into margin */
+    }
+  }
+
+  .pull-quote-content {
+    position: relative;
+  }
+
+  /* Quote mark */
+  .quote-mark {
+    position: absolute;
+    top: -0.5rem;
+    left: -0.25rem;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.2;
+    line-height: 1;
+    font-family: Georgia, serif;
+    pointer-events: none;
+  }
+
+  /* Quote text */
+  .quote-text {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+  }
+
+  /* Attribution */
+  .quote-attribution {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* Mobile: Full width, no float */
+  @media (max-width: 1023px) {
+    .pull-quote {
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .quote-text {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Hover effect */
+  .pull-quote {
+    transition: all 0.2s ease;
+  }
+
+  .pull-quote:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .pull-quote:hover .quote-mark {
+    opacity: 0.3;
+  }
+</style>
