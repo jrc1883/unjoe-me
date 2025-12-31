@@ -88,5 +88,45 @@
     "stop_hook_active": false,
     "agent_id": "a8e3753",
     "agent_transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\agent-a8e3753.jsonl"
+  },
+  {
+    "session_id": "f357e10d-9f17-4353-b1d3-6784d45d4aed",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\f357e10d-9f17-4353-b1d3-6784d45d4aed.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "permission_mode": "plan",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "a98704e",
+    "agent_transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\agent-a98704e.jsonl"
+  },
+  {
+    "session_id": "f357e10d-9f17-4353-b1d3-6784d45d4aed",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\f357e10d-9f17-4353-b1d3-6784d45d4aed.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "permission_mode": "plan",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "a834f02",
+    "agent_transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\agent-a834f02.jsonl"
+  },
+  {
+    "session_id": "f357e10d-9f17-4353-b1d3-6784d45d4aed",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\f357e10d-9f17-4353-b1d3-6784d45d4aed.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "permission_mode": "plan",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "a2043f8",
+    "agent_transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\agent-a2043f8.jsonl"
+  },
+  {
+    "session_id": "f357e10d-9f17-4353-b1d3-6784d45d4aed",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\f357e10d-9f17-4353-b1d3-6784d45d4aed.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "permission_mode": "plan",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "afd6b5b",
+    "agent_transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\agent-afd6b5b.jsonl"
   }
 ]
