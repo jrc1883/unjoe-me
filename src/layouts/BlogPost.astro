@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
@@ -314,9 +313,7 @@ const relatedPosts = findRelatedPosts(id, tags, allPosts, 3);
 			<article>
 				{heroImage ? (
 					<div class="hero-image">
-						<Image
-							width={1020}
-							height={510}
+						<img
 							src={heroImage}
 							alt={heroImageAlt || `Hero image for ${title}`}
 						/>
