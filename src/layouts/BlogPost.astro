@@ -9,7 +9,7 @@ import Header from '../components/Header.astro';
 import { getReadingTime, formatReadingTime } from '../utils/reading-time';
 import { findRelatedPosts } from '../utils/related-posts';
 import { getFallbackHero } from '../utils/hero-fallback';
-import TooltipSidebar from '../components/sidebar/TooltipSidebar.astro';
+import TooltipSidebar from '../components/interactive/TooltipSidebar.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & { body: string; id: string };
 
