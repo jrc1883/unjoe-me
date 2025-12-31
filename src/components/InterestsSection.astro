@@ -139,14 +139,17 @@ const iconPaths: Record<string, string> = {
   .breadcrumb-display {
     margin-bottom: 1.5rem;
     padding: 0.5rem 1rem;
-    display: inline-block;
-    min-width: 180px;
+    display: block;
+    width: 220px;
     height: 2rem;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .breadcrumb-display.active {
-    visibility: visible;
+    opacity: 1;
   }
 
   @media (max-width: 900px) {
