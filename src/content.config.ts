@@ -19,6 +19,12 @@ const blog = defineCollection({
 		tags: z.array(z.string()).default([]),
 		// Optional: Featured flag for highlighting important posts
 		featured: z.boolean().default(false),
+		// Draft mode: only visible in development
+		draft: z.boolean().default(false),
+		// Series support for multi-part posts
+		series: z.string().optional(),
+		seriesPart: z.number().optional(),
+		seriesTotal: z.number().optional(),
 	}),
 });
 
