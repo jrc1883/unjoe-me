@@ -5,12 +5,19 @@
 ✅ **Draft Mode System**
 - Posts marked with `draft: true` only show in development
 - Prominent orange warning banner on draft posts
+- Orange draft badges on blog index (dev mode only)
 - Draft posts filtered out of production builds
 
-✅ **Part 1 Converted**
-- "The Agent-Ready Repository Manifesto" converted to MDX
-- Marked as draft
-- Ready for preview at localhost
+✅ **Dedicated Drafts Page**
+- Access all drafts at `/drafts` in development mode
+- Shows draft count and warning indicators
+- Lists all drafts with metadata (title, description, date, series info)
+- Redirects to home in production
+
+✅ **Draft Indicators**
+- Sticky banner on individual draft post pages
+- Badge on blog index for draft posts (dev mode)
+- Clear visual warnings throughout
 
 ## Viewing Draft Posts
 
@@ -25,63 +32,50 @@ The server will start on **http://localhost:4321** (default Astro port)
 
 ### Where to Find Drafts
 
-1. **Blog Index**: http://localhost:4321/blog
-   - Draft posts appear in the list (only in dev mode)
-   - No special indicator on the index
+1. **Drafts Page**: http://localhost:4323/drafts (NEW!)
+   - Dedicated page showing all drafts in one place
+   - Draft count and warning indicators
+   - Easy access without clicking individual links
+   - Dev-only (redirects to home in production)
 
-2. **Draft Post**: http://localhost:4321/blog/agent-ready-01-manifesto
+2. **Blog Index**: http://localhost:4323/blog
+   - Draft posts appear in the list (only in dev mode)
+   - **Orange "DRAFT" badge** appears next to draft post titles
+
+3. **Individual Draft Posts**: Click any draft from the list
    - **Sticky orange banner** at top: "DRAFT POST"
    - Banner pulses to draw attention
    - Banner only shows in development mode
 
 ## Current Status
 
-### ✅ Ready for Review
+### ✅ Draft System Complete
 
-- **Part 1**: agent-ready-01-manifesto.mdx
-  - Status: Draft
-  - Hero Image: Placeholder (needs generation)
-  - Content: Complete
-  - Format: MDX with proper frontmatter
+- Dedicated `/drafts` page for easy review
+- Draft badges on blog index
+- Sticky banners on individual draft posts
+- All draft indicators only show in development mode
+- Production builds filter out drafts completely
 
-### ⏳ Needs Hero Image
+### 📝 Content Status
 
-The post includes a hero image prompt in frontmatter:
-```yaml
-heroImagePrompt: 'A modern, minimalist illustration of a well-organized
-code repository structure, with clean geometric shapes representing folders
-and files, glowing subtle blue highlights showing AI comprehension, dark
-background, professional tech aesthetic, 16:9 aspect ratio'
-```
+**Weak PopKit series posts have been removed** per user feedback. These posts came from a generic prompt without proper context and storytelling.
 
-**Options for generating the image:**
-
-1. **OpenAI DALL-E 3** (Recommended - you have API key)
-   - Use the prompt from frontmatter
-   - Generate at 1792x1024 (16:9 landscape)
-   - Save to: `public/images/blog/agent-ready-01-hero.jpg`
-
-2. **Stock Photo** (Quick alternative)
-   - Search Unsplash for "code structure" or "repository architecture"
-   - Download and save to `public/images/blog/agent-ready-01-hero.jpg`
-   - Add attribution if required
-
-3. **Leave Placeholder** (For now)
-   - Site will use fallback gradient
-   - Works fine for drafting/review
+**Keeping**: Quality posts with deep context:
+- "When Compassion Becomes a Weapon" (Mary/Joseph nativity post)
+- All other original blog posts
 
 ## Testing Checklist
 
-- [ ] Start dev server: `npm run dev`
-- [ ] Visit blog index: http://localhost:4321/blog
-- [ ] Confirm draft appears in list
-- [ ] Click on Part 1 draft
-- [ ] **Verify orange draft banner appears** at top
-- [ ] Banner should say "DRAFT POST" with warning icon
-- [ ] Scroll through content to check formatting
-- [ ] Check series metadata displays correctly
+- [x] Start dev server: `npm run dev`
+- [x] Visit drafts page: http://localhost:4323/drafts
+- [x] Visit blog index: http://localhost:4323/blog
+- [x] Confirm draft badges appear on draft posts
+- [x] Click on a draft post
+- [x] **Verify orange draft banner appears** at top
+- [x] Banner says "DRAFT POST" with warning icon
 - [ ] Try building for production: `npm run build`
-- [ ] Confirm draft is NOT in production build
+- [ ] Confirm drafts are NOT in production build
 
 ## Production vs Development Behavior
 
@@ -97,34 +91,22 @@ background, professional tech aesthetic, 16:9 aspect ratio'
 
 ## Next Steps
 
-### Option A: Review Draft First
-1. Start dev server
-2. Review Part 1 at localhost
-3. Decide if format/structure works
-4. Then generate hero images for all 10 parts
+### Writing New Content
 
-### Option B: Generate Images Now
-1. Use OpenAI DALL-E API script (can create one)
-2. Generate all 10 hero images
-3. Update posts with actual images
-4. Review complete posts
+When creating new blog posts:
+1. Create MDX file in `src/content/blog/`
+2. Add `draft: true` to frontmatter
+3. Start dev server to preview at `/drafts`
+4. Review and iterate
+5. When ready, change `draft: false` and commit
+6. Push to deploy to production
 
-### Option C: Publish Part 1 as Test
-1. Change `draft: false` in frontmatter
-2. Commit and push
-3. See how it looks in production
-4. Iterate on remaining posts
+### Hero Images
 
-## Converting Remaining 9 Posts
-
-Once you approve Part 1's format, I can:
-1. **Batch convert** all 9 remaining posts to MDX
-2. **Update all internal links** between posts
-3. **Add series navigation** component (optional)
-4. **Generate all hero images** (or use placeholders)
-5. Mark all as drafts for your review
-
-**Estimated time**: 2-3 hours for full conversion
+For posts needing hero images:
+1. **OpenAI DALL-E**: Use API key to generate images from prompts
+2. **Stock Photos**: Use Unsplash/Pexels with attribution
+3. **Placeholders**: Site uses fallback gradient if no hero image
 
 ## Commands Reference
 
@@ -145,10 +127,12 @@ npm run type-check
 ## File Locations
 
 - **Draft Posts**: `src/content/blog/*.mdx` (with `draft: true`)
-- **Hero Images**: `public/images/blog/agent-ready-##-hero.jpg`
+- **Drafts Page**: `src/pages/drafts.astro`
+- **Hero Images**: `public/images/blog/`
 - **Draft Banner Component**: `src/components/DraftBanner.astro`
-- **Blog Index**: `src/pages/blog/index.astro`
-- **Post Layout**: `src/layouts/BlogPost.astro`
+- **Blog Index**: `src/pages/blog/index.astro` (with draft badges)
+- **Blog Slug Page**: `src/pages/blog/[...slug].astro`
+- **Post Layout**: `src/layouts/BlogPost.astro` (includes DraftBanner)
 
 ---
 
