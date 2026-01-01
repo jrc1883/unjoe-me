@@ -5,6 +5,11 @@
  * @returns Reading time in minutes
  */
 export function getReadingTime(content: string, wordsPerMinute: number = 200): number {
+  // Handle undefined or empty content
+  if (!content || typeof content !== 'string') {
+    return 1; // Default to 1 minute for empty/missing content
+  }
+
   // Remove markdown syntax for more accurate word count
   const cleanContent = content
     // Remove code blocks
@@ -44,9 +49,9 @@ export function formatReadingTime(minutes: number): string {
 
 /**
  * Get reading time from Astro collection entry
- * @param entry - Astro content collection entry with body property
+ * @param entry - Astro content collection entry with optional body property
  * @returns Reading time in minutes
  */
-export function getReadingTimeFromEntry(entry: { body: string }): number {
-  return getReadingTime(entry.body);
+export function getReadingTimeFromEntry(entry: { body?: string }): number {
+  return getReadingTime(entry.body || '');
 }
