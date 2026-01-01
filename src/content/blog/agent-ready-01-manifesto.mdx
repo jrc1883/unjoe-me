@@ -34,7 +34,7 @@ Column 2:
   ├── "TODO.txt"
   └── "config.dev.js"
 
-RED FLAGS visible: mixed .js/.ts/.jsx extensions, duplicate files (utils variants), multiple package managers, vague folder names (stuff/, misc/), inconsistent naming (Component vs component).
+RED FLAGS visible: Small warning triangle icons ONLY to the right of problematic files (not duplicated on card). Show warnings on: utils variants (version sprawl), yarn.lock and pnpm-lock.yaml (multiple package managers), README-OLD.md, notes.md, TODO.txt, config.dev.js (should be in proper config structure). No warning icons on stuff/ and misc/ folders themselves - just red outline to show they're problematic folder names.
 
 RIGHT SIDE (45% width) - "AFTER: Agent-Ready Repository" with electric blue glow (#3b82f6):
 Clean organized tree - two-column layout showing ~20 items:
@@ -73,9 +73,9 @@ GREEN CHECKS visible: consistent .ts extensions, clear folder hierarchy, single 
 
 CENTER: Thin vertical dividing line with subtle glow, large "VS" text in electric blue.
 
-VISUAL STYLE: Folders as 3D rounded rectangles with depth, files as flat rounded rectangles with file-type icons (TS, MD, JSON, YAML). Monospace font (Fira Code style) for all filenames. Tree structure lines connecting parent to children. Left side uses warm red/orange tones (#ef4444, #f97316), right side uses cool blue tones (#3b82f6, #60a5fa). Subtle shadows for depth. Clean, professional technical diagram aesthetic.
+VISUAL STYLE: Folders as 3D rounded rectangles with depth, files as flat rounded rectangles with file-type icons (TS, MD, JSON, YAML). Monospace font (Fira Code style) for all filenames. Tree structure lines connecting parent to children. Left side uses warm red/orange tones (#ef4444, #f97316), right side uses cool blue tones (#3b82f6, #60a5fa). Subtle shadows for depth. Clean, professional technical diagram aesthetic. IMPORTANT: Background should be smooth dark navy gradient with NO busy patterns, NO texture interference, NO distracting elements - keep it minimal and clean.
 
-TECHNICAL: 16:9 landscape (1792x1024), high contrast, readable at thumbnail size, minimal text, clear visual hierarchy.'
+TECHNICAL: 16:9 landscape (1792x1024), high contrast, readable at thumbnail size, minimal text, clear visual hierarchy. All filenames must use standard file extensions EXACTLY as shown (.js, .ts, .tsx, .jsx, .md, .json, .yml, .yaml) - no typos or invented extensions.'
 tags: ['ai-development', 'repository-structure', 'developer-experience', 'claude-code', 'series']
 series: 'Agent-Ready Development'
 seriesPart: 1
