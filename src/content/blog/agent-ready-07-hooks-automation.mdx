@@ -3,7 +3,95 @@ title: "Git Hooks & Automation Pipelines"
 description: "Programmatic quality gates that catch issues before they become problems"
 pubDate: 'Feb 26 2025'
 heroImage: '/images/blog/agent-ready-07-hero.jpg'
-heroImagePrompt: 'Automated quality gate system with git hooks as checkpoints, code flowing through validation pipelines with lint, test, and security checks, cascade of automated processes catching errors, dark background with red warning indicators and green success checkmarks, professional tech aesthetic, 16:9 aspect ratio'
+heroImagePrompt: 'A modern, minimalist technical diagram showing Git Hooks workflow as an automated quality gate system on a dark navy blue background (#0a0a0b to #1a1a2e gradient).
+
+SPECIFIC GIT HOOKS WORKFLOW ELEMENTS:
+LEFT SIDE - Code Commit Attempt:
+- Developer terminal window showing:
+  - Command: "git commit -m \"feat: add user auth\""
+  - Cursor blinking after command
+- Terminal styled as VS Code integrated terminal (dark theme)
+- Electric blue prompt symbol
+
+CENTER - Pre-Commit Hook Pipeline (vertical cascade):
+Large rounded rectangle labeled "Pre-Commit Hooks" containing 5 sequential checks:
+
+CHECK 1 - "Lint (ESLint)":
+- Electric blue rounded rectangle
+- ESLint logo icon
+- Running status: spinner icon
+- Preview: "Checking 24 files..."
+
+CHECK 2 - "Format (Prettier)":
+- Result: Green checkmark
+- Prettier logo icon
+- "✓ 24 files formatted"
+
+CHECK 3 - "Type Check (TypeScript)":
+- Result: Red X warning
+- TypeScript logo icon
+- Error message: "src/auth.ts:47 - Type 'string | undefined' is not assignable"
+- Yellow warning badge showing "1 error"
+- BRIGHTEST GLOW - This is the failing check
+
+CHECK 4 - "Unit Tests":
+- Grayed out (not reached due to failure above)
+- Jest logo icon
+- Status: "Pending..."
+
+CHECK 5 - "Security Scan (npm audit)":
+- Grayed out (not reached)
+- Shield icon
+- Status: "Pending..."
+
+RIGHT SIDE - Two Outcomes:
+
+TOP RIGHT - Failed Commit (current state):
+- Red-bordered card showing:
+  - Large red X icon
+  - "Commit Blocked"
+  - "Fix TypeScript errors to continue"
+  - Code snippet showing the error location
+  - "Run 'npm run type-check' to debug"
+- Red glow around the card
+
+BOTTOM RIGHT - Successful Commit (ghost/future state):
+- Green-bordered card (translucent/faded to show it's not current)
+- Large green checkmark
+- "Commit Successful"
+- "All checks passed"
+- Git hash: "abc123f"
+- Green glow around the card
+
+VISUAL DETAILS:
+- Check boxes as rounded rectangles with logo icons
+- Status indicators: spinner (running), green checkmark (pass), red X (fail), gray (pending)
+- Error messages in monospace font with code context
+- Terminal command in realistic terminal styling
+- Logo icons for each tool (ESLint, Prettier, TypeScript, Jest, npm)
+- Flowing lines connecting each check in sequence
+- Failure causes "circuit break" visual (red line stopping at failed check)
+- Tool names and status clearly labeled
+
+COMPOSITION:
+- Left-to-right flow (command → hooks → outcome)
+- Center pipeline as vertical cascade (top to bottom execution)
+- Failed check (TypeScript) visually prominent with brightest glow
+- Two possible outcomes side-by-side on right (failed above, success below)
+- Clear visual indication of where the pipeline stopped
+
+TECHNICAL:
+- 16:9 landscape aspect ratio (1792x1024)
+- Dark navy blue background (#0a0a0b)
+- Terminal: VS Code integrated terminal colors
+- Success: green (#22c55e)
+- Failure/Error: red (#ef4444)
+- Warning: yellow (#f59e0b)
+- In-progress: electric blue (#3b82f6)
+- Pending: gray (#6b7280)
+- High contrast for readability
+- Monospace font for code/terminal, sans-serif for labels
+- Professional tech aesthetic matching developer tools'
 tags: ['git-hooks', 'automation', 'ci-cd', 'husky', 'lint-staged', 'quality-gates', 'series']
 series: 'Agent-Ready Development'
 seriesPart: 7
