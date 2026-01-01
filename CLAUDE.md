@@ -61,19 +61,25 @@ This project uses a **branch-based content inbox** for ideas generated from Clau
 
 When Joseph asks you to create a blog post (especially from voice-to-text on mobile):
 
-1. **Create a new branch** named `content/<topic-slug>`
+1. **Read the template first:** See `BLOG_POST_TEMPLATE.md` for complete format guide
+
+2. **Create a new branch** named `content/<topic-slug>`
    - Example: `content/ai-agents-in-manufacturing`
 
-2. **Create the blog post file** at `src/content/blog/<topic-slug>.md`
+3. **Create the blog post file** at `src/content/blog/<topic-slug>.mdx` (note: `.mdx` not `.md`)
    - Use kebab-case for filename
-   - Example: `src/content/blog/ai-agents-in-manufacturing.md`
+   - Example: `src/content/blog/ai-agents-in-manufacturing.mdx`
 
-3. **Write the blog post** with this exact frontmatter structure:
-   ```markdown
+4. **Write the blog post** with proper MDX frontmatter:
+   ```mdx
    ---
    title: "Compelling Title That Promises Value"
    description: "1-2 sentence SEO-friendly description"
-   pubDate: 2025-12-30
+   pubDate: 'Jan 15 2025'
+   heroImage: '/images/blog/your-post-slug-hero.jpg'
+   heroImageAlt: 'Description for accessibility'
+   tags: ['tag1', 'tag2', 'tag3']
+   draft: true
    ---
 
    ## Introduction
@@ -88,6 +94,8 @@ When Joseph asks you to create a blog post (especially from voice-to-text on mob
 
    Wrap up with key takeaways...
    ```
+
+**IMPORTANT:** Always use `.mdx` extension and include all required frontmatter fields. See `BLOG_POST_TEMPLATE.md` for complete format specification.
 
 4. **Commit the file** with message: `feat: add blog post about <topic>`
 

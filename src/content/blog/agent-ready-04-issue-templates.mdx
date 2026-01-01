@@ -1,0 +1,601 @@
+---
+title: "Issue Templates That Guide AI Assistants"
+description: "Structured issues that give agents the context they need to actually help"
+pubDate: 'Feb 05 2025'
+heroImage: '/images/blog/agent-ready-04-hero.jpg'
+heroImagePrompt: 'Organized grid of structured issue cards with fields and checkboxes, representing bug reports and feature requests, flowing into an AI processing system with glowing connections, geometric organization, dark background with yellow warning highlights and green success indicators, professional tech aesthetic, 16:9 aspect ratio'
+tags: ['github-issues', 'issue-templates', 'bug-reports', 'feature-requests', 'project-management', 'series']
+series: 'Agent-Ready Development'
+seriesPart: 4
+seriesTotal: 10
+draft: true
+---
+# Issue Templates That Guide AI Assistants
+
+*Part 4 of the Agent-Ready Development Series*
+
+---
+
+## The Vague Issue Problem
+
+I used to create issues like this:
+
+```
+Title: Login broken
+Body: Users can't login. Please fix.
+```
+
+Then I'd wonder why AI assistants (and teammates) kept asking clarifying questions.
+
+The issue contains almost no actionable information:
+- Which users? All of them?
+- What happens when they try?
+- What should happen?
+- When did this start?
+- What's the priority?
+
+**Garbage in, garbage out.** If your issues are vague, your AI assistant's attempts to solve them will be too.
+
+---
+
+## Issues as Contracts
+
+Think of an issue as a contract. It specifies:
+
+1. **What** needs to happen
+2. **Why** it matters
+3. **How** success is measured
+4. **Context** needed to understand it
+
+When issues contain this information, AI assistants can:
+- Start working immediately without clarification
+- Make appropriate decisions about scope
+- Know when they're done
+- Reference the issue in commits and PRs
+
+---
+
+## The Issue Template System
+
+GitHub supports multiple issue templates. Here's the structure I use:
+
+```
+.github/
+└── ISSUE_TEMPLATE/
+    ├── bug_report.md
+    ├── feature_request.md
+    ├── technical_debt.md
+    ├── documentation.md
+    └── config.yml
+```
+
+Let's build each one.
+
+---
+
+## Bug Report Template
+
+```markdown
+<!-- .github/ISSUE_TEMPLATE/bug_report.md -->
+---
+name: Bug Report
+about: Report a bug to help us improve
+title: '[BUG] '
+labels: 'bug, needs-triage'
+assignees: ''
+---
+
+## Bug Description
+
+<!-- A clear, concise description of the bug -->
+
+## Steps to Reproduce
+
+1. Go to '...'
+2. Click on '...'
+3. Scroll down to '...'
+4. See error
+
+## Expected Behavior
+
+<!-- What should happen? -->
+
+## Actual Behavior
+
+<!-- What actually happens? -->
+
+## Environment
+
+- **Browser/Device**: <!-- e.g., Chrome 120, iPhone 15 -->
+- **OS**: <!-- e.g., Windows 11, macOS Sonoma -->
+- **App Version**: <!-- e.g., v2.1.0, commit abc123 -->
+- **User Role**: <!-- e.g., Admin, Free User, Guest -->
+
+## Error Messages
+
+<!-- Copy paste any error messages, stack traces, or console output -->
+
+```
+Paste error here
+```
+
+## Screenshots/Videos
+
+<!-- If applicable, add visual evidence -->
+
+## Additional Context
+
+<!-- Any other relevant information -->
+- Did this work before? When?
+- Does it happen consistently or intermittently?
+- Any workarounds found?
+
+## Possible Cause (Optional)
+
+<!-- If you have ideas about what might be causing this -->
+
+---
+
+**Priority Assessment** (for triagers):
+- [ ] Blocking production use
+- [ ] Affects many users
+- [ ] Has workaround
+- [ ] Edge case
+```
+
+### Why This Template Works
+
+Every field gives the AI (or developer) specific, actionable information:
+
+| Field | What It Tells AI |
+|-------|------------------|
+| Steps to Reproduce | Exact sequence to recreate the bug |
+| Expected vs Actual | What "fixed" looks like |
+| Environment | Where to test the fix |
+| Error Messages | Likely location of the bug |
+| Possible Cause | Starting point for investigation |
+
+---
+
+## Feature Request Template
+
+```markdown
+<!-- .github/ISSUE_TEMPLATE/feature_request.md -->
+---
+name: Feature Request
+about: Suggest a new feature or enhancement
+title: '[FEATURE] '
+labels: 'enhancement, needs-triage'
+assignees: ''
+---
+
+## Problem Statement
+
+<!-- What problem does this feature solve? -->
+As a [type of user], I want [goal] so that [benefit].
+
+## Proposed Solution
+
+<!-- How should this work? -->
+
+### User Experience
+
+<!-- Describe the user flow -->
+1. User navigates to...
+2. User clicks...
+3. System displays...
+
+### Acceptance Criteria
+
+<!-- Specific, testable criteria -->
+- [ ] Criterion 1
+- [ ] Criterion 2
+- [ ] Criterion 3
+
+## Alternatives Considered
+
+<!-- What other approaches were considered? -->
+
+## Technical Considerations
+
+<!-- Any known technical constraints or dependencies? -->
+- Requires: <!-- APIs, services, packages -->
+- Affected areas: <!-- files, components, systems -->
+- Breaking changes: <!-- yes/no, explain -->
+
+## Design Resources (Optional)
+
+<!-- Mockups, wireframes, or design specs -->
+
+## Priority & Scope
+
+**Business Value**: <!-- Low / Medium / High / Critical -->
+**Effort Estimate**: <!-- Small / Medium / Large / XL -->
+**Target Release**: <!-- e.g., v2.2, Q1 2025 -->
+
+## Related
+
+<!-- Link to related issues, discussions, or docs -->
+- Related to #
+- Blocks #
+- Blocked by #
+
+---
+
+**Implementation Notes** (for developers):
+<!-- Technical guidance or suggestions -->
+```
+
+### The AI Advantage
+
+When you tell Claude: "Implement the feature in issue #52"
+
+It can immediately understand:
+- The user problem being solved
+- The expected user experience
+- Specific acceptance criteria (definition of done)
+- Technical constraints to work within
+- Related code and issues to reference
+
+No back-and-forth required.
+
+---
+
+## Technical Debt Template
+
+```markdown
+<!-- .github/ISSUE_TEMPLATE/technical_debt.md -->
+---
+name: Technical Debt
+about: Track code quality improvements and refactoring
+title: '[TECH DEBT] '
+labels: 'tech-debt, maintenance'
+assignees: ''
+---
+
+## Current State
+
+<!-- What's the current problematic situation? -->
+
+## Problems It Causes
+
+<!-- Why is this debt causing issues? -->
+- [ ] Performance impact
+- [ ] Developer experience
+- [ ] Maintainability
+- [ ] Security risk
+- [ ] Scaling limitation
+
+## Proposed Improvement
+
+<!-- What should the code look like? -->
+
+## Files/Areas Affected
+
+<!-- Specific locations -->
+- `src/path/to/file.ts`
+- `src/path/to/other/`
+
+## Effort Required
+
+- **Size**: <!-- Small / Medium / Large -->
+- **Risk**: <!-- Low / Medium / High -->
+- **Testing**: <!-- What tests need updating? -->
+
+## Blockers
+
+<!-- What else needs to happen first? -->
+- Blocked by #
+- Requires discussion on #
+
+## Definition of Done
+
+- [ ] Code refactored
+- [ ] Tests updated/passing
+- [ ] No regression in functionality
+- [ ] Documentation updated
+```
+
+---
+
+## Documentation Template
+
+```markdown
+<!-- .github/ISSUE_TEMPLATE/documentation.md -->
+---
+name: Documentation
+about: Request or propose documentation changes
+title: '[DOCS] '
+labels: 'documentation'
+assignees: ''
+---
+
+## Documentation Type
+
+- [ ] New documentation
+- [ ] Update existing docs
+- [ ] Fix incorrect docs
+- [ ] Improve clarity
+
+## What Needs Documenting
+
+<!-- Describe what's missing or needs improvement -->
+
+## Location
+
+<!-- Where should this documentation live? -->
+- [ ] README.md
+- [ ] CLAUDE.md
+- [ ] docs/ folder
+- [ ] Code comments
+- [ ] Other:
+
+## Proposed Content
+
+<!-- Draft or outline of the documentation -->
+
+## Related Code
+
+<!-- Link to relevant code if documenting a feature -->
+
+## Audience
+
+<!-- Who is this documentation for? -->
+- [ ] New developers
+- [ ] End users
+- [ ] API consumers
+- [ ] AI assistants
+```
+
+---
+
+## The Configuration File
+
+```yaml
+# .github/ISSUE_TEMPLATE/config.yml
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & Discussions
+    url: https://github.com/user/repo/discussions
+    about: Ask questions and get help from the community
+  - name: Security Vulnerabilities
+    url: https://github.com/user/repo/security/advisories/new
+    about: Report security issues privately
+```
+
+Setting `blank_issues_enabled: false` forces users to pick a template—no more vague one-liner issues.
+
+---
+
+## Labels: The Categorization System
+
+Issues need labels for filtering and prioritization:
+
+```yaml
+# Suggested label set
+
+# Type
+bug           # Something isn't working
+enhancement   # New feature or improvement
+tech-debt     # Code quality improvement
+documentation # Documentation changes
+question      # Question needing answer
+
+# Status
+needs-triage  # Needs initial assessment
+in-progress   # Currently being worked on
+blocked       # Waiting on something
+ready         # Ready for development
+
+# Priority
+priority-critical  # Production down
+priority-high      # Major impact
+priority-medium    # Normal priority
+priority-low       # Nice to have
+
+# Area (customize for your project)
+area-auth     # Authentication/authorization
+area-api      # API endpoints
+area-ui       # User interface
+area-db       # Database
+area-ci       # CI/CD
+
+# Effort
+size-small    # < 2 hours
+size-medium   # 2-8 hours
+size-large    # 1-3 days
+size-xl       # > 3 days
+```
+
+### Automating Labels
+
+```yaml
+# .github/workflows/label-sync.yml
+name: Label Sync
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/labels.yml']
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EndBug/label-sync@v2
+        with:
+          config-file: .github/labels.yml
+```
+
+```yaml
+# .github/labels.yml
+- name: bug
+  color: d73a4a
+  description: Something isn't working
+
+- name: enhancement
+  color: a2eeef
+  description: New feature or improvement
+
+- name: priority-critical
+  color: ff0000
+  description: Production-impacting issue
+
+# ... add all labels
+```
+
+---
+
+## Issue Relationships
+
+Connect issues to build context:
+
+### Linking Issues
+
+```markdown
+## Related Issues
+
+- Depends on: #45
+- Blocks: #48, #49
+- Related to: #42
+- Duplicate of: #40
+```
+
+### Parent-Child Relationships
+
+```markdown
+## Subtasks
+
+This epic breaks down into:
+- [ ] #51 - User authentication
+- [ ] #52 - Profile management
+- [ ] #53 - Settings page
+- [ ] #54 - Notification preferences
+
+Parent: #50 (User Account Epic)
+```
+
+### Cross-Repository References
+
+```markdown
+Related to org/other-repo#123
+```
+
+AI assistants can follow these links to build comprehensive understanding.
+
+---
+
+## The Issue Lifecycle
+
+A well-managed issue follows a predictable lifecycle:
+
+```
+Created → Triaged → Ready → In Progress → Review → Done
+
+[needs-triage] → [ready] → [in-progress] → [review] → [closed]
+```
+
+### Automation with Project Boards
+
+```yaml
+# .github/workflows/issue-automation.yml
+name: Issue Automation
+
+on:
+  issues:
+    types: [opened, labeled, closed]
+  pull_request:
+    types: [opened, closed]
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.5.0
+        with:
+          project-url: https://github.com/users/YOU/projects/1
+          github-token: ${{ secrets.PROJECT_TOKEN }}
+```
+
+---
+
+## Writing Issues for AI
+
+When you create an issue that an AI will work on, include:
+
+### 1. Clear Success Criteria
+
+```markdown
+## Acceptance Criteria
+- [ ] Login form validates email format
+- [ ] Error message appears below input field
+- [ ] Form doesn't submit until valid
+- [ ] Tests cover all validation cases
+```
+
+### 2. Explicit Constraints
+
+```markdown
+## Constraints
+- Do NOT modify the AuthContext
+- Use existing validation utilities in src/utils/
+- Keep the current styling
+- This is a frontend-only change
+```
+
+### 3. Reference Points
+
+```markdown
+## Reference
+- Similar implementation: src/components/SignupForm.tsx
+- Validation utilities: src/utils/validation.ts
+- Design spec: figma.com/file/xxx
+```
+
+### 4. Out of Scope
+
+```markdown
+## Out of Scope (Do Not Change)
+- Backend validation (handled separately)
+- Password strength meter (future issue)
+- Remember me functionality (#67)
+```
+
+---
+
+## Quick Wins: What to Do Today
+
+### Minimum (10 minutes)
+
+1. Create `.github/ISSUE_TEMPLATE/` folder
+2. Add `bug_report.md` template
+3. Add `feature_request.md` template
+4. Add `config.yml` disabling blank issues
+
+### Better (30 minutes)
+
+1. Add all four templates above
+2. Create a label system
+3. Add a labels.yml for syncing
+
+### Complete (1 hour)
+
+1. All templates with project-specific customization
+2. Automated labeling workflows
+3. Project board automation
+4. Document issue process in CONTRIBUTING.md
+
+---
+
+## Coming Next
+
+In Part 5, we'll explore **Milestones & Project Boards**—organizing your issues into meaningful groups that give AI assistants the big picture of where individual tasks fit into your project roadmap.
+
+---
+
+*Issue management is a core capability of [PopKit](https://popkit.dev). The `/popkit:issue` commands let you create, list, and manage issues directly from Claude Code—with automatic template selection and smart labeling based on context. The AI-friendly templates in this article are exactly what PopKit uses under the hood.*
+
+---
+
+*[← Part 3: Branch Protection & PRs](./03-branch-protection-prs.md) | [Part 5: Milestones & Projects →](./05-milestones-projects.md)*
