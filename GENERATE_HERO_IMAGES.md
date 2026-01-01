@@ -88,19 +88,27 @@ If an image doesn't match expectations:
 **Too Abstract?**
 - Add more specific file/folder names to prompt
 - Request "realistic technical diagram" style
+- Emphasize "exactly as shown" and "only these elements"
 
 **Wrong Colors?**
 - Emphasize "dark navy blue background (#0a0a0b)"
 - Emphasize "electric blue accents (#3b82f6)"
-- May need to regenerate 2-3 times
+- DALL-E handles hex codes well, Gemini may need 2-3 tries
 
 **Too Busy?**
-- Reduce number of elements in prompt
-- Emphasize "minimalist" and "clean"
+- Current prompts show ~20 items per side (dense but readable)
+- If too crowded, reduce to 15 items
+- Emphasize "minimalist" and "clean" and "readable at thumbnail size"
 
 **Not Technical Enough?**
 - Add "technical diagram" or "software architecture diagram"
 - Request "VS Code dark theme aesthetic"
+- Be more explicit: "tree structure with connecting lines"
+
+**Model Differences:**
+- **OpenAI DALL-E 3**: Better for technical accuracy, file structures, UI mockups
+- **Google Gemini**: More artistic, may need more regenerations for consistency
+- Use whichever gives you the best results for your aesthetic
 
 ---
 

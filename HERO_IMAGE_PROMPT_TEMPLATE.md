@@ -300,6 +300,31 @@ Before finalizing any hero image prompt:
 
 ---
 
+## Model-Specific Tuning
+
+Different AI image models have different strengths. You may need to adjust prompts:
+
+**OpenAI DALL-E 3** (Recommended):
+- ✅ Excellent at technical diagrams and UI mockups
+- ✅ Good with specific file/folder structures
+- ✅ Handles text labels well at reasonable sizes
+- ✅ Consistent brand colors with hex codes
+- ⚠️ Sometimes adds extra creative elements - be very explicit about "exactly" and "only"
+- **Tip**: Use "technical diagram" and "minimalist" to reduce artistic interpretation
+
+**Google Gemini (Alternative)**:
+- ✅ Good at artistic interpretation and abstract concepts
+- ✅ Interesting visual metaphors
+- ⚠️ Less precise with technical diagrams
+- ⚠️ More variation between generations
+- ⚠️ May interpret "blue" differently without hex codes
+- **Tip**: May need to emphasize "realistic" and provide more visual references
+
+**Adjusting Prompts for Different Models:**
+- DALL-E: Can be more concise, trusts structure
+- Gemini: May need more visual description, less technical jargon
+- Both: Always specify hex colors for consistency
+
 ## Testing Your Prompts
 
 **Before generating images:**
@@ -308,7 +333,7 @@ Before finalizing any hero image prompt:
 2. **Sketch it** - Can you roughly draw what it should look like?
 3. **Check specificity** - Are files/folders named exactly?
 4. **Verify brand consistency** - Dark blue bg, electric blue accents?
-5. **Count elements** - 5-8 main items? Not too busy?
+5. **Count elements** - 15-25 items for dense technical diagrams? Not overcrowded?
 
 **After first generation:**
 

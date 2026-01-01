@@ -70,5 +70,13 @@
     "hook_event_name": "SessionStart",
     "source": "compact",
     "timestamp": "2025-12-31T12:37:13.960940"
+  },
+  {
+    "session_id": "f357e10d-9f17-4353-b1d3-6784d45d4aed",
+    "transcript_path": "C:\\Users\\Josep\\.claude\\projects\\C--Users-Josep-onedrive-documents-elshaddai-apps-unjoe-portfolio\\f357e10d-9f17-4353-b1d3-6784d45d4aed.jsonl",
+    "cwd": "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio",
+    "hook_event_name": "SessionStart",
+    "source": "compact",
+    "timestamp": "2026-01-01T01:21:13.755903"
   }
 ]

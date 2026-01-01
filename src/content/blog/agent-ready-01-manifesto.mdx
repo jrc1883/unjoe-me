@@ -3,7 +3,79 @@ title: "The Agent-Ready Repository Manifesto"
 description: "Why repository structure matters more than ever in the age of AI-assisted development"
 pubDate: 'Jan 15 2025'
 heroImage: '/images/blog/agent-ready-01-hero.jpg'
-heroImagePrompt: 'Split-screen comparison on dark navy blue background (#0a0a0b). LEFT SIDE (40% width): Chaotic repository with randomly scattered files - "utils_final.js", "new_utils.js", "test.js", "helpers2.js" jumbled together with red warning glow, tangled connecting lines. RIGHT SIDE (60% width): Organized repository tree structure showing "my-project/" root folder (3D rounded rectangle with electric blue glow #3b82f6) containing: ".github/" folder with "workflows/ci.yml" file, "src/" folder with organized subfolders "components/", "services/", "utils/", "types/" clearly labeled, "CLAUDE.md" file with bright blue highlight, "README.md", "package.json". Clean tree structure with thin blue connecting lines showing hierarchy. Folders as 3D rounded rectangles, files as flat rectangles with appropriate icons. Monospace font (Fira Code) for filenames, sans-serif for folders. Subtle shadows for depth. Center dividing line with subtle glow separating chaos from order. 16:9 landscape (1792x1024), high contrast, professional tech aesthetic.'
+heroImagePrompt: 'Split-screen comparison on dark navy blue background (#0a0a0b to #1a1a2e gradient).
+
+LEFT SIDE (45% width) - "BEFORE: Inconsistent Repository" with red/orange warning glow:
+Structured tree (NOT jumbled) but showing BAD PRACTICES - two-column layout to fit ~20 items:
+Column 1:
+- "messy-project/" (root, red outline)
+  ├── "src/"
+  │   ├── "utils.js"
+  │   ├── "utils2.js"
+  │   ├── "utils_final.ts"
+  │   ├── "utilsHelper.jsx"
+  │   ├── "component.tsx"
+  │   ├── "Component-old.tsx"
+  │   ├── "newComponent.js"
+  │   ├── "test.js"
+  │   └── "backup/"
+  ├── "stuff/"
+  ├── "misc/"
+
+Column 2:
+- (continuation of root)
+  ├── "package.json"
+  ├── "package-lock.json"
+  ├── "yarn.lock"
+  ├── "pnpm-lock.yaml"
+  ├── "readme.txt"
+  ├── "README-OLD.md"
+  ├── "notes.md"
+  ├── "TODO.txt"
+  └── "config.dev.js"
+
+RED FLAGS visible: mixed .js/.ts/.jsx extensions, duplicate files (utils variants), multiple package managers, vague folder names (stuff/, misc/), inconsistent naming (Component vs component).
+
+RIGHT SIDE (45% width) - "AFTER: Agent-Ready Repository" with electric blue glow (#3b82f6):
+Clean organized tree - two-column layout showing ~20 items:
+Column 1:
+- "my-project/" (root, blue outline)
+  ├── ".github/"
+  │   ├── "workflows/"
+  │   │   ├── "ci.yml"
+  │   │   └── "deploy.yml"
+  │   ├── "ISSUE_TEMPLATE/"
+  │   └── "PULL_REQUEST_TEMPLATE.md"
+  ├── "src/"
+  │   ├── "components/"
+  │   ├── "services/"
+  │   ├── "hooks/"
+  │   ├── "utils/"
+  │   ├── "types/"
+  │   └── "index.ts"
+
+Column 2:
+- (continuation of root)
+  ├── "tests/"
+  │   ├── "unit/"
+  │   └── "integration/"
+  ├── "docs/"
+  │   └── "architecture.md"
+  ├── "CLAUDE.md" (HIGHLIGHTED - brightest blue glow)
+  ├── "CONTRIBUTING.md"
+  ├── "README.md"
+  ├── "package.json"
+  ├── ".eslintrc.js"
+  ├── "tsconfig.json"
+  └── ".gitignore"
+
+GREEN CHECKS visible: consistent .ts extensions, clear folder hierarchy, single package manager, purpose-driven names, AI-ready docs.
+
+CENTER: Thin vertical dividing line with subtle glow, large "VS" text in electric blue.
+
+VISUAL STYLE: Folders as 3D rounded rectangles with depth, files as flat rounded rectangles with file-type icons (TS, MD, JSON, YAML). Monospace font (Fira Code style) for all filenames. Tree structure lines connecting parent to children. Left side uses warm red/orange tones (#ef4444, #f97316), right side uses cool blue tones (#3b82f6, #60a5fa). Subtle shadows for depth. Clean, professional technical diagram aesthetic.
+
+TECHNICAL: 16:9 landscape (1792x1024), high contrast, readable at thumbnail size, minimal text, clear visual hierarchy.'
 tags: ['ai-development', 'repository-structure', 'developer-experience', 'claude-code', 'series']
 series: 'Agent-Ready Development'
 seriesPart: 1

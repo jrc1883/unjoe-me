@@ -1,7 +1,10 @@
 {
-  "file_edit_count": 0,
-  "recent_files": [],
-  "recent_file_count": 0,
+  "file_edit_count": 2,
+  "recent_files": [
+    "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio\\HERO_IMAGE_PROMPT_TEMPLATE.md",
+    "C:\\Users\\Josep\\onedrive\\documents\\elshaddai\\apps\\unjoe-portfolio\\GENERATE_HERO_IMAGES.md"
+  ],
+  "recent_file_count": 2,
   "last_checkpoint": null,
   "test_results": []
 }
