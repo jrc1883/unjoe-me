@@ -54,14 +54,10 @@ function formatTag(tag: string) {
 				<!-- Page Header -->
 				<header class="page-header">
 					<span class="section-label">Writings</span>
-					<h1>Lessons from the Field</h1>
-					<p class="subtitle">
-						Insights from 21 years of naval service, engineering leadership,
-						and building systems at scale.
-					</p>
+					<h1>All Articles</h1>
 				</header>
 
-				<!-- Tag Filter -->
+				<!-- Tag Filter - Top tags only -->
 				{uniqueTags.length > 0 && (
 					<div class="tag-filter">
 						<div class="tag-filter-label">Filter by topic:</div>
@@ -69,7 +65,7 @@ function formatTag(tag: string) {
 							<button class="filter-tag active" data-tag="all">
 								All <span class="tag-count">{posts.length}</span>
 							</button>
-							{uniqueTags.map(tag => (
+							{uniqueTags.slice(0, 8).map(tag => (
 								<button class="filter-tag" data-tag={tag}>
 									{formatTag(tag)} <span class="tag-count">{tagCounts[tag]}</span>
 								</button>
