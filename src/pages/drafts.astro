@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 import { getReadingTimeFromEntry, formatReadingTime } from '../utils/reading-time';
+import { getFallbackHero } from '../utils/hero-fallback';
 
 // Redirect to home in production
 const isDev = import.meta.env.DEV;
@@ -69,35 +70,43 @@ function formatDate(date: Date) {
 							{drafts.length} draft {drafts.length === 1 ? 'post' : 'posts'}
 						</div>
 						<div class="drafts-list">
-							{drafts.map((post, index) => (
-								<a href={`/blog/${post.id}/`} class="draft-item">
-									<span class="draft-number">{String(index + 1).padStart(2, '0')}</span>
-									<div class="draft-content">
-										<h3>{post.data.title}</h3>
-										<p>{post.data.description}</p>
-										<div class="draft-meta">
-											<time datetime={post.data.pubDate.toISOString()}>
-												{formatDate(post.data.pubDate)}
-											</time>
-											<span class="meta-separator">•</span>
-											<span class="reading-time">{formatReadingTime(getReadingTimeFromEntry(post))}</span>
-											{post.data.series && (
-												<>
-													<span class="meta-separator">•</span>
-													<span class="series-badge">
-														{post.data.series} ({post.data.seriesPart}/{post.data.seriesTotal})
-													</span>
-												</>
-											)}
+							{drafts.map((post, index) => {
+								const fallback = !post.data.heroImage ? getFallbackHero(post.data.tags || [], post.data.title) : null;
+								return (
+									<a href={`/blog/${post.id}/`} class="draft-item">
+										{post.data.heroImage ? (
+											<img src={post.data.heroImage} alt={post.data.title} class="draft-thumbnail" />
+										) : fallback && (
+											<div class="draft-thumbnail-gradient" style={`background: ${fallback.gradient};`}></div>
+										)}
+										<span class="draft-number">{String(index + 1).padStart(2, '0')}</span>
+										<div class="draft-content">
+											<h3>{post.data.title}</h3>
+											<p>{post.data.description}</p>
+											<div class="draft-meta">
+												<time datetime={post.data.pubDate.toISOString()}>
+													{formatDate(post.data.pubDate)}
+												</time>
+												<span class="meta-separator">•</span>
+												<span class="reading-time">{formatReadingTime(getReadingTimeFromEntry(post))}</span>
+												{post.data.series && (
+													<>
+														<span class="meta-separator">•</span>
+														<span class="series-badge">
+															{post.data.series} ({post.data.seriesPart}/{post.data.seriesTotal})
+														</span>
+													</>
+												)}
+											</div>
 										</div>
-									</div>
-									<span class="draft-arrow">
-										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="M5 12h14M12 5l7 7-7 7"/>
-										</svg>
-									</span>
-								</a>
-							))}
+										<span class="draft-arrow">
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M5 12h14M12 5l7 7-7 7"/>
+											</svg>
+										</span>
+									</a>
+								);
+							})}
 						</div>
 					</section>
 				) : (
@@ -231,13 +240,27 @@ function formatDate(date: Date) {
 
 	.draft-item {
 		display: grid;
-		grid-template-columns: auto 1fr auto;
+		grid-template-columns: 100px auto 1fr auto;
 		align-items: center;
 		gap: 1.5rem;
 		padding: 1.5rem 0;
 		border-bottom: 1px solid var(--color-border-subtle);
 		text-decoration: none;
 		transition: all 0.2s ease;
+	}
+
+	.draft-thumbnail,
+	.draft-thumbnail-gradient {
+		width: 100px;
+		height: 70px;
+		border-radius: 6px;
+		object-fit: cover;
+	}
+
+	.draft-thumbnail-gradient {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.draft-item:hover {
