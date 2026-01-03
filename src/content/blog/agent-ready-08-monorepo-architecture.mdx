@@ -3,95 +3,96 @@ title: "Monorepos & Multi-Project Architecture"
 description: "Scaling agent-ready practices across large, complex codebases"
 pubDate: 'Mar 05 2025'
 heroImage: '/images/blog/agent-ready-08-hero.jpg'
-heroImagePrompt: 'A modern, minimalist technical diagram showing a monorepo structure with shared dependencies and build orchestration on a dark navy blue background (#0a0a0b to #1a1a2e gradient).
-
-SPECIFIC MONOREPO STRUCTURE ELEMENTS:
-LEFT SIDE - Repository Tree Structure:
-
-Root folder "monorepo/" (large rounded rectangle at top):
-├── "apps/" folder (blue accent) containing:
-│   ├── "web-app/" (Next.js icon) - labeled "Next.js"
-│   ├── "mobile-app/" (React Native icon) - labeled "React Native"
-│   ├── "api-server/" (Node.js icon) - labeled "Node.js/Express"
-│   └── "admin-dashboard/" (React icon) - labeled "React"
-│
-├── "packages/" folder (purple accent) containing:
-│   ├── "@company/ui" - labeled "Shared Components"
-│   ├── "@company/utils" - labeled "Utilities"
-│   ├── "@company/types" - labeled "TypeScript Types"
-│   └── "@company/config" - labeled "ESLint/TS Config"
-│
-├── Configuration files at root:
-│   ├── "package.json" (Workspace Root)
-│   ├── "turbo.json" (Turbo logo)
-│   ├── "pnpm-workspace.yaml" (pnpm logo)
-│   └── "CLAUDE.md" (AI icon, glowing)
-
-CENTER - Dependency Graph (flowing connections):
-- Electric blue lines flowing from packages to apps showing imports:
-  - "@company/ui" → "web-app", "mobile-app", "admin-dashboard" (3 arrows)
-  - "@company/utils" → all 4 apps (4 arrows)
-  - "@company/types" → "api-server", "web-app" (2 arrows)
-- Arrows labeled with "import" icons
-- Glowing connection points at each junction
-- Visual representation of "shared code flowing to multiple consumers"
-
-RIGHT SIDE - Turborepo Build Pipeline:
-Large rounded rectangle labeled "Turbo Build Pipeline" showing cascading build order:
-
-STAGE 1 (Top, runs first):
-- "packages/config" - green checkmark, "Built in 2s"
-- "packages/types" - green checkmark, "Built in 3s"
-- Both highlighted as "No dependencies"
-
-STAGE 2 (Middle, runs after Stage 1):
-- "packages/ui" - yellow spinner, "Building... 47%"
-- "packages/utils" - green checkmark, "Built in 5s"
-- Arrows from Stage 1 showing dependency
-
-STAGE 3 (Bottom, runs after Stage 2):
-- "apps/web-app" - gray (pending), "Queued"
-- "apps/api-server" - gray (pending), "Queued"
-- "apps/mobile-app" - gray (pending), "Queued"
-- Arrows from Stage 2 showing dependency
-
-Pipeline stats box:
-- "3/7 completed"
-- "Cache hits: 2/3"
-- "Parallel builds: 4"
-- Turbo logo icon
-
-VISUAL DETAILS:
-- Folders and files as 3D rounded rectangles with depth
-- App icons (Next.js, React, Node.js logos) clearly visible
-- Package names in monospace font with @ scope prefix
-- Dependency arrows as flowing electric blue lines with directional indicators
-- Build status indicators: green (complete), yellow (building), gray (queued)
-- Cache hit indicator: small lightning bolt icon on cached builds
-- Tree structure lines connecting parent/child folders
-- Color coding: Apps (blue), Packages (purple), Config (orange), Docs (cyan)
-
-COMPOSITION:
-- Left: Repository structure (vertical tree, 35% width)
-- Center: Dependency graph (flowing connections, 30% width)
-- Right: Build pipeline (vertical stages, 35% width)
-- Clear left-to-right flow: structure → dependencies → builds
-- Balanced visual weight across all three sections
-
-TECHNICAL:
-- 16:9 landscape aspect ratio (1792x1024)
-- Dark navy blue background (#0a0a0b)
-- Apps: blue (#3b82f6)
-- Packages: purple (#8b5cf6)
-- Config: orange (#f97316)
-- Documentation: cyan (#06b6d4)
-- Success: green (#22c55e)
-- In-progress: yellow (#f59e0b)
-- Pending: gray (#6b7280)
-- High contrast for readability
-- Monospace font for package names and paths
-- Sans-serif for labels and descriptions
-- Professional tech aesthetic matching modern build tools'
+heroImagePrompt: |
+  A modern, minimalist technical diagram showing a monorepo structure with shared dependencies and build orchestration on a dark navy blue background (#0a0a0b to #1a1a2e gradient).
+  
+  SPECIFIC MONOREPO STRUCTURE ELEMENTS:
+  LEFT SIDE - Repository Tree Structure:
+  
+  Root folder "monorepo/" (large rounded rectangle at top):
+  ├── "apps/" folder (blue accent) containing:
+  │   ├── "web-app/" (Next.js icon) - labeled "Next.js"
+  │   ├── "mobile-app/" (React Native icon) - labeled "React Native"
+  │   ├── "api-server/" (Node.js icon) - labeled "Node.js/Express"
+  │   └── "admin-dashboard/" (React icon) - labeled "React"
+  │
+  ├── "packages/" folder (purple accent) containing:
+  │   ├── "@company/ui" - labeled "Shared Components"
+  │   ├── "@company/utils" - labeled "Utilities"
+  │   ├── "@company/types" - labeled "TypeScript Types"
+  │   └── "@company/config" - labeled "ESLint/TS Config"
+  │
+  ├── Configuration files at root:
+  │   ├── "package.json" (Workspace Root)
+  │   ├── "turbo.json" (Turbo logo)
+  │   ├── "pnpm-workspace.yaml" (pnpm logo)
+  │   └── "CLAUDE.md" (AI icon, glowing)
+  
+  CENTER - Dependency Graph (flowing connections):
+  - Electric blue lines flowing from packages to apps showing imports:
+    - "@company/ui" → "web-app", "mobile-app", "admin-dashboard" (3 arrows)
+    - "@company/utils" → all 4 apps (4 arrows)
+    - "@company/types" → "api-server", "web-app" (2 arrows)
+  - Arrows labeled with "import" icons
+  - Glowing connection points at each junction
+  - Visual representation of "shared code flowing to multiple consumers"
+  
+  RIGHT SIDE - Turborepo Build Pipeline:
+  Large rounded rectangle labeled "Turbo Build Pipeline" showing cascading build order:
+  
+  STAGE 1 (Top, runs first):
+  - "packages/config" - green checkmark, "Built in 2s"
+  - "packages/types" - green checkmark, "Built in 3s"
+  - Both highlighted as "No dependencies"
+  
+  STAGE 2 (Middle, runs after Stage 1):
+  - "packages/ui" - yellow spinner, "Building... 47%"
+  - "packages/utils" - green checkmark, "Built in 5s"
+  - Arrows from Stage 1 showing dependency
+  
+  STAGE 3 (Bottom, runs after Stage 2):
+  - "apps/web-app" - gray (pending), "Queued"
+  - "apps/api-server" - gray (pending), "Queued"
+  - "apps/mobile-app" - gray (pending), "Queued"
+  - Arrows from Stage 2 showing dependency
+  
+  Pipeline stats box:
+  - "3/7 completed"
+  - "Cache hits: 2/3"
+  - "Parallel builds: 4"
+  - Turbo logo icon
+  
+  VISUAL DETAILS:
+  - Folders and files as 3D rounded rectangles with depth
+  - App icons (Next.js, React, Node.js logos) clearly visible
+  - Package names in monospace font with @ scope prefix
+  - Dependency arrows as flowing electric blue lines with directional indicators
+  - Build status indicators: green (complete), yellow (building), gray (queued)
+  - Cache hit indicator: small lightning bolt icon on cached builds
+  - Tree structure lines connecting parent/child folders
+  - Color coding: Apps (blue), Packages (purple), Config (orange), Docs (cyan)
+  
+  COMPOSITION:
+  - Left: Repository structure (vertical tree, 35% width)
+  - Center: Dependency graph (flowing connections, 30% width)
+  - Right: Build pipeline (vertical stages, 35% width)
+  - Clear left-to-right flow: structure → dependencies → builds
+  - Balanced visual weight across all three sections
+  
+  TECHNICAL:
+  - 16:9 landscape aspect ratio (1792x1024)
+  - Dark navy blue background (#0a0a0b)
+  - Apps: blue (#3b82f6)
+  - Packages: purple (#8b5cf6)
+  - Config: orange (#f97316)
+  - Documentation: cyan (#06b6d4)
+  - Success: green (#22c55e)
+  - In-progress: yellow (#f59e0b)
+  - Pending: gray (#6b7280)
+  - High contrast for readability
+  - Monospace font for package names and paths
+  - Sans-serif for labels and descriptions
+  - Professional tech aesthetic matching modern build tools
 tags: ['monorepo', 'turborepo', 'pnpm', 'nx', 'multi-project', 'architecture', 'series']
 series: 'Agent-Ready Development'
 seriesPart: 8
