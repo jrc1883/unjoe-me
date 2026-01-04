@@ -1,0 +1,717 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+const upcomingShows = [
+  {
+    date: '2025-09-14',
+    displayDate: 'Sunday, September 14, 2025',
+    time: '4:00 PM - 6:00 PM',
+    venue: 'St. Charles History Museum',
+    event: 'St. Charles Jazz Weekend 2025',
+    location: 'St. Charles, IL',
+    address: '215 E. Main St., St. Charles, IL 60174',
+    description: 'The Jack Macklin Trio returns as a featured act at the 14th annual St. Charles Jazz Weekend. Free outdoor concert — bring your own chairs and blankets.',
+    featured: true,
+    ticketType: 'Free'
+  },
+  {
+    date: '2025-09-11',
+    displayDate: 'Thursday - Sunday, Sept 11-14, 2025',
+    venue: 'Various Venues',
+    event: 'St. Charles Jazz Weekend',
+    location: 'St. Charles, IL',
+    description: '48 live jazz performances at 22 venues over 4 days. A celebration of music, community, and end-of-summer fun.',
+    featured: false,
+    ticketType: 'Varies'
+  }
+];
+
+const recurringShows = [
+  {
+    venue: 'Arcada Theatre - Legends Stage',
+    event: 'Live Jazz with the Jack Macklin Trio',
+    location: 'St. Charles, IL',
+    description: 'Performing jazz on the Legends Stage in Rock \'N Ravioli, located in the lobby of the Arcada Theatre. Food and hand-crafted cocktails available.',
+    frequency: 'Check schedule for dates'
+  },
+  {
+    venue: 'Fulton Street Collective',
+    event: 'Jazz Nights',
+    location: 'Chicago, IL',
+    address: '1821 W. Hubbard St., Suite 307, Chicago, IL 60622',
+    description: 'Intimate jazz performances at this beloved Chicago arts venue.',
+    frequency: 'Various dates'
+  },
+  {
+    venue: 'Pollyanna Music Presents',
+    event: 'Live Jazz Sessions',
+    location: 'St. Charles, IL',
+    description: 'Regular performances as part of the Pollyanna Music series.',
+    frequency: 'Check schedule'
+  }
+];
+
+const pastHighlights = [
+  {
+    year: '2025',
+    events: [
+      'FOX 32 Chicago appearance - St. Charles Jazz Weekend preview'
+    ]
+  },
+  {
+    year: '2024',
+    events: [
+      'St. Charles Jazz Weekend',
+      'Moonlight Theatre - The Jack Macklin Group',
+      'Arcada Theatre - Legends Stage performances'
+    ]
+  },
+  {
+    year: '2022-2023',
+    events: [
+      'Rudy\'s Jazz Room (Nashville)',
+      'Stateside Kitchen (Nashville)',
+      'The Grand Hyatt Hotel (Nashville)',
+      'Fulton Street Collective with Pat Metheny Project'
+    ]
+  },
+  {
+    year: '2020',
+    events: [
+      'Old Town Curbside Concerts (200+ attendees per show)',
+      'WGN-TV feature on pandemic performances',
+      'Red Door Band EP release'
+    ]
+  }
+];
+---
+
+<BaseLayout title="Shows & Events - Jack Macklin | Live Jazz Performances">
+  <Header />
+
+  <main class="shows-page">
+    <!-- Hero Section -->
+    <section class="shows-hero">
+      <div class="container">
+        <span class="page-label">Live</span>
+        <h1>Shows & Events</h1>
+        <p class="hero-intro">
+          Catch Jack Macklin performing live across Chicago and the Midwest.
+          From intimate jazz clubs to major festival appearances.
+        </p>
+      </div>
+    </section>
+
+    <!-- Upcoming Shows -->
+    <section class="upcoming-section">
+      <div class="container">
+        <h2 class="section-title">Upcoming Shows</h2>
+
+        <div class="shows-list">
+          {upcomingShows.map(show => (
+            <article class:list={['show-card', { featured: show.featured }]}>
+              {show.featured && <span class="featured-badge">Featured</span>}
+
+              <div class="show-date-block">
+                <div class="date-display">
+                  {show.displayDate}
+                </div>
+                {show.time && <div class="time-display">{show.time}</div>}
+              </div>
+
+              <div class="show-info">
+                <h3 class="show-event">{show.event}</h3>
+                <p class="show-venue">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  {show.venue}
+                </p>
+                <p class="show-location">{show.location}</p>
+                {show.address && <p class="show-address">{show.address}</p>}
+                <p class="show-description">{show.description}</p>
+              </div>
+
+              <div class="show-actions">
+                <span class="ticket-type">{show.ticketType}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p class="shows-note">
+          More shows are regularly added. Follow
+          <a href="https://www.instagram.com/jack_macklin_/" target="_blank" rel="noopener">@jack_macklin_</a>
+          on Instagram for the latest announcements.
+        </p>
+      </div>
+    </section>
+
+    <!-- Recurring Shows -->
+    <section class="recurring-section">
+      <div class="container">
+        <h2 class="section-title">Regular Venues</h2>
+        <p class="section-description">
+          Jack performs regularly at these venues — check their schedules for specific dates.
+        </p>
+
+        <div class="venues-grid">
+          {recurringShows.map(venue => (
+            <div class="venue-card">
+              <h3>{venue.venue}</h3>
+              <p class="venue-event">{venue.event}</p>
+              <p class="venue-location">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                {venue.location}
+              </p>
+              {venue.address && <p class="venue-address">{venue.address}</p>}
+              <p class="venue-description">{venue.description}</p>
+              <span class="venue-frequency">{venue.frequency}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Past Highlights -->
+    <section class="past-section">
+      <div class="container">
+        <h2 class="section-title">Performance Highlights</h2>
+
+        <div class="highlights-timeline">
+          {pastHighlights.map(yearGroup => (
+            <div class="highlight-year">
+              <div class="year-label">{yearGroup.year}</div>
+              <ul class="events-list">
+                {yearGroup.events.map(event => (
+                  <li>{event}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking CTA -->
+    <section class="booking-section">
+      <div class="container">
+        <div class="booking-card">
+          <div class="booking-content">
+            <h2>Book Jack for Your Event</h2>
+            <p>
+              Available for private events, corporate functions, weddings, jazz clubs,
+              and festival appearances. The Jack Macklin Trio brings sophisticated jazz
+              to any occasion.
+            </p>
+
+            <ul class="booking-services">
+              <li>Private Events & Parties</li>
+              <li>Corporate Functions</li>
+              <li>Wedding Ceremonies & Receptions</li>
+              <li>Jazz Club Performances</li>
+              <li>Festival Appearances</li>
+              <li>Restaurant Background Music</li>
+            </ul>
+
+            <div class="booking-buttons">
+              <a href="/contact" class="btn btn-primary">Request a Quote</a>
+              <a href="https://www.gigsalad.com/jack_macklin_nashville" class="btn btn-secondary" target="_blank" rel="noopener">
+                Book on GigSalad
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="booking-visual">
+            <div class="music-stand">
+              <div class="stand-top">
+                <div class="sheet-music">
+                  <div class="staff-line"></div>
+                  <div class="staff-line"></div>
+                  <div class="staff-line"></div>
+                  <div class="staff-line"></div>
+                  <div class="staff-line"></div>
+                </div>
+              </div>
+              <div class="stand-leg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .shows-page {
+    padding-top: 100px;
+  }
+
+  /* Hero */
+  .shows-hero {
+    padding: var(--space-3xl) 0;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(212, 168, 83, 0.05) 0%, transparent 100%);
+  }
+
+  .page-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-intro {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: var(--space-lg) auto 0;
+    line-height: 1.7;
+  }
+
+  /* Section styles */
+  section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: var(--space-lg);
+  }
+
+  .section-description {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Upcoming Shows */
+  .upcoming-section {
+    background: var(--color-bg);
+  }
+
+  .shows-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .show-card {
+    display: grid;
+    grid-template-columns: 250px 1fr auto;
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    position: relative;
+    transition: all var(--transition-fast);
+  }
+
+  .show-card:hover {
+    border-color: var(--color-border-hover);
+    transform: translateY(-2px);
+  }
+
+  .show-card.featured {
+    border-color: var(--color-accent);
+    background: linear-gradient(135deg, rgba(212, 168, 83, 0.08) 0%, transparent 50%);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(212, 168, 83, 0.15);
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .show-date-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .date-display {
+    font-weight: 600;
+    color: var(--color-accent);
+    font-size: 1rem;
+  }
+
+  .time-display {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .show-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .show-event {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .show-venue {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+  }
+
+  .show-venue svg {
+    color: var(--color-accent);
+  }
+
+  .show-location,
+  .show-address {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .show-description {
+    margin-top: var(--space-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .show-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .ticket-type {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-bg-hover);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+  }
+
+  .shows-note {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .shows-note a {
+    font-weight: 600;
+  }
+
+  /* Recurring Shows */
+  .recurring-section {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .venues-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .venue-card {
+    padding: var(--space-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-fast);
+  }
+
+  .venue-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-4px);
+  }
+
+  .venue-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .venue-event {
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+  }
+
+  .venue-location {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .venue-address {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin: var(--space-xs) 0;
+  }
+
+  .venue-description {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: var(--space-sm) 0;
+  }
+
+  .venue-frequency {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-bg-hover);
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-sm);
+  }
+
+  /* Past Highlights */
+  .past-section {
+    background: var(--color-bg);
+  }
+
+  .highlights-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    max-width: 700px;
+  }
+
+  .highlight-year {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: var(--space-lg);
+  }
+
+  .year-label {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .events-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .events-list li {
+    position: relative;
+    padding-left: var(--space-lg);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .events-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent);
+    border-radius: 50%;
+  }
+
+  /* Booking Section */
+  .booking-section {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .booking-card {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-2xl);
+    padding: var(--space-2xl);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    align-items: center;
+  }
+
+  .booking-content h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .booking-content > p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+  }
+
+  .booking-services {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+  }
+
+  .booking-services li {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    padding-left: var(--space-md);
+    position: relative;
+  }
+
+  .booking-services li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .booking-buttons {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .booking-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .music-stand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stand-top {
+    width: 150px;
+    height: 120px;
+    background: var(--color-bg-hover);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+  }
+
+  .sheet-music {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: var(--space-sm);
+  }
+
+  .staff-line {
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  .stand-leg {
+    width: 4px;
+    height: 60px;
+    background: var(--color-border);
+    margin-top: -2px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: 0.875rem 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-bright);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .show-card {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .show-actions {
+      align-items: flex-start;
+    }
+
+    .venues-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .booking-card {
+      grid-template-columns: 1fr;
+    }
+
+    .booking-visual {
+      display: none;
+    }
+
+    .booking-services {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .highlight-year {
+      grid-template-columns: 1fr;
+    }
+
+    .booking-buttons {
+      flex-direction: column;
+    }
+  }
+</style>

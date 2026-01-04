@@ -1,0 +1,31 @@
+{
+  "name": "@elshaddai/jack-portfolio",
+  "version": "1.0.0",
+  "description": "Jack Macklin - Jazz Guitarist Portfolio Website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "type-check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.16.5",
+    "@astrojs/sitemap": "^3.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.10.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "astro",
+    "portfolio",
+    "jazz",
+    "musician",
+    "jack-macklin"
+  ],
+  "author": "ElShaddai",
+  "license": "MIT"
+}

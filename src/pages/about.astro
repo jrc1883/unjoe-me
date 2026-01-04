@@ -1,0 +1,671 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+const timeline = [
+  {
+    year: '2000',
+    title: 'The Beginning',
+    description: 'Started playing guitar at age 8 after learning "Crazy Train" by Ozzy Osbourne — sparking a lifelong pursuit of music.'
+  },
+  {
+    year: '2018',
+    title: 'DePaul University',
+    description: 'Enrolled in DePaul University\'s Jazz Studies program, diving deep into improvisation and the lineage of the guitar under the mentorship of Scott Hesse and Dana Hall.'
+  },
+  {
+    year: '2020',
+    title: 'The Red Door Band',
+    description: 'Co-founded the Red Door Band, which gained media attention from WGN and Chicago Reader. Released their debut EP during the height of the pandemic.'
+  },
+  {
+    year: '2020',
+    title: 'Curbside Concerts',
+    description: 'Started performing free outdoor concerts in Old Town, Chicago during the pandemic, attracting up to 200 people per show and keeping the spirit of live jazz alive.'
+  },
+  {
+    year: '2022',
+    title: 'Nashville Years',
+    description: 'Moved to Nashville to perform full-time, regularly playing at Rudy\'s Jazz Room, Stateside Kitchen, and The Grand Hyatt Hotel while absorbing the city\'s diverse musical traditions.'
+  },
+  {
+    year: '2024',
+    title: 'The Jack Macklin Trio',
+    description: 'Formed his trio with Parker Kaplan (bass) and Ryan Brasley (drums). Released debut EP "One" on all streaming platforms.'
+  },
+  {
+    year: '2024',
+    title: 'Return to Chicago',
+    description: 'Returned to Chicago, declaring a commitment to creative and improvised music. Launched "Let\'s Cool One" podcast as part of the Alithio Network.'
+  },
+  {
+    year: '2025',
+    title: 'Rising Star',
+    description: 'Continuing to perform throughout Chicago and the Midwest, including featured appearances at St. Charles Jazz Weekend and the Arcada Theatre.'
+  }
+];
+
+const mentors = [
+  { name: 'Scott Hesse', role: 'DePaul University Faculty, Guitar' },
+  { name: 'Dana Hall', role: 'DePaul University Faculty, Jazz Studies' }
+];
+
+const influences = [
+  'Thelonious Monk',
+  'Pat Metheny',
+  'Stevie Wonder',
+  'Bill Frisell',
+  'Kurt Rosenwinkel',
+  'Jim Hall'
+];
+---
+
+<BaseLayout title="About Jack Macklin - Jazz Guitarist Biography">
+  <Header />
+
+  <main class="about-page">
+    <!-- Hero Section -->
+    <section class="about-hero">
+      <div class="container">
+        <span class="page-label">About</span>
+        <h1>The Story</h1>
+        <p class="hero-intro">
+          A young lion in the Chicago jazz scene, Jack Macklin brings together the
+          rich tradition of the guitar with forward-thinking improvisation, blurring
+          the lines of what a genre can be.
+        </p>
+      </div>
+    </section>
+
+    <!-- Biography Section -->
+    <section class="bio-section">
+      <div class="container">
+        <div class="bio-grid">
+          <div class="bio-content">
+            <h2>Early Beginnings</h2>
+            <p>
+              Jack Macklin's love for the guitar began at age 8, sparked by learning his
+              first song — "Crazy Train" by Ozzy Osbourne. What started as a young boy's
+              fascination with rock music soon evolved into a profound connection with jazz
+              and improvisation that would define his musical journey.
+            </p>
+            <p>
+              That initial spark ignited a lifelong pursuit to explore and discover the
+              impact of music on humanity. Growing up in the Chicago area, Jack was surrounded
+              by one of the richest jazz scenes in the country, and the city's musical heritage
+              would become an essential part of his artistic identity.
+            </p>
+
+            <h2>Education & Mentorship</h2>
+            <p>
+              Jack earned his Bachelor's degree in Music from <strong>DePaul University</strong>,
+              where he immersed himself in a deep study of improvisation and the lineage of
+              the guitar. At DePaul, he had the invaluable opportunity to study closely with
+              some of Chicago's finest musicians.
+            </p>
+            <p>
+              Under the mentorship of guitarist <strong>Scott Hesse</strong> and jazz educator
+              <strong>Dana Hall</strong>, Jack developed not just technical proficiency but
+              a philosophical approach to music that honors the masters who came before while
+              pushing boundaries into new territory.
+            </p>
+
+            <h2>Building a Career</h2>
+            <p>
+              Known throughout the Chicago community as a "young lion," Jack has already made
+              a significant impact at just 25 years old. His performances have caught the attention
+              of notable musicians across the jazz world, leading to collaborations with artists
+              including Matt Ulery, Greg Ward, Joel Frahm, Donny McCaslin, Marcus Finnie,
+              Dave Douglas, Don Aliquo, and Bruce Foreman.
+            </p>
+            <p>
+              In 2020, Jack co-founded the <strong>Red Door Band</strong>, which was featured
+              in articles by WGN and Chicago Reader. During the pandemic, when live music venues
+              shuttered, Jack and his bandmate Danny Bauer organized free curbside concerts in
+              Old Town, Chicago, attracting up to 200 people per performance and demonstrating
+              the resilience and community-building power of jazz.
+            </p>
+
+            <h2>Nashville & Beyond</h2>
+            <p>
+              After his formative years in Chicago, Jack spent two years performing full-time
+              in Nashville, Tennessee. There, he regularly performed with his trio at venues
+              including <strong>Rudy's Jazz Room</strong>, <strong>Stateside Kitchen</strong>,
+              and <strong>The Grand Hyatt Hotel</strong>, while continuing to absorb and learn
+              from the city's diverse musical traditions.
+            </p>
+            <p>
+              In 2024, Jack returned to Chicago, declaring that spending his time on creative
+              and improvised music is his primary mission. This homecoming marked a new chapter
+              focused on original composition, trio performances, and giving back to the jazz
+              community through his podcast, "Let's Cool One."
+            </p>
+
+            <h2>Musical Philosophy</h2>
+            <p>
+              Jack's music is deeply inspired by improvisation and the lineage of master
+              musicians who came before, while fearlessly exploring the boundaries of modern
+              music. He blurs the lines of what a genre can be, drawing from jazz standards,
+              popular songs spanning decades, and his own original compositions.
+            </p>
+            <blockquote>
+              "The tradition teaches us how to speak. Innovation shows us what to say."
+            </blockquote>
+          </div>
+
+          <aside class="bio-sidebar">
+            <div class="sidebar-card">
+              <h3>Quick Facts</h3>
+              <dl class="facts-list">
+                <div class="fact">
+                  <dt>Based In</dt>
+                  <dd>Chicago, Illinois</dd>
+                </div>
+                <div class="fact">
+                  <dt>Instrument</dt>
+                  <dd>Guitar</dd>
+                </div>
+                <div class="fact">
+                  <dt>Education</dt>
+                  <dd>B.A. Music, DePaul University</dd>
+                </div>
+                <div class="fact">
+                  <dt>Current Project</dt>
+                  <dd>The Jack Macklin Trio</dd>
+                </div>
+                <div class="fact">
+                  <dt>Podcast</dt>
+                  <dd>Let's Cool One</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="sidebar-card">
+              <h3>Mentors</h3>
+              <ul class="mentors-list">
+                {mentors.map(mentor => (
+                  <li>
+                    <strong>{mentor.name}</strong>
+                    <span>{mentor.role}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="sidebar-card">
+              <h3>Influences</h3>
+              <ul class="influences-list">
+                {influences.map(name => (
+                  <li>{name}</li>
+                ))}
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+      <div class="container">
+        <h2 class="section-title">The Journey</h2>
+
+        <div class="timeline">
+          {timeline.map((item, index) => (
+            <div class="timeline-item">
+              <div class="timeline-year">{item.year}</div>
+              <div class="timeline-marker">
+                <div class="marker-dot"></div>
+                {index < timeline.length - 1 && <div class="marker-line"></div>}
+              </div>
+              <div class="timeline-content">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Press Section -->
+    <section class="press-section">
+      <div class="container">
+        <h2 class="section-title">In The Press</h2>
+
+        <div class="press-grid">
+          <div class="press-card">
+            <span class="press-outlet">WGN-TV</span>
+            <h3>Curbside Concerts: Jazz Band Brings Magic to Old Town</h3>
+            <p>
+              "Since April 2020, Jack Macklin and Danny Bauer have been playing free
+              concerts with a rotating cast of professional musicians, attracting up
+              to 200 people for each concert."
+            </p>
+          </div>
+
+          <div class="press-card">
+            <span class="press-outlet">FOX 32 Chicago</span>
+            <h3>St. Charles Jazz Weekend Preview</h3>
+            <p>
+              Jazz musician Jack Macklin joined the morning show to preview St. Charles
+              Jazz Weekend — a four-day celebration of music, community, and end-of-summer fun.
+            </p>
+          </div>
+
+          <div class="press-card">
+            <span class="press-outlet">Chicago Reader</span>
+            <h3>The Red Door Band Feature</h3>
+            <p>
+              Featured coverage of the Red Door Band's innovative approach to keeping
+              live jazz alive during challenging times.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Let's Connect</h2>
+          <p>
+            Interested in booking Jack for your event, collaborating on a project,
+            or discussing lessons? Get in touch.
+          </p>
+          <div class="cta-buttons">
+            <a href="/contact" class="btn btn-primary">Contact Jack</a>
+            <a href="/shows" class="btn btn-secondary">View Upcoming Shows</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .about-page {
+    padding-top: 100px;
+  }
+
+  /* Hero */
+  .about-hero {
+    padding: var(--space-3xl) 0;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(212, 168, 83, 0.05) 0%, transparent 100%);
+  }
+
+  .page-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: var(--space-md);
+  }
+
+  .about-hero h1 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-intro {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Bio Section */
+  .bio-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .bio-content h2 {
+    font-size: 1.5rem;
+    margin: var(--space-2xl) 0 var(--space-md);
+    color: var(--color-accent);
+  }
+
+  .bio-content h2:first-child {
+    margin-top: 0;
+  }
+
+  .bio-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .bio-content strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  .bio-content blockquote {
+    margin: var(--space-xl) 0;
+    padding: var(--space-lg);
+    background: var(--color-bg-card);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--color-text-primary);
+  }
+
+  /* Sidebar */
+  .bio-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    position: sticky;
+    top: 120px;
+  }
+
+  .sidebar-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .sidebar-card h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-md);
+  }
+
+  .facts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .fact {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .fact:last-child {
+    border-bottom: none;
+  }
+
+  .fact dt {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .fact dd {
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .mentors-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .mentors-list li {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mentors-list strong {
+    color: var(--color-text-primary);
+  }
+
+  .mentors-list span {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .influences-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .influences-list li {
+    font-size: 0.8125rem;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-bg-hover);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+  }
+
+  /* Timeline */
+  .timeline-section {
+    padding: var(--space-3xl) 0;
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .timeline {
+    max-width: 800px;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 80px 40px 1fr;
+    gap: 0;
+    min-height: 120px;
+  }
+
+  .timeline-year {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(212, 168, 83, 0.1);
+    border-radius: var(--radius-sm);
+    height: fit-content;
+    text-align: center;
+  }
+
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: var(--space-xs);
+  }
+
+  .marker-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .marker-line {
+    width: 2px;
+    flex: 1;
+    background: var(--color-border);
+    margin-top: var(--space-sm);
+  }
+
+  .timeline-content {
+    padding-bottom: var(--space-xl);
+  }
+
+  .timeline-content h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .timeline-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  /* Press Section */
+  .press-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .press-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .press-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: all var(--transition-fast);
+  }
+
+  .press-card:hover {
+    border-color: var(--color-border-hover);
+    transform: translateY(-4px);
+  }
+
+  .press-outlet {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .press-card h3 {
+    font-size: 1rem;
+    margin: var(--space-sm) 0;
+  }
+
+  .press-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: var(--space-3xl) 0;
+    background: linear-gradient(135deg, rgba(212, 168, 83, 0.1) 0%, transparent 50%);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .cta-content p {
+    color: var(--color-text-secondary);
+    margin: var(--space-md) 0 var(--space-xl);
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: 0.875rem 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-bright);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .bio-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bio-sidebar {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .sidebar-card {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .press-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .timeline-item {
+      grid-template-columns: 60px 30px 1fr;
+    }
+
+    .timeline-year {
+      font-size: 0.875rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>
