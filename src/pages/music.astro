@@ -1,0 +1,669 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+const releases = [
+  {
+    title: 'One',
+    artist: 'Jack Macklin Trio',
+    year: '2024',
+    type: 'EP',
+    description: 'The debut EP from the Jack Macklin Trio, featuring original compositions and reimagined standards. Available on all streaming platforms.',
+    featured: true,
+    streamingLinks: {
+      spotify: 'https://open.spotify.com/search/jack%20macklin%20trio',
+      apple: 'https://music.apple.com/search?term=jack%20macklin',
+      amazon: 'https://music.amazon.com/search/jack+macklin'
+    }
+  },
+  {
+    title: 'Red Door Band EP',
+    artist: 'Red Door Band',
+    year: '2020',
+    type: 'EP',
+    description: 'Released during the summer of 2020, this EP features Jack Macklin as co-leader alongside Danny Bauer. A testament to the resilience of live jazz during challenging times.',
+    featured: false,
+    streamingLinks: {
+      spotify: 'https://open.spotify.com/search/red%20door%20band%20chicago',
+      apple: 'https://music.apple.com/search?term=red%20door%20band'
+    }
+  }
+];
+
+const streamingPlatforms = [
+  {
+    name: 'Spotify',
+    icon: 'M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.625.625 0 01-.858.207c-2.348-1.435-5.304-1.76-8.785-.964a.625.625 0 11-.277-1.22c3.808-.87 7.076-.496 9.713 1.12a.625.625 0 01.207.857zm1.226-2.722a.781.781 0 01-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.781.781 0 01-.453-1.494c3.632-1.102 8.147-.568 11.233 1.33a.78.78 0 01.257 1.073zm.105-2.835c-3.223-1.914-8.54-2.09-11.618-1.156a.937.937 0 11-.544-1.794c3.532-1.072 9.404-.865 13.115 1.338a.937.937 0 11-.953 1.612z',
+    url: 'https://open.spotify.com/search/jack%20macklin%20trio',
+    color: '#1DB954'
+  },
+  {
+    name: 'Apple Music',
+    icon: 'M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14.5c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5zm-7 0c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5zm3.5-7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z',
+    url: 'https://music.apple.com/search?term=jack%20macklin',
+    color: '#FA2D48'
+  },
+  {
+    name: 'Amazon Music',
+    icon: 'M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm6.5 10.5l-3 2.5v-2H8v-2h7.5v-2l3 2.5z',
+    url: 'https://music.amazon.com/search/jack+macklin',
+    color: '#FF9900'
+  },
+  {
+    name: 'SoundCloud',
+    icon: 'M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.052-.1-.099-.1zm-.899.828c-.06 0-.091.037-.104.094L0 14.479l.165 1.308c.014.057.045.094.09.094s.089-.037.099-.094l.19-1.308-.19-1.334c-.01-.057-.052-.092-.099-.092zM2.28 11.33c-.063 0-.109.054-.118.117l-.213 3.033.213 2.913c.009.06.055.115.118.115.063 0 .106-.054.117-.115l.235-2.913-.235-3.033c-.011-.063-.054-.117-.117-.117zm.925-.01c-.073 0-.124.062-.132.134l-.19 3.16.19 2.975c.008.073.059.135.132.135.073 0 .121-.062.132-.135l.21-2.975-.21-3.16c-.011-.072-.059-.134-.132-.134zm.945-.157c-.081 0-.139.072-.147.153l-.167 3.272.167 3.01c.008.08.066.152.147.152.08 0 .136-.072.147-.152l.187-3.01-.187-3.272c-.011-.081-.067-.153-.147-.153zm.976-.131c-.09 0-.152.082-.16.173l-.146 3.385.146 3.025c.008.09.07.171.16.171.09 0 .149-.081.159-.171l.163-3.025-.163-3.385c-.01-.091-.069-.173-.159-.173zm.984-.137c-.098 0-.167.09-.176.189l-.124 3.515.124 3.025c.009.099.078.188.176.188.097 0 .163-.089.175-.188l.139-3.025-.139-3.515c-.012-.099-.078-.189-.175-.189zm1.025-.088c-.107 0-.182.1-.191.207l-.104 3.584.104 3.02c.009.108.084.207.191.207.106 0 .179-.099.19-.207l.116-3.02-.116-3.584c-.011-.107-.084-.207-.19-.207zm3.993.106c-.23 0-.415.173-.423.4l-.07 3.327.07 2.984c.008.225.193.397.423.397.229 0 .412-.172.421-.397l.078-2.984-.078-3.327c-.009-.227-.192-.4-.421-.4zm-1.962-.04c-.113 0-.196.107-.205.223l-.084 3.37.084 3c.009.115.092.22.205.22.113 0 .194-.105.205-.22l.093-3-.093-3.37c-.011-.116-.092-.223-.205-.223zm.987-.044c-.123 0-.21.117-.219.239l-.063 3.41.063 2.998c.009.121.096.237.219.237.121 0 .207-.116.218-.237l.071-2.998-.071-3.41c-.011-.122-.097-.239-.218-.239zm1-.033c-.133 0-.227.127-.236.258l-.042 3.43.042 2.985c.009.131.103.256.236.256.133 0 .224-.125.235-.256l.047-2.985-.047-3.43c-.011-.131-.102-.258-.235-.258zm3.025-.204c-.15 0-.3.058-.416.166-.114.109-.177.259-.177.414v6.052c0 .155.063.305.177.414.116.108.266.166.416.166h4.457c1.647 0 2.985-1.339 2.985-2.986s-1.338-2.985-2.985-2.985c-.433 0-.844.092-1.217.258-.226-.917-.695-1.749-1.386-2.388-.695-.644-1.58-1.055-2.545-1.19-.233-.032-.47-.05-.71-.05-.24 0-.48.018-.713.05',
+    url: 'https://soundcloud.com/jack-macklin-4',
+    color: '#FF7700'
+  }
+];
+---
+
+<BaseLayout title="Music - Jack Macklin | Discography & Streaming">
+  <Header />
+
+  <main class="music-page">
+    <!-- Hero Section -->
+    <section class="music-hero">
+      <div class="container">
+        <span class="page-label">Discography</span>
+        <h1>Music</h1>
+        <p class="hero-intro">
+          Listen to Jack Macklin's recordings — from the debut EP "One" with the Jack Macklin Trio
+          to collaborative projects with the Red Door Band.
+        </p>
+      </div>
+    </section>
+
+    <!-- Streaming Platforms -->
+    <section class="streaming-section">
+      <div class="container">
+        <h2 class="section-title">Stream Now</h2>
+        <p class="section-description">
+          Find Jack's music on your favorite streaming platform
+        </p>
+
+        <div class="platforms-grid">
+          {streamingPlatforms.map(platform => (
+            <a
+              href={platform.url}
+              class="platform-card"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={`--platform-color: ${platform.color}`}
+            >
+              <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d={platform.icon} />
+              </svg>
+              <span class="platform-name">{platform.name}</span>
+              <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Releases Section -->
+    <section class="releases-section">
+      <div class="container">
+        <h2 class="section-title">Releases</h2>
+
+        <div class="releases-grid">
+          {releases.map(release => (
+            <div class:list={['release-card', { featured: release.featured }]}>
+              <div class="release-artwork">
+                <div class="vinyl-container">
+                  <div class="vinyl">
+                    <div class="vinyl-label">
+                      <span class="label-text">{release.title.substring(0, 3).toUpperCase()}</span>
+                    </div>
+                  </div>
+                  <div class="album-cover">
+                    <span class="album-initial">{release.title.charAt(0)}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="release-info">
+                <div class="release-meta">
+                  <span class="release-type">{release.type}</span>
+                  <span class="release-year">{release.year}</span>
+                </div>
+                <h3 class="release-title">{release.title}</h3>
+                <p class="release-artist">{release.artist}</p>
+                <p class="release-description">{release.description}</p>
+
+                <div class="release-links">
+                  {release.streamingLinks.spotify && (
+                    <a href={release.streamingLinks.spotify} target="_blank" rel="noopener" class="stream-link" title="Listen on Spotify">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.625.625 0 01-.858.207c-2.348-1.435-5.304-1.76-8.785-.964a.625.625 0 11-.277-1.22c3.808-.87 7.076-.496 9.713 1.12a.625.625 0 01.207.857z"/>
+                      </svg>
+                    </a>
+                  )}
+                  {release.streamingLinks.apple && (
+                    <a href={release.streamingLinks.apple} target="_blank" rel="noopener" class="stream-link" title="Listen on Apple Music">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14.5c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/>
+                      </svg>
+                    </a>
+                  )}
+                  {release.streamingLinks.amazon && (
+                    <a href={release.streamingLinks.amazon} target="_blank" rel="noopener" class="stream-link" title="Listen on Amazon Music">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm6.5 10.5l-3 2.5v-2H8v-2h7.5v-2l3 2.5z"/>
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- About the Music Section -->
+    <section class="about-music-section">
+      <div class="container">
+        <div class="music-info-grid">
+          <div class="music-info-content">
+            <h2>The Sound</h2>
+            <p>
+              The Jack Macklin Trio navigates uniquely through popular songs ranging from
+              the 1950s to the present day, alongside original material. Their music blends
+              the rich tradition of jazz guitar with forward-thinking improvisation.
+            </p>
+            <p>
+              Jack's playing is deeply inspired by the lineage of master musicians who came
+              before — from Thelonious Monk's angular melodies to Pat Metheny's expansive
+              soundscapes — while fearlessly exploring the boundaries of modern music.
+            </p>
+            <p>
+              Whether performing intimate jazz standards or pushing into new sonic territory,
+              the trio maintains a commitment to authentic expression and musical conversation.
+            </p>
+          </div>
+
+          <div class="music-info-visual">
+            <div class="waveform">
+              {[...Array(40)].map((_, i) => (
+                <div
+                  class="wave-bar"
+                  style={`--delay: ${i * 0.05}s; --height: ${20 + Math.sin(i * 0.3) * 30 + Math.random() * 20}%`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Experience Live Jazz</h2>
+          <p>
+            Nothing compares to experiencing Jack Macklin's music live. Check out upcoming
+            performances across Chicago and the Midwest.
+          </p>
+          <div class="cta-buttons">
+            <a href="/shows" class="btn btn-primary">View Shows</a>
+            <a href="/contact" class="btn btn-secondary">Book for Your Event</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .music-page {
+    padding-top: 100px;
+  }
+
+  /* Hero */
+  .music-hero {
+    padding: var(--space-3xl) 0;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(212, 168, 83, 0.05) 0%, transparent 100%);
+  }
+
+  .page-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-intro {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: var(--space-lg) auto 0;
+    line-height: 1.7;
+  }
+
+  /* Section styles */
+  section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-description {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Streaming Platforms */
+  .streaming-section {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .platform-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-xl);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    position: relative;
+  }
+
+  .platform-card:hover {
+    border-color: var(--platform-color);
+    transform: translateY(-4px);
+  }
+
+  .platform-card:hover .platform-icon {
+    color: var(--platform-color);
+  }
+
+  .platform-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .platform-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .arrow-icon {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 16px;
+    height: 16px;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .platform-card:hover .arrow-icon {
+    opacity: 1;
+    color: var(--platform-color);
+  }
+
+  /* Releases Section */
+  .releases-section {
+    background: var(--color-bg);
+  }
+
+  .releases-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .release-card {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--space-2xl);
+    padding: var(--space-xl);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-fast);
+  }
+
+  .release-card:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .release-card.featured {
+    border-color: var(--color-accent);
+    background: linear-gradient(135deg, rgba(212, 168, 83, 0.05) 0%, transparent 50%);
+  }
+
+  .release-artwork {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vinyl-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+
+  .vinyl {
+    position: absolute;
+    left: 30px;
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    animation: spin 8s linear infinite;
+    animation-play-state: paused;
+  }
+
+  .release-card:hover .vinyl {
+    animation-play-state: running;
+  }
+
+  .vinyl::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+      circle at center,
+      transparent 0px,
+      transparent 2px,
+      rgba(255,255,255,0.03) 2px,
+      rgba(255,255,255,0.03) 3px
+    );
+  }
+
+  .vinyl-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .label-text {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-bg);
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .album-cover {
+    position: absolute;
+    left: 0;
+    width: 180px;
+    height: 180px;
+    background: var(--color-bg-hover);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast);
+  }
+
+  .release-card:hover .album-cover {
+    transform: translateX(-10px);
+  }
+
+  .album-initial {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    opacity: 0.3;
+  }
+
+  .release-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .release-meta {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .release-type,
+  .release-year {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .release-title {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .release-artist {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .release-description {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+  }
+
+  .release-links {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .stream-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-bg-hover);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+  }
+
+  .stream-link:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .stream-link svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* About Music Section */
+  .about-music-section {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .music-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .music-info-content h2 {
+    color: var(--color-accent);
+    margin-bottom: var(--space-lg);
+  }
+
+  .music-info-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .music-info-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .waveform {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 150px;
+    padding: var(--space-lg);
+  }
+
+  .wave-bar {
+    width: 6px;
+    height: var(--height);
+    background: var(--color-accent);
+    border-radius: 3px;
+    animation: wave 1s ease-in-out infinite;
+    animation-delay: var(--delay);
+    opacity: 0.6;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1); }
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, rgba(212, 168, 83, 0.1) 0%, transparent 50%);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .cta-content p {
+    color: var(--color-text-secondary);
+    margin: var(--space-md) 0 var(--space-xl);
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: 0.875rem 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-bright);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .platforms-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .release-card {
+      grid-template-columns: 1fr;
+    }
+
+    .music-info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .waveform {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .platforms-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>

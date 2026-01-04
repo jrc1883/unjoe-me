@@ -1,0 +1,762 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+const episodes = [
+  {
+    title: 'Introduction - Welcome to Let\'s Cool One',
+    description: 'Jack introduces himself to the jazz podcasting world, discusses his move back to Chicago from Nashville, and shares his goals for being back in a city meant for jazz. He delves into how he decided on the name "Let\'s Cool One," musicians he looks up to, and dream guests for his show.',
+    episode: 1,
+    featured: true
+  },
+  {
+    title: 'Ryan Bills - Navigating the Chicago Jazz Scene',
+    guest: 'Ryan Bills',
+    guestTitle: 'Tenor Saxophonist',
+    description: 'A conversation with tenor saxophonist Ryan Bills about favorite jazz hits and what it\'s like being younger musicians in the Chicago jazz scene.',
+    episode: 2
+  },
+  {
+    title: 'Reuben Stump - From Michigan to Chicago',
+    guest: 'Reuben Stump',
+    guestTitle: 'Bassist',
+    description: 'Chicago bassist and Michigan native Reuben Stump shares his journey and discusses the vibrant Chicago music community.',
+    episode: 3
+  }
+];
+
+const platforms = [
+  {
+    name: 'Apple Podcasts',
+    url: 'https://podcasts.apple.com/us/podcast/lets-cool-one-with-jack-macklin/id1762082194',
+    icon: 'M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14.5c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5zm-7 0c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5zm3.5-7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'
+  },
+  {
+    name: 'Spotify',
+    url: 'https://open.spotify.com/show/lets-cool-one',
+    icon: 'M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.625.625 0 01-.858.207c-2.348-1.435-5.304-1.76-8.785-.964a.625.625 0 11-.277-1.22c3.808-.87 7.076-.496 9.713 1.12a.625.625 0 01.207.857z'
+  },
+  {
+    name: 'YouTube',
+    url: 'https://www.youtube.com/@LetsCoolOneWithJackMacklin',
+    icon: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z'
+  },
+  {
+    name: 'Podbean',
+    url: 'https://letscoolonewithjackmacklin.podbean.com/',
+    icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'
+  }
+];
+---
+
+<BaseLayout title="Let's Cool One - Jack Macklin's Jazz Podcast">
+  <Header />
+
+  <main class="podcast-page">
+    <!-- Hero Section -->
+    <section class="podcast-hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <span class="page-label">Podcast</span>
+            <h1 class="podcast-title">Let's Cool One</h1>
+            <p class="hero-intro">
+              Dive deep into the Chicago jazz scene and the world of jazz beyond.
+              Through interviews with acclaimed musicians, Jack sheds light on the
+              people growing and fostering the jazz community.
+            </p>
+            <div class="podcast-network">
+              <span>Part of the</span>
+              <strong>Alithio Network</strong>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="podcast-artwork">
+              <div class="vinyl-stack">
+                <div class="vinyl vinyl-1"></div>
+                <div class="vinyl vinyl-2"></div>
+                <div class="album-art">
+                  <span class="art-title">LCO</span>
+                  <span class="art-subtitle">Let's Cool One</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Listen On Section -->
+    <section class="platforms-section">
+      <div class="container">
+        <h2 class="section-title">Listen On</h2>
+
+        <div class="platforms-grid">
+          {platforms.map(platform => (
+            <a
+              href={platform.url}
+              class="platform-card"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d={platform.icon} />
+              </svg>
+              <span class="platform-name">{platform.name}</span>
+              <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Episodes Section -->
+    <section class="episodes-section">
+      <div class="container">
+        <h2 class="section-title">Recent Episodes</h2>
+
+        <div class="episodes-list">
+          {episodes.map(ep => (
+            <article class:list={['episode-card', { featured: ep.featured }]}>
+              <div class="episode-number">
+                <span>EP</span>
+                <strong>{ep.episode}</strong>
+              </div>
+
+              <div class="episode-content">
+                <h3 class="episode-title">{ep.title}</h3>
+                {ep.guest && (
+                  <div class="episode-guest">
+                    <span class="guest-label">Guest:</span>
+                    <span class="guest-name">{ep.guest}</span>
+                    {ep.guestTitle && <span class="guest-title">— {ep.guestTitle}</span>}
+                  </div>
+                )}
+                <p class="episode-description">{ep.description}</p>
+              </div>
+
+              <div class="episode-play">
+                <button class="play-btn" title="Play episode">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="episodes-cta">
+          <a href="https://podcasts.apple.com/us/podcast/lets-cool-one-with-jack-macklin/id1762082194" class="btn btn-primary" target="_blank" rel="noopener">
+            View All Episodes
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About the Podcast -->
+    <section class="about-podcast-section">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-content">
+            <h2>About the Show</h2>
+            <p>
+              "Let's Cool One" takes its name from the classic Thelonious Monk composition,
+              reflecting Jack's deep respect for jazz tradition while exploring what makes
+              the music relevant today.
+            </p>
+            <p>
+              Each episode features conversations with musicians, educators, and jazz
+              community members who are shaping the sound of Chicago and beyond. From
+              discussing favorite jazz standards to exploring the challenges of being
+              a young musician in today's world, the podcast offers an authentic look
+              into the jazz life.
+            </p>
+            <p>
+              Whether you're a lifelong jazz fan or just discovering the genre, "Let's
+              Cool One" welcomes you into the conversation.
+            </p>
+          </div>
+
+          <div class="about-highlights">
+            <div class="highlight-card">
+              <div class="highlight-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="23"/>
+                  <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+              </div>
+              <h3>Authentic Conversations</h3>
+              <p>Real talk about the jazz life, from rehearsal rooms to late-night gigs.</p>
+            </div>
+
+            <div class="highlight-card">
+              <div class="highlight-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <h3>Community Focus</h3>
+              <p>Highlighting the musicians fostering and growing the Chicago jazz scene.</p>
+            </div>
+
+            <div class="highlight-card">
+              <div class="highlight-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M9 18V5l12-2v13"/>
+                  <circle cx="6" cy="18" r="3"/>
+                  <circle cx="18" cy="16" r="3"/>
+                </svg>
+              </div>
+              <h3>Music Discovery</h3>
+              <p>From Thelonious Monk to Stevie Wonder — exploring the music that inspires.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Subscribe & Stay Tuned</h2>
+          <p>
+            New episodes drop regularly. Follow "Let's Cool One" on your favorite
+            podcast platform to never miss a conversation.
+          </p>
+          <div class="cta-buttons">
+            <a href="https://podcasts.apple.com/us/podcast/lets-cool-one-with-jack-macklin/id1762082194" class="btn btn-primary" target="_blank" rel="noopener">
+              Subscribe on Apple Podcasts
+            </a>
+            <a href="/contact" class="btn btn-secondary">
+              Suggest a Guest
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .podcast-page {
+    padding-top: 100px;
+  }
+
+  /* Hero */
+  .podcast-hero {
+    padding: var(--space-3xl) 0;
+    background: linear-gradient(180deg, rgba(212, 168, 83, 0.08) 0%, transparent 100%);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .page-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: var(--space-md);
+  }
+
+  .podcast-title {
+    font-style: italic;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-intro {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+  }
+
+  .podcast-network {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .podcast-network strong {
+    color: var(--color-accent);
+  }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .vinyl-stack {
+    position: relative;
+    width: 280px;
+    height: 280px;
+  }
+
+  .vinyl {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+  }
+
+  .vinyl::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+      circle at center,
+      transparent 0px,
+      transparent 2px,
+      rgba(255,255,255,0.03) 2px,
+      rgba(255,255,255,0.03) 3px
+    );
+  }
+
+  .vinyl::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: var(--color-accent);
+    border-radius: 50%;
+  }
+
+  .vinyl-1 {
+    top: 20px;
+    left: 60px;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .vinyl-2 {
+    top: 40px;
+    left: 80px;
+    animation: float 6s ease-in-out infinite 0.5s;
+  }
+
+  .album-art {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    z-index: 10;
+  }
+
+  .art-title {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .art-subtitle {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* Section styles */
+  section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Platforms Section */
+  .platforms-section {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .platform-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-xl);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    position: relative;
+  }
+
+  .platform-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-4px);
+  }
+
+  .platform-card:hover .platform-icon {
+    color: var(--color-accent);
+  }
+
+  .platform-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .platform-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: 0.875rem;
+  }
+
+  .arrow-icon {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 14px;
+    height: 14px;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .platform-card:hover .arrow-icon {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+
+  /* Episodes Section */
+  .episodes-section {
+    background: var(--color-bg);
+  }
+
+  .episodes-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+  .episode-card {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    align-items: center;
+    transition: all var(--transition-fast);
+  }
+
+  .episode-card:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .episode-card.featured {
+    border-color: var(--color-accent);
+    background: linear-gradient(135deg, rgba(212, 168, 83, 0.05) 0%, transparent 50%);
+  }
+
+  .episode-number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-md);
+    background: var(--color-bg-hover);
+    border-radius: var(--radius-md);
+  }
+
+  .episode-number span {
+    font-size: 0.625rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .episode-number strong {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-accent);
+  }
+
+  .episode-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .episode-title {
+    font-size: 1.125rem;
+  }
+
+  .episode-guest {
+    font-size: 0.875rem;
+  }
+
+  .guest-label {
+    color: var(--color-text-muted);
+  }
+
+  .guest-name {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .guest-title {
+    color: var(--color-text-muted);
+  }
+
+  .episode-description {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .play-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+  }
+
+  .play-btn:hover {
+    background: var(--color-accent-bright);
+    transform: scale(1.1);
+  }
+
+  .play-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--color-bg);
+    margin-left: 2px;
+  }
+
+  .episodes-cta {
+    text-align: center;
+  }
+
+  /* About Podcast */
+  .about-podcast-section {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+  }
+
+  .about-content h2 {
+    color: var(--color-accent);
+    margin-bottom: var(--space-lg);
+  }
+
+  .about-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .highlight-card {
+    padding: var(--space-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    gap: var(--space-md);
+    align-items: start;
+    transition: all var(--transition-fast);
+  }
+
+  .highlight-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .highlight-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    color: var(--color-accent);
+  }
+
+  .highlight-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .highlight-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .highlight-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, rgba(212, 168, 83, 0.1) 0%, transparent 50%);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .cta-content p {
+    color: var(--color-text-secondary);
+    margin: var(--space-md) 0 var(--space-xl);
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: 0.875rem 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-bright);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-visual {
+      order: -1;
+    }
+
+    .platforms-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .platforms-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .episode-card {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .episode-number {
+      flex-direction: row;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>

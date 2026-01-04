@@ -1,0 +1,548 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+const contactMethods = [
+  {
+    title: 'Booking Inquiries',
+    description: 'For private events, corporate functions, weddings, festivals, and club performances.',
+    icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+    cta: 'Book on GigSalad',
+    url: 'https://www.gigsalad.com/jack_macklin_nashville'
+  },
+  {
+    title: 'General Inquiries',
+    description: 'For press, collaborations, podcast guest suggestions, and other inquiries.',
+    icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    cta: 'Email Jack',
+    url: 'mailto:contact@jackmacklin.com'
+  },
+  {
+    title: 'Lessons & Education',
+    description: 'Interested in guitar lessons or educational workshops? Get in touch to discuss.',
+    icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    cta: 'Inquire About Lessons',
+    url: 'mailto:contact@jackmacklin.com?subject=Guitar%20Lessons%20Inquiry'
+  }
+];
+
+const socialLinks = [
+  {
+    name: 'Instagram',
+    handle: '@jack_macklin_',
+    url: 'https://www.instagram.com/jack_macklin_/',
+    icon: 'M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5A5.75 5.75 0 0022 16.25v-8.5A5.75 5.75 0 0016.25 2h-8.5zm0 1.5h8.5a4.25 4.25 0 014.25 4.25v8.5a4.25 4.25 0 01-4.25 4.25h-8.5a4.25 4.25 0 01-4.25-4.25v-8.5A4.25 4.25 0 017.75 3.5zm9.5 2a1 1 0 100 2 1 1 0 000-2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 1.5a3.5 3.5 0 110 7 3.5 3.5 0 010-7z'
+  },
+  {
+    name: 'LinkedIn',
+    handle: 'Jack Macklin',
+    url: 'https://www.linkedin.com/in/jack-macklin-3a2493296/',
+    icon: 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'
+  },
+  {
+    name: 'Official Website',
+    handle: 'jackmacklin.com',
+    url: 'https://www.jackmacklin.com',
+    icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9'
+  }
+];
+---
+
+<BaseLayout title="Contact Jack Macklin - Booking & Inquiries">
+  <Header />
+
+  <main class="contact-page">
+    <!-- Hero Section -->
+    <section class="contact-hero">
+      <div class="container">
+        <span class="page-label">Connect</span>
+        <h1>Get in Touch</h1>
+        <p class="hero-intro">
+          Whether you're looking to book Jack for an event, collaborate on a project,
+          or just say hello — I'd love to hear from you.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Methods -->
+    <section class="methods-section">
+      <div class="container">
+        <div class="methods-grid">
+          {contactMethods.map(method => (
+            <div class="method-card">
+              <div class="method-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d={method.icon} />
+                </svg>
+              </div>
+              <h2>{method.title}</h2>
+              <p>{method.description}</p>
+              <a href={method.url} class="method-btn" target="_blank" rel="noopener noreferrer">
+                {method.cta}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                </svg>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Links -->
+    <section class="social-section">
+      <div class="container">
+        <h2 class="section-title">Follow Along</h2>
+        <p class="section-description">
+          Stay connected for show announcements, new music releases, and behind-the-scenes content.
+        </p>
+
+        <div class="social-grid">
+          {socialLinks.map(social => (
+            <a href={social.url} class="social-card" target="_blank" rel="noopener noreferrer">
+              <div class="social-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d={social.icon} />
+                </svg>
+              </div>
+              <div class="social-info">
+                <span class="social-name">{social.name}</span>
+                <span class="social-handle">{social.handle}</span>
+              </div>
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location-section">
+      <div class="container">
+        <div class="location-card">
+          <div class="location-content">
+            <h2>Based in Chicago</h2>
+            <p>
+              Jack is based in Chicago, IL and performs regularly throughout the city
+              and across the Midwest. Available for travel for larger events and festivals.
+            </p>
+            <div class="location-tags">
+              <span>Chicago, IL</span>
+              <span>Midwest</span>
+              <span>Available for Travel</span>
+            </div>
+          </div>
+
+          <div class="location-visual">
+            <div class="map-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Chicago, IL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked</h2>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>What types of events does Jack perform at?</summary>
+            <p>
+              Jack and the Jack Macklin Trio are available for jazz clubs, festivals,
+              private parties, corporate events, weddings, restaurants, and more.
+              The trio can adapt their repertoire to suit your event's atmosphere.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>What's the typical performance format?</summary>
+            <p>
+              The Jack Macklin Trio (guitar, bass, drums) is the primary performance
+              format. Solo guitar performances are also available for more intimate
+              settings. Larger ensemble configurations can be arranged for special events.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Does Jack offer guitar lessons?</summary>
+            <p>
+              Yes! Jack is an experienced educator and offers private guitar lessons
+              for students of various levels. Lessons cover jazz improvisation,
+              technique, theory, and repertoire. Contact directly to inquire about
+              availability and rates.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How far in advance should I book?</summary>
+            <p>
+              For larger events and festivals, booking 2-3 months in advance is
+              recommended. For smaller private events, 2-4 weeks notice is usually
+              sufficient, though earlier is always better to ensure availability.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Can I suggest a guest for the podcast?</summary>
+            <p>
+              Absolutely! "Let's Cool One" features conversations with musicians
+              and jazz community members. If you know someone who would make a great
+              guest, send your suggestion via the contact form or email.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .contact-page {
+    padding-top: 100px;
+  }
+
+  /* Hero */
+  .contact-hero {
+    padding: var(--space-3xl) 0;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(212, 168, 83, 0.05) 0%, transparent 100%);
+  }
+
+  .page-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-intro {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: var(--space-lg) auto 0;
+    line-height: 1.7;
+  }
+
+  /* Section styles */
+  section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-description {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Contact Methods */
+  .methods-section {
+    background: var(--color-bg);
+  }
+
+  .methods-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .method-card {
+    padding: var(--space-xl);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    transition: all var(--transition-fast);
+  }
+
+  .method-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-4px);
+  }
+
+  .method-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto var(--space-lg);
+    padding: var(--space-md);
+    background: rgba(212, 168, 83, 0.1);
+    border-radius: 50%;
+    color: var(--color-accent);
+  }
+
+  .method-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .method-card h2 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .method-card p {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+  }
+
+  .method-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 0.75rem 1.5rem;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .method-btn:hover {
+    background: var(--color-accent-bright);
+    transform: translateY(-2px);
+  }
+
+  /* Social Section */
+  .social-section {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .social-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .social-card:hover {
+    border-color: var(--color-accent);
+    transform: translateX(4px);
+  }
+
+  .social-card:hover .social-icon {
+    color: var(--color-accent);
+  }
+
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .social-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .social-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .social-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .social-handle {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .arrow-icon {
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .social-card:hover .arrow-icon {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+
+  /* Location Section */
+  .location-section {
+    background: var(--color-bg);
+  }
+
+  .location-card {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-2xl);
+    padding: var(--space-2xl);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    align-items: center;
+  }
+
+  .location-content h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .location-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+  }
+
+  .location-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .location-tags span {
+    font-size: 0.8125rem;
+    padding: var(--space-xs) var(--space-md);
+    background: rgba(212, 168, 83, 0.1);
+    border: 1px solid rgba(212, 168, 83, 0.2);
+    border-radius: var(--radius-full);
+    color: var(--color-accent);
+  }
+
+  .location-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .map-placeholder {
+    width: 200px;
+    height: 200px;
+    background: var(--color-bg-hover);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    color: var(--color-accent);
+  }
+
+  .map-placeholder svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .map-placeholder span {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq-list {
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .faq-item {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color var(--transition-fast);
+  }
+
+  .faq-item[open] {
+    border-color: var(--color-accent);
+  }
+
+  .faq-item summary {
+    padding: var(--space-lg);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::after {
+    content: '+';
+    font-size: 1.25rem;
+    color: var(--color-accent);
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-item p {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .methods-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .social-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .location-card {
+      grid-template-columns: 1fr;
+    }
+
+    .location-visual {
+      display: none;
+    }
+  }
+</style>
