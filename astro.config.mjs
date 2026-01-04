@@ -6,4 +6,11 @@ export default defineConfig({
   site: 'https://jack.unjoe.me',
   integrations: [sitemap()],
   output: 'static',
+  vite: {
+    resolve: {
+      alias: {
+        '@': '/src'
+      }
+    }
+  }
 });
