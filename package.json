@@ -8,16 +8,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "type-check": "astro check"
+    "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.5",
-    "@astrojs/sitemap": "^3.3.0"
+    "astro": "^5.1.1",
+    "@astrojs/sitemap": "^3.2.2"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.10.0",
-    "typescript": "^5.9.3"
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.6.3"
   },
   "keywords": [
     "astro",
