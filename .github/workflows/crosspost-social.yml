@@ -1,0 +1,39 @@
+name: Crosspost to Social Media
+
+on:
+  # Run every 6 hours to check for new posts
+  schedule:
+    - cron: '0 */6 * * *'
+
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  crosspost:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Crosspost to X, LinkedIn, and Facebook
+        uses: humanwhocodes/crosspost-action@v1
+        with:
+          # RSS feed URL
+          feed-url: https://unjoe.me/rss.xml
+
+          # Only post items from the last day
+          since: 1
+          since-unit: day
+
+          # Set to true for testing without actually posting
+          dry-run: false
+
+          # X (Twitter) configuration
+          twitter-api-consumer-key: ${{ secrets.X_API_KEY }}
+          twitter-api-consumer-secret: ${{ secrets.X_API_SECRET }}
+          twitter-api-access-token-key: ${{ secrets.X_ACCESS_TOKEN }}
+          twitter-api-access-token-secret: ${{ secrets.X_ACCESS_SECRET }}
+
+          # LinkedIn configuration
+          linkedin-access-token: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+
+          # Facebook configuration (optional)
+          facebook-page-token: ${{ secrets.FACEBOOK_PAGE_TOKEN }}

@@ -1,0 +1,251 @@
+---
+/**
+ * BlogHero - Enhanced blog post header with gradient backgrounds and typography
+ *
+ * Props:
+ *   - title: Post title
+ *   - description: Post description/excerpt
+ *   - pubDate: Publication date
+ *   - heroImage?: Optional hero image path
+ *   - gradient?: Gradient theme ('purple', 'blue', 'red', 'green', 'gold', 'neutral')
+ */
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  heroImage?: string;
+  gradient?: 'purple' | 'blue' | 'red' | 'green' | 'gold' | 'neutral';
+}
+
+const { title, description, pubDate, heroImage, gradient = 'blue' } = Astro.props;
+
+// Format date
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(pubDate);
+
+// Gradient presets
+const gradients = {
+  purple: 'from-purple-900/20 via-purple-600/10 to-transparent',
+  blue: 'from-blue-900/20 via-blue-600/10 to-transparent',
+  red: 'from-red-900/20 via-red-600/10 to-transparent',
+  green: 'from-green-900/20 via-green-600/10 to-transparent',
+  gold: 'from-yellow-900/20 via-yellow-600/10 to-transparent',
+  neutral: 'from-gray-900/20 via-gray-600/10 to-transparent',
+};
+
+const accentColors = {
+  purple: 'border-purple-500/30',
+  blue: 'border-blue-500/30',
+  red: 'border-red-500/30',
+  green: 'border-green-500/30',
+  gold: 'border-yellow-500/30',
+  neutral: 'border-gray-500/30',
+};
+---
+
+<header class="blog-hero">
+  <!-- Background gradient overlay -->
+  <div class={`gradient-overlay bg-gradient-to-b ${gradients[gradient]}`}></div>
+
+  {heroImage && (
+    <div class="hero-image-wrapper">
+      <img src={heroImage} alt={title} class="hero-image" />
+      <div class="image-overlay"></div>
+    </div>
+  )}
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <!-- Date badge -->
+      <div class="date-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+      </div>
+
+      <!-- Title with gradient text -->
+      <h1 class="hero-title">
+        {title}
+      </h1>
+
+      <!-- Description -->
+      <p class="hero-description">
+        {description}
+      </p>
+    </div>
+
+    <!-- Decorative accent line -->
+    <div class={`accent-line ${accentColors[gradient]}`}></div>
+  </div>
+</header>
+
+<style>
+  .blog-hero {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    margin-bottom: 3rem;
+    border-radius: 12px;
+  }
+
+  /* Gradient overlay */
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Hero image */
+  .hero-image-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.15;
+    filter: grayscale(30%);
+  }
+
+  .image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      var(--bg-primary) 0%,
+      transparent 30%,
+      transparent 70%,
+      var(--bg-primary) 100%
+    );
+  }
+
+  /* Content */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    width: 100%;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .hero-text {
+    margin-bottom: 2rem;
+  }
+
+  /* Date badge */
+  .date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .date-badge svg {
+    opacity: 0.7;
+  }
+
+  /* Title */
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem 0;
+    color: var(--text-primary);
+
+    /* Subtle gradient on hover */
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Description */
+  .hero-description {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 400;
+  }
+
+  /* Accent line */
+  .accent-line {
+    width: 100px;
+    height: 3px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    border-radius: 9999px;
+    opacity: 0.5;
+    border-top: 1px solid currentColor;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .blog-hero {
+      min-height: 350px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-content {
+      padding: 2rem 1.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.75rem, 7vw, 2.5rem);
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Dark mode enhancements */
+  @media (prefers-color-scheme: dark) {
+    .hero-image {
+      opacity: 0.12;
+    }
+
+    .date-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+</style>

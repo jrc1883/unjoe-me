@@ -1,0 +1,130 @@
+---
+title: "Manufacturing Intelligence: Building Daniel-Son from the Factory Floor Up"
+description: "How my experience managing 47 manufacturing facilities led me to build a real-time OEE tracking platform with 126 React components and offline-first architecture."
+pubDate: 2025-12-08
+tags: ['projects', 'engineering', 'saas', 'manufacturing']
+---
+
+import Ref from '../../components/interactive/Ref.astro';
+import Callout from '../../components/layout/Callout.astro';
+
+# Manufacturing Intelligence: Building Daniel-Son from the Factory Floor Up
+
+For nine years at Mars Inc., I've managed integrated facilities across 47 sites, overseeing 8,700+ assets. I've seen what happens when manufacturing intelligence is done right - and what happens when it's not. That experience led me to build Daniel-Son, a production-ready SaaS platform for real-time factory monitoring.
+
+## The OEE Problem
+
+If you've worked in manufacturing, you know OEE - Overall Equipment Effectiveness. It's the gold standard metric: Availability × Performance × Quality. Simple formula, complex reality.
+
+The problem isn't measuring OEE. The problem is measuring it accurately, in real-time, in a way that actually drives decisions.
+
+Most factory floors I've seen have one of two problems:
+1. **Paper-based tracking** - Someone writes down numbers at shift end, enters them into Excel the next day, and by the time anyone sees the data, the opportunity to act is gone.
+2. **Expensive enterprise systems** - Massive implementations that cost millions, take years to deploy, and still don't give operators what they need in the moment.
+
+Daniel-Son sits in the middle: production-ready software that operators can actually use, without the enterprise price tag or implementation timeline.
+
+## Building for the Factory Floor
+
+The most important design decision in Daniel-Son wasn't technical - it was empathetic. Factory operators don't sit at desks. They're on their feet, often wearing gloves, usually in a hurry. Whatever I built had to work for them.
+
+That led to several design principles:
+
+**Touch-First Interface**: Every interaction is designed for touchscreens. Large buttons. Minimal typing. Barcode scanning for equipment selection.
+
+**Offline-First Architecture**: WiFi on factory floors is notoriously unreliable. Daniel-Son uses IndexedDB for local storage and syncs when connectivity returns. Data entry never stops.
+
+**Shift Context**: Everything is organized around shifts, because that's how factory workers think. When did the shift start? What's our current OEE? How does it compare to last shift?
+
+**Real-Time Feedback**: When an operator logs a downtime event, they see immediately how it affects OEE. That instant feedback changes behavior.
+
+## The Technical Stack
+
+Daniel-Son is built with modern edge technology:
+
+**Frontend (126 React Components)**
+- React 18 with TypeScript (strict mode)
+- Zustand for state management
+- Recharts for data visualization
+- Tailwind CSS for styling
+- Service Worker + IndexedDB for offline capability
+
+**Backend (Cloudflare Edge)**
+- Cloudflare Workers for serverless API
+- Hono framework for routing
+- D1 (SQLite) for database
+- Durable Objects for real-time WebSocket coordination
+
+The edge architecture matters. When an operator in Mexico logs a downtime event, they're hitting a Cloudflare edge node nearby, not a data center in Virginia. Latency is measured in milliseconds, not seconds.
+
+## Features by Role
+
+Manufacturing organizations have distinct personas, and Daniel-Son serves each differently:
+
+### For Operators
+- Real-time shift dashboard with current OEE
+- One-tap downtime event logging
+- Quality issue reporting with severity levels
+- Production counter
+- Barcode scanning for equipment
+
+### For Supervisors
+- Multi-shift analytics
+- Pareto charts for downtime causes
+- Quality breakdown analysis
+- Real-time production board (the "andon" concept)
+- Downtime waterfall visualization
+
+### For Managers
+- Executive summary KPI cards
+- 6-month OEE forecasting
+- Line performance ranking
+- Trend analysis across all equipment
+- Report builder with export
+
+### For Administrators
+- Equipment configuration
+- Loss code builder
+- Shift template management
+- User permissions
+- CSV import/export
+- Audit logging
+
+## Why "Daniel-Son"?
+
+The name is a deliberate reference to "The Karate Kid" - Mr. Miyagi's student who learns that mastery comes from disciplined fundamentals. Wax on, wax off.
+
+Manufacturing intelligence works the same way. The companies with the best OEE aren't the ones with the fanciest systems. They're the ones that nail the fundamentals: accurate data capture, consistent processes, disciplined follow-through.
+
+Daniel-Son is designed to make those fundamentals easy.
+
+## Lessons from the Factory Floor
+
+Nine years of managing facilities taught me things you don't learn in software tutorials:
+
+**Data Accuracy Beats Data Volume**: A factory that accurately captures 5 key metrics beats one that inaccurately captures 50. Daniel-Son focuses on getting the essential data right.
+
+**Operators Must Trust the System**: If operators don't believe the data is accurate, they won't use the system. Every feature is designed to build that trust.
+
+**Mobile Isn't Optional**: Workers aren't at desks. If it doesn't work on a tablet or phone, it doesn't work.
+
+**Offline Happens**: Network failures are normal in industrial environments. The system must keep working.
+
+**Speed Matters**: When you're in the middle of a production run, you don't have 30 seconds to log an event. You have 3.
+
+## The Power BI Connection
+
+At Mars, I built Power BI dashboards that drove 14% efficiency improvement (SAE: 74.6% to 84.8%). Daniel-Son is essentially the next evolution of that work - taking the dashboard concept and making it available to any manufacturer, with real-time data entry built in.
+
+The dashboards I built at Mars required manual data input from multiple sources. Daniel-Son closes that loop - operators enter data on the floor, and it flows immediately to the dashboards.
+
+## What's Next
+
+Daniel-Son is production-ready with 126 components, zero TypeScript errors, and full offline support. The next phase is pilot deployments with manufacturing partners.
+
+If you're running a factory and tired of spreadsheet-based OEE tracking, I'd love to talk. The whole point of building this is to solve real problems for real manufacturers.
+
+---
+
+
+*Daniel-Son is available on GitHub at github.com/jrc1883/Daniel-Son. If you're interested in a pilot deployment or just want to see a demo, reach out on LinkedIn.*

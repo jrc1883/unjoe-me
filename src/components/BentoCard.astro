@@ -1,0 +1,110 @@
+---
+interface Props {
+  title?: string;
+  colSpan?: 1 | 2;
+  rowSpan?: 1 | 2 | 3;
+  expandable?: boolean;
+  href?: string;
+  class?: string;
+}
+
+const {
+  title,
+  colSpan = 1,
+  rowSpan = 1,
+  expandable = false,
+  href,
+  class: className = ''
+} = Astro.props;
+
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  class:list={[
+    "bento-card",
+    `col-span-${colSpan}`,
+    `row-span-${rowSpan}`,
+    { expandable },
+    className
+  ]}
+  href={href}
+  data-expandable={expandable ? "true" : undefined}
+>
+  {title && <h3 class="card-title">{title}</h3>}
+  <div class="card-content">
+    <slot />
+  </div>
+  {expandable && (
+    <button class="expand-btn" aria-label="Expand">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+  )}
+</Tag>
+
+<style>
+  .bento-card {
+    background: var(--card-bg, #18181b);
+    border: 1px solid var(--border, #27272a);
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .bento-card:hover {
+    background: var(--card-hover, #1f1f23);
+    border-color: #3f3f46;
+    transform: translateY(-2px);
+  }
+
+  .col-span-1 { grid-column: span 1; }
+  .col-span-2 { grid-column: span 2; }
+  .row-span-1 { grid-row: span 1; }
+  .row-span-2 { grid-row: span 2; }
+  .row-span-3 { grid-row: span 3; }
+
+  .card-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted, #71717a);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .card-content {
+    flex: 1;
+  }
+
+  .expand-btn {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  .expandable.expanded .expand-btn {
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 900px) {
+    .col-span-2 { grid-column: span 2; }
+  }
+
+  @media (max-width: 600px) {
+    .col-span-2 { grid-column: span 1; }
+  }
+</style>

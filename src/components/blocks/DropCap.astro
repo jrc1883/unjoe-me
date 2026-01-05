@@ -1,0 +1,60 @@
+---
+/**
+ * DropCap - Large first letter for paragraph openings
+ * Classic magazine/Medium-style typography
+ *
+ * Usage:
+ *   <DropCap>I</DropCap>grew up in a Christian family...
+ *
+ * Props:
+ *   - variant?: 'default' | 'accent' | 'gradient'
+ */
+
+interface Props {
+  variant?: 'default' | 'accent' | 'gradient';
+}
+
+const { variant = 'default' } = Astro.props;
+---
+
+<span class={`drop-cap drop-cap-${variant}`}>
+  <slot />
+</span>
+
+<style>
+  .drop-cap {
+    float: left;
+    font-size: 4.5rem;
+    line-height: 0.85;
+    font-weight: 800;
+    margin-right: 0.125rem;
+    margin-top: 0.1rem;
+    font-family: var(--font-serif, Georgia, serif);
+  }
+
+  /* Default: match text color */
+  .drop-cap-default {
+    color: var(--text-primary);
+  }
+
+  /* Accent: use theme accent color */
+  .drop-cap-accent {
+    color: var(--accent);
+  }
+
+  /* Gradient: subtle gradient effect */
+  .drop-cap-gradient {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--text-primary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Mobile: slightly smaller */
+  @media (max-width: 768px) {
+    .drop-cap {
+      font-size: 3.5rem;
+      margin-right: 0.1rem;
+    }
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+/**
+ * SimpleBlogLayout - Minimal blog layout template
+ *
+ * Drop-in template for friends - includes everything needed for a blog post
+ *
+ * Usage in MDX:
+ *   ---
+ *   layout: ../../layouts/templates/SimpleBlogLayout.astro
+ *   title: "My Post"
+ *   description: "Post description"
+ *   pubDate: 'Jan 1 2026'
+ *   ---
+ *
+ *   Your content here...
+ */
+
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlogHero from '../../components/blocks/BlogHero.astro';
+import AuthorBio from '../../components/blocks/AuthorBio.astro';
+import TooltipSidebar from '../../components/interactive/TooltipSidebar.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const {
+  title,
+  description,
+  pubDate,
+  heroImage,
+  gradient = 'blue',
+  author = {
+    name: 'Joseph Cannon',
+    title: 'Senior Chief Petty Officer (Ret.), Software Engineer',
+    bio: 'Veteran of 21 years naval service, now building software that serves families and communities. Passionate about clear thinking, biblical wisdom, and systems that work.',
+    avatar: '/images/avatar.jpg',
+    links: {
+      github: 'https://github.com/jrc1883',
+      email: 'contact@unjoe.me'
+    }
+  }
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <BlogHero
+        title={title}
+        description={description}
+        pubDate={new Date(pubDate)}
+        heroImage={heroImage}
+        gradient={gradient}
+      />
+
+      <article class="prose">
+        <slot />
+      </article>
+
+      <AuthorBio
+        name={author.name}
+        title={author.title}
+        bio={author.bio}
+        avatar={author.avatar}
+        links={author.links}
+      />
+    </main>
+
+    <Footer />
+    <TooltipSidebar />
+  </body>
+</html>
+
+<style>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  article {
+    margin: var(--space-3xl) auto;
+  }
+</style>

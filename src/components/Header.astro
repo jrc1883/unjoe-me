@@ -1,0 +1,108 @@
+---
+import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
+import ThemeToggle from './ThemeToggle.astro';
+const pathname = Astro.url.pathname;
+---
+
+<header>
+  <nav class="container">
+    <a href="/" class="logo">{SITE_TITLE}</a>
+    <div class="nav-links">
+      {NAV_ITEMS.map((item) => (
+        <a href={item.href} class:list={['nav-link', { active: pathname.startsWith(item.href) }]}>
+          {item.label}
+        </a>
+      ))}
+    </div>
+    <div class="header-actions">
+      <ThemeToggle />
+      <div class="social-links">
+        <a href={SOCIAL_LINKS.github} target="_blank" aria-label="GitHub">GH</a>
+        <a href={SOCIAL_LINKS.linkedin} target="_blank" aria-label="LinkedIn">LI</a>
+        <a href={SOCIAL_LINKS.email} aria-label="Email">@</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .logo:hover {
+    opacity: 0.8;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--text-primary);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+  }
+
+  .social-links a:hover {
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 640px) {
+    .nav-links {
+      gap: 1rem;
+    }
+
+    .social-links {
+      display: none;
+    }
+  }
+</style>
