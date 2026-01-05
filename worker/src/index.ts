@@ -174,7 +174,7 @@ export default {
 
       const titleSlug = slugify(eventData.title);
       const fileName = `${titleSlug}.md`;
-      const filePath = `apps/unjoe-portfolio/src/content/events/${fileName}`;
+      const filePath = `apps/jack-portfolio/src/content/events/${fileName}`;
 
       // Get the SHA of the base branch
       const { data: refData } = await octokit.git.getRef({
