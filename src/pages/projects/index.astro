@@ -1,0 +1,310 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE } from '../../consts';
+
+// Featured project (star of the show)
+const featured = {
+  title: "PopKit",
+  description: "A Claude Code plugin ecosystem featuring 30+ specialized AI agents for development workflows. Includes automated code assessments, multi-agent coordination, project management tools, and intelligent routing between specialized agents.",
+  tags: ["TypeScript", "Claude Code", "AI Agents", "MCP", "Plugin"],
+  status: "Open Source",
+  link: "https://github.com/jrc1883/popkit",
+  highlights: [
+    "30+ specialized agents for different development tasks",
+    "Automated assessments (security, performance, architecture)",
+    "Multi-project dashboard management",
+    "GitHub/GitLab integration with worktree support"
+  ]
+};
+
+// Software projects
+const projects = [
+  {
+    title: "Genesis",
+    description: "Comprehensive family management platform integrating schedules, tasks, finances, and home automation into a unified intelligent system with AI-powered insights.",
+    tags: ["React", "Node.js", "AI", "Full Stack"],
+    status: "In Development",
+    link: "#"
+  },
+  {
+    title: "Reseller Central",
+    description: "Multi-platform e-commerce management system for resellers. Handles inventory, pricing, listings, and analytics across eBay, Amazon, and other marketplaces.",
+    tags: ["TypeScript", "APIs", "E-commerce", "Analytics"],
+    status: "In Development",
+    link: "#"
+  },
+  {
+    title: "Voice Clone App",
+    description: "AI-powered voice cloning application for creating personalized text-to-speech voices. Built with modern ML models for natural-sounding speech synthesis.",
+    tags: ["Python", "ML", "TTS", "Audio"],
+    status: "Prototype",
+    link: "#"
+  },
+  {
+    title: "OPTIMUS",
+    description: "Multi-agent orchestration system with 55+ AI agents designed for complex task automation. Built for scalable, intelligent automation across diverse domains.",
+    tags: ["Python", "Multi-Agent", "Orchestration"],
+    status: "Active",
+    link: "#"
+  },
+  {
+    title: "Trading Card Scanner",
+    description: "Mobile app for scanning and cataloging trading cards. Uses computer vision to identify cards and pull pricing data from multiple marketplaces.",
+    tags: ["React Native", "CV", "Mobile"],
+    status: "Concept",
+    link: "#"
+  }
+];
+
+// Career/Experience projects
+const careerProjects = [
+  {
+    title: "Navy Engineering Leadership",
+    description: "21+ years leading engineering teams, managing $140M+ facility portfolios, and directing 200+ personnel across complex operational environments.",
+    tags: ["Leadership", "Engineering", "Operations"],
+    status: "21 Years",
+    link: "/about"
+  },
+  {
+    title: "Mars Inc. Facilities",
+    description: "9 years managing integrated facilities across 47 sites. Built Power BI dashboards, led IFM 2.0 transition, delivered $815K in savings.",
+    tags: ["Facilities", "Analytics", "Management"],
+    status: "Current Role",
+    link: "/about"
+  }
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`Projects | ${SITE_TITLE}`} description="AI systems, software projects, and engineering work" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="container">
+        <header class="page-header">
+          <span class="section-label">Projects</span>
+          <h1>What I'm Building</h1>
+          <p class="subtitle">
+            AI systems, automation tools, and software projects alongside
+            leadership roles spanning 20+ years.
+          </p>
+        </header>
+
+        <a href={featured.link} class="featured-project" target="_blank" rel="noopener">
+          <div class="featured-content">
+            <div class="featured-header">
+              <span class="featured-label">Featured</span>
+              <span class="featured-status">{featured.status}</span>
+            </div>
+            <h2>{featured.title}</h2>
+            <p class="featured-description">{featured.description}</p>
+            <ul class="featured-highlights">
+              {featured.highlights.map((highlight) => (
+                <li>{highlight}</li>
+              ))}
+            </ul>
+            <div class="featured-footer">
+              <div class="tags">
+                {featured.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+              <span class="view-link">
+                View on GitHub
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div class="featured-accent"></div>
+        </a>
+
+        <section class="projects-section">
+          <h3 class="section-title">Software Projects</h3>
+          <div class="projects-grid">
+            {projects.map((project, index) => (
+              <a href={project.link} class="project-card" style={`animation-delay: ${0.1 + index * 0.05}s`}>
+                <div class="project-header">
+                  <span class="project-status">{project.status}</span>
+                </div>
+                <h4>{project.title}</h4>
+                <p>{project.description}</p>
+                <div class="tags">
+                  {project.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section class="projects-section career-section">
+          <h3 class="section-title">Career Experience</h3>
+          <div class="career-grid">
+            {careerProjects.map((project, index) => (
+              <a href={project.link} class="career-card" style={`animation-delay: ${0.3 + index * 0.05}s`}>
+                <div class="career-header">
+                  <h4>{project.title}</h4>
+                  <span class="career-status">{project.status}</span>
+                </div>
+                <p>{project.description}</p>
+                <div class="tags">
+                  {project.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+                <span class="career-link">
+                  Learn more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  :root {
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+    --color-bg: #0a0a0b;
+    --color-bg-elevated: #111113;
+    --color-bg-hover: #18181b;
+    --color-border: #27272a;
+    --color-border-subtle: #1f1f23;
+    --color-text-primary: #fafafa;
+    --color-text-secondary: #a1a1aa;
+    --color-text-muted: #71717a;
+    --color-accent: #3b82f6;
+    --color-accent-subtle: rgba(59, 130, 246, 0.1);
+    --color-success: #10b981;
+    --color-success-subtle: rgba(16, 185, 129, 0.1);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  main { min-height: calc(100vh - 200px); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+  .page-header { padding: 4rem 0 3rem; border-bottom: 1px solid var(--color-border-subtle); margin-bottom: 3rem; }
+
+  .section-label { display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent); margin-bottom: 1rem; }
+
+  .page-header h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 400; margin: 0 0 1rem; line-height: 1.1; letter-spacing: -0.02em; }
+
+  .subtitle { font-size: 1.125rem; color: var(--color-text-secondary); margin: 0; max-width: 500px; line-height: 1.7; }
+
+  .featured-project { display: block; position: relative; background: linear-gradient(135deg, var(--color-bg-elevated) 0%, #0f1419 100%); border: 1px solid var(--color-border); border-radius: 20px; padding: 2.5rem; margin-bottom: 3rem; text-decoration: none; overflow: hidden; transition: all 0.3s ease; }
+
+  .featured-project:hover { border-color: var(--color-accent); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); }
+  .featured-project:hover .featured-accent { opacity: 1; }
+  .featured-project:hover .view-link svg { transform: translate(3px, -3px); }
+
+  .featured-accent { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--color-accent), #8b5cf6, #ec4899); opacity: 0; transition: opacity 0.3s ease; }
+
+  .featured-content { position: relative; z-index: 1; }
+
+  .featured-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
+
+  .featured-label { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-accent); background: var(--color-accent-subtle); padding: 0.375rem 0.75rem; border-radius: 100px; }
+
+  .featured-status { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-success); background: var(--color-success-subtle); padding: 0.375rem 0.75rem; border-radius: 100px; }
+
+  .featured-project h2 { font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 400; margin: 0 0 1rem; color: var(--color-text-primary); line-height: 1.2; }
+
+  .featured-description { font-size: 1rem; color: var(--color-text-secondary); margin: 0 0 1.5rem; line-height: 1.7; max-width: 600px; }
+
+  .featured-highlights { list-style: none; padding: 0; margin: 0 0 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0.5rem; }
+
+  .featured-highlights li { font-size: 0.875rem; color: var(--color-text-secondary); padding-left: 1.25rem; position: relative; }
+
+  .featured-highlights li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-accent); border-radius: 50%; }
+
+  .featured-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border-subtle); }
+
+  .view-link { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500; color: var(--color-accent); }
+  .view-link svg { transition: transform 0.2s ease; }
+
+  .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .tag { background: var(--color-border); color: var(--color-text-muted); padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 500; }
+
+  .projects-section { margin-bottom: 3rem; }
+
+  .section-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin: 0 0 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border-subtle); }
+
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+
+  .project-card { background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.5rem; text-decoration: none; color: inherit; transition: all 0.3s ease; animation: fadeSlideIn 0.5s ease forwards; opacity: 0; }
+
+  .project-card:hover { background: var(--color-bg-hover); border-color: var(--color-accent); transform: translateY(-2px); }
+  .project-card:hover h4 { color: var(--color-accent); }
+
+  .project-header { margin-bottom: 0.75rem; }
+
+  .project-status { display: inline-block; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-accent); background: var(--color-accent-subtle); padding: 0.25rem 0.625rem; border-radius: 100px; }
+
+  .project-card h4 { font-family: var(--font-body); font-size: 1.125rem; font-weight: 600; margin: 0 0 0.5rem; color: var(--color-text-primary); transition: color 0.2s ease; }
+
+  .project-card p { font-size: 0.875rem; color: var(--color-text-secondary); margin: 0 0 1rem; line-height: 1.6; }
+
+  .career-section { margin-top: 2rem; }
+
+  .career-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+
+  .career-card { background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.75rem; text-decoration: none; color: inherit; transition: all 0.3s ease; animation: fadeSlideIn 0.5s ease forwards; opacity: 0; }
+
+  .career-card:hover { background: var(--color-bg-hover); border-color: #3f3f46; transform: translateY(-2px); }
+  .career-card:hover .career-link { color: var(--color-accent); }
+  .career-card:hover .career-link svg { transform: translateX(4px); }
+
+  .career-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+
+  .career-card h4 { font-family: var(--font-body); font-size: 1.125rem; font-weight: 600; margin: 0; color: var(--color-text-primary); }
+
+  .career-status { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); background: var(--color-border); padding: 0.25rem 0.625rem; border-radius: 100px; white-space: nowrap; }
+
+  .career-card p { font-size: 0.875rem; color: var(--color-text-secondary); margin: 0 0 1rem; line-height: 1.6; }
+
+  .career-link { display: flex; align-items: center; gap: 0.375rem; font-size: 0.8125rem; font-weight: 500; color: var(--color-text-muted); margin-top: 1rem; transition: color 0.2s ease; }
+  .career-link svg { transition: transform 0.2s ease; }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page-header { animation: fadeSlideIn 0.5s ease forwards; }
+  .featured-project { animation: fadeSlideIn 0.5s ease 0.1s forwards; opacity: 0; }
+  .projects-section { animation: fadeSlideIn 0.5s ease 0.2s forwards; opacity: 0; }
+
+  @media (max-width: 640px) {
+    .page-header { padding: 3rem 0 2rem; }
+    .featured-project { padding: 1.75rem; }
+    .featured-highlights { grid-template-columns: 1fr; }
+    .projects-grid, .career-grid { grid-template-columns: 1fr; }
+    .career-header { flex-direction: column; gap: 0.5rem; }
+  }
+</style>

@@ -1,0 +1,672 @@
+---
+title: "Git Hooks & Automation Pipelines"
+description: "Programmatic quality gates that catch issues before they become problems"
+pubDate: 'Dec 25 2025'
+heroImage: '/images/blog/agent-ready-07-hero.jpg'
+heroImagePrompt: |
+  A modern, minimalist technical diagram showing Git Hooks workflow as an automated quality gate system on a dark navy blue background (#0a0a0b to #1a1a2e gradient).
+
+  SPECIFIC GIT HOOKS WORKFLOW ELEMENTS:
+  LEFT SIDE - Code Commit Attempt:
+  - Developer terminal window showing:
+    - Command: "git commit -m \"feat: add user auth\""
+    - Cursor blinking after command
+  - Terminal styled as VS Code integrated terminal (dark theme)
+  - Electric blue prompt symbol
+
+  CENTER - Pre-Commit Hook Pipeline (vertical cascade):
+  Large rounded rectangle labeled "Pre-Commit Hooks" containing 5 sequential checks:
+
+  CHECK 1 - "Lint (ESLint)":
+  - Electric blue rounded rectangle
+  - ESLint logo icon
+  - Running status: spinner icon
+  - Preview: "Checking 24 files..."
+
+  CHECK 2 - "Format (Prettier)":
+  - Result: Green checkmark
+  - Prettier logo icon
+  - "✓ 24 files formatted"
+
+  CHECK 3 - "Type Check (TypeScript)":
+  - Result: Red X warning
+  - TypeScript logo icon
+  - Error message: "src/auth.ts:47 - Type 'string | undefined' is not assignable"
+  - Yellow warning badge showing "1 error"
+  - BRIGHTEST GLOW - This is the failing check
+
+  CHECK 4 - "Unit Tests":
+  - Grayed out (not reached due to failure above)
+  - Jest logo icon
+  - Status: "Pending..."
+
+  CHECK 5 - "Security Scan (npm audit)":
+  - Grayed out (not reached)
+  - Shield icon
+  - Status: "Pending..."
+
+  RIGHT SIDE - Two Outcomes:
+
+  TOP RIGHT - Failed Commit (current state):
+  - Red-bordered card showing:
+    - Large red X icon
+    - "Commit Blocked"
+    - "Fix TypeScript errors to continue"
+    - Code snippet showing the error location
+    - "Run 'npm run type-check' to debug"
+  - Red glow around the card
+
+  BOTTOM RIGHT - Successful Commit (ghost/future state):
+  - Green-bordered card (translucent/faded to show it's not current)
+  - Large green checkmark
+  - "Commit Successful"
+  - "All checks passed"
+  - Git hash: "abc123f"
+  - Green glow around the card
+
+  VISUAL DETAILS:
+  - Check boxes as rounded rectangles with logo icons
+  - Status indicators: spinner (running), green checkmark (pass), red X (fail), gray (pending)
+  - Error messages in monospace font with code context
+  - Terminal command in realistic terminal styling
+  - Logo icons for each tool (ESLint, Prettier, TypeScript, Jest, npm)
+  - Flowing lines connecting each check in sequence
+  - Failure causes "circuit break" visual (red line stopping at failed check)
+  - Tool names and status clearly labeled
+
+  COMPOSITION:
+  - Left-to-right flow (command → hooks → outcome)
+  - Center pipeline as vertical cascade (top to bottom execution)
+  - Failed check (TypeScript) visually prominent with brightest glow
+  - Two possible outcomes side-by-side on right (failed above, success below)
+  - Clear visual indication of where the pipeline stopped
+
+  TECHNICAL:
+  - 16:9 landscape aspect ratio (1792x1024)
+  - Dark navy blue background (#0a0a0b)
+  - Terminal: VS Code integrated terminal colors
+  - Success: green (#22c55e)
+  - Failure/Error: red (#ef4444)
+  - Warning: yellow (#f59e0b)
+  - In-progress: electric blue (#3b82f6)
+  - Pending: gray (#6b7280)
+  - High contrast for readability
+  - Monospace font for code/terminal, sans-serif for labels
+  - Professional tech aesthetic matching developer tools
+tags: ['git-hooks', 'automation', 'ci-cd', 'husky', 'lint-staged', 'quality-gates', 'series']
+series: 'Agent-Ready Development'
+seriesPart: 7
+seriesTotal: 10
+---
+# Git Hooks & Automation Pipelines
+
+*Part 7 of the Agent-Ready Development Series*
+
+---
+
+## The Last Line of Defense
+
+We've set up branch protection, PR templates, and CI pipelines. But there's a gap: the time between "developer writes code" and "CI catches the problem."
+
+That gap can be hours. Sometimes days if PRs sit in review.
+
+Git hooks close that gap. They catch problems *before* code leaves the developer's machine. And for AI assistants, hooks are even more valuable—they provide immediate feedback that shapes better output.
+
+---
+
+## The Hook Hierarchy
+
+There are two levels of automation:
+
+### Local Hooks (Pre-commit, Pre-push)
+Run on the developer's machine before code is shared.
+
+- **Fast feedback**: Seconds, not minutes
+- **Developer experience**: Catch issues early
+- **AI benefit**: Immediate correction opportunity
+
+### Remote Hooks (CI/CD)
+Run on the server after code is pushed.
+
+- **Comprehensive**: Can run expensive tests
+- **Environment-controlled**: Consistent execution
+- **Authority**: Ultimate source of truth
+
+Both are necessary. Local hooks for speed, remote for thoroughness.
+
+---
+
+## Setting Up Git Hooks with Husky
+
+Husky is the de facto standard for managing Git hooks in JavaScript projects:
+
+### Installation
+
+```bash
+npm install --save-dev husky lint-staged
+npx husky init
+```
+
+This creates:
+
+```
+.husky/
+├── _/
+│   ├── .gitignore
+│   └── husky.sh
+└── pre-commit
+```
+
+### Pre-commit Hook
+
+```bash
+#!/bin/sh
+# .husky/pre-commit
+
+. "$(dirname "$0")/_/husky.sh"
+
+npx lint-staged
+```
+
+### Lint-staged Configuration
+
+```json
+// package.json
+{
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml}": [
+      "prettier --write"
+    ],
+    "*.test.{ts,tsx}": [
+      "vitest related --run"
+    ]
+  }
+}
+```
+
+What this does:
+1. TypeScript files: Auto-fix lint issues, format code
+2. Config/docs: Format consistently
+3. Test files: Run related tests
+
+Only staged files are processed—fast even in large codebases.
+
+---
+
+## The Complete Hook Arsenal
+
+### Pre-commit: Fast Checks
+
+```bash
+#!/bin/sh
+# .husky/pre-commit
+
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Lint and format staged files
+npx lint-staged
+
+# Type check (fast, only changed files)
+npx tsc --noEmit --incremental
+
+# Check for console.log statements (optional)
+if git diff --cached --name-only | xargs grep -l 'console.log' 2>/dev/null; then
+  echo "⚠️  Warning: console.log statements detected"
+  # Uncomment to make this a blocking error:
+  # exit 1
+fi
+
+echo "✅ Pre-commit checks passed"
+```
+
+### Commit-msg: Validate Messages
+
+```bash
+#!/bin/sh
+# .husky/commit-msg
+
+. "$(dirname "$0")/_/husky.sh"
+
+npx --no -- commitlint --edit "$1"
+```
+
+With config:
+
+```javascript
+// commitlint.config.js
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'type-enum': [
+      2,
+      'always',
+      ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'chore', 'ci']
+    ],
+    'subject-case': [2, 'always', 'lower-case'],
+    'header-max-length': [2, 'always', 72]
+  }
+};
+```
+
+### Pre-push: Comprehensive Checks
+
+```bash
+#!/bin/sh
+# .husky/pre-push
+
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+
+# Full type check
+npm run typecheck
+
+# Run tests
+npm run test
+
+# Build to catch any build errors
+npm run build
+
+echo "✅ Pre-push checks passed"
+```
+
+---
+
+## AI-Specific Hooks
+
+Claude Code supports hooks that intercept AI actions:
+
+### User Prompt Submit Hook
+
+Runs before the AI processes your request:
+
+```python
+#!/usr/bin/env python3
+# .claude/hooks/user-prompt-submit.py
+
+import sys
+import json
+
+def main():
+    # Read the prompt from stdin
+    data = json.load(sys.stdin)
+    prompt = data.get('prompt', '')
+
+    # Add project context to every prompt
+    context_reminder = """
+    Remember:
+    - Follow conventions in CLAUDE.md
+    - Run tests before committing
+    - Use conventional commit format
+    """
+
+    # You can modify the prompt or add context
+    result = {
+        "action": "continue",
+        "context": context_reminder
+    }
+
+    print(json.dumps(result))
+
+if __name__ == "__main__":
+    main()
+```
+
+### Pre-Tool-Use Hook
+
+Runs before the AI uses a tool (like editing a file):
+
+```python
+#!/usr/bin/env python3
+# .claude/hooks/pre-tool-use.py
+
+import sys
+import json
+
+def main():
+    data = json.load(sys.stdin)
+    tool = data.get('tool', '')
+    params = data.get('params', {})
+
+    # Prevent editing certain files
+    protected_files = [
+        '.env',
+        '.env.production',
+        'package-lock.json'
+    ]
+
+    if tool == 'edit':
+        file_path = params.get('file_path', '')
+        for protected in protected_files:
+            if file_path.endswith(protected):
+                result = {
+                    "action": "block",
+                    "message": f"Cannot edit {protected} - this file is protected"
+                }
+                print(json.dumps(result))
+                return
+
+    # Allow the action
+    result = {"action": "continue"}
+    print(json.dumps(result))
+
+if __name__ == "__main__":
+    main()
+```
+
+### Post-Tool-Use Hook
+
+Runs after the AI completes an action:
+
+```python
+#!/usr/bin/env python3
+# .claude/hooks/post-tool-use.py
+
+import sys
+import json
+import subprocess
+
+def main():
+    data = json.load(sys.stdin)
+    tool = data.get('tool', '')
+    params = data.get('params', {})
+
+    # After editing TypeScript files, run type check
+    if tool == 'edit':
+        file_path = params.get('file_path', '')
+        if file_path.endswith('.ts') or file_path.endswith('.tsx'):
+            result = subprocess.run(
+                ['npx', 'tsc', '--noEmit', file_path],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                feedback = {
+                    "action": "feedback",
+                    "message": f"Type error in edited file:\n{result.stderr}"
+                }
+                print(json.dumps(feedback))
+                return
+
+    result = {"action": "continue"}
+    print(json.dumps(result))
+
+if __name__ == "__main__":
+    main()
+```
+
+---
+
+## Automation Pipeline Design
+
+Beyond hooks, your CI pipeline should have layers:
+
+### Layer 1: Instant Checks (< 30 seconds)
+
+```yaml
+# .github/workflows/ci.yml
+lint:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run lint
+    - run: npm run typecheck
+```
+
+### Layer 2: Fast Tests (< 5 minutes)
+
+```yaml
+test:
+  runs-on: ubuntu-latest
+  needs: lint
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run test:unit
+```
+
+### Layer 3: Integration Tests (< 15 minutes)
+
+```yaml
+integration:
+  runs-on: ubuntu-latest
+  needs: test
+  services:
+    postgres:
+      image: postgres:15
+      env:
+        POSTGRES_PASSWORD: test
+      options: >-
+        --health-cmd pg_isready
+        --health-interval 10s
+        --health-timeout 5s
+        --health-retries 5
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run test:integration
+      env:
+        DATABASE_URL: postgresql://postgres:test@localhost:5432/test
+```
+
+### Layer 4: E2E Tests (Optional, expensive)
+
+```yaml
+e2e:
+  runs-on: ubuntu-latest
+  needs: integration
+  if: github.ref == 'refs/heads/main'  # Only on main branch
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    - run: npm ci
+    - run: npx playwright install --with-deps
+    - run: npm run test:e2e
+```
+
+---
+
+## Hook Best Practices
+
+### 1. Fast Local, Thorough Remote
+
+```
+Local hooks:
+  - Lint (< 5s)
+  - Format (< 2s)
+  - Type check (< 10s)
+  - Unit tests for changed files (< 10s)
+  Total: < 30 seconds
+
+Remote CI:
+  - Full lint
+  - Full type check
+  - All unit tests
+  - Integration tests
+  - E2E tests
+  - Security scans
+  - Build verification
+  Total: 5-15 minutes
+```
+
+### 2. Provide Bypass for Emergencies
+
+```bash
+# Skip pre-commit hooks (use sparingly!)
+git commit --no-verify -m "hotfix: emergency production fix"
+```
+
+Document when this is acceptable (never for regular development).
+
+### 3. Cache Aggressively
+
+```yaml
+# .github/workflows/ci.yml
+- uses: actions/cache@v4
+  with:
+    path: |
+      ~/.npm
+      node_modules
+      .turbo
+    key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+    restore-keys: |
+      ${{ runner.os }}-modules-
+```
+
+### 4. Fail Fast, Fail Loud
+
+```yaml
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run lint
+        continue-on-error: false  # Stop immediately on failure
+```
+
+### 5. Parallel Where Possible
+
+```yaml
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    # No dependencies - runs immediately
+
+  typecheck:
+    runs-on: ubuntu-latest
+    # No dependencies - runs in parallel with lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [lint, typecheck]  # Waits for both
+```
+
+---
+
+## The Feedback Loop
+
+When an AI assistant triggers a hook failure, it gets immediate feedback:
+
+```
+$ git commit -m "add user feature"
+
+🔍 Running pre-commit checks...
+
+✖ eslint found 2 errors:
+  src/user.ts:15:5 - 'userId' is defined but never used
+  src/user.ts:23:10 - Unexpected console.log statement
+
+❌ Pre-commit checks failed
+
+AI Assistant: I see the pre-commit checks failed. Let me fix these issues:
+1. Removing unused 'userId' variable
+2. Removing console.log statement
+
+[Makes corrections]
+
+$ git commit -m "add user feature"
+
+🔍 Running pre-commit checks...
+✅ Pre-commit checks passed
+[main abc123] add user feature
+```
+
+The hook provides:
+1. Specific error locations
+2. Clear error messages
+3. Immediate feedback
+
+The AI corrects and tries again. This loop happens in seconds, not hours.
+
+---
+
+## Monitoring Hook Health
+
+Track how often hooks catch issues:
+
+```yaml
+# .github/workflows/hook-metrics.yml
+name: Hook Metrics
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 100
+
+      - name: Count commits with no-verify
+        run: |
+          count=$(git log --oneline -100 | grep -c "no-verify\|--no-v" || true)
+          echo "no_verify_commits=$count" >> $GITHUB_OUTPUT
+
+      - name: Report
+        if: steps.collect.outputs.no_verify_commits > 5
+        run: |
+          echo "⚠️ High number of --no-verify commits detected"
+```
+
+---
+
+## Quick Wins: What to Do Today
+
+### Minimum (15 minutes)
+
+1. Install Husky: `npm install --save-dev husky && npx husky init`
+2. Add pre-commit lint: `echo "npx eslint ." > .husky/pre-commit`
+3. Test it: Make a linting error, try to commit
+
+### Better (1 hour)
+
+1. Configure lint-staged for smart file selection
+2. Add commit message validation
+3. Add pre-push type checking
+
+### Complete (3 hours)
+
+1. Full pre-commit hook suite
+2. Claude Code hooks for AI safety
+3. Multi-stage CI pipeline
+4. Hook bypass documentation
+5. Metrics collection
+
+---
+
+## Coming Next
+
+In Part 8, we'll explore **Monorepos & Multi-Project Architecture**—scaling agent-ready practices across large, complex codebases with multiple applications and shared code.
+
+---
+
+*Hook management is deeply integrated into [PopKit](https://popkit.dev). PopKit's hook system provides sophisticated context injection, tool filtering, and quality gates specifically designed for AI-assisted development. The `/popkit:dev` workflow automatically ensures your changes pass all configured hooks before creating PRs.*
+
+---
+
+*[← Part 6: Documentation as Context](./06-documentation-context.md) | [Part 8: Monorepo Architecture →](./08-monorepo-architecture.md)*

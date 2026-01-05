@@ -1,0 +1,108 @@
+---
+title: "Self-Hosting for Families: My Unraid Journey"
+description: "Why I run my own home server with Unraid, and how self-hosting changes your relationship with technology and data ownership."
+pubDate: 2025-12-10
+tags: ['technical', 'family-tech', 'security']
+---
+
+import Ref from '../../components/interactive/Ref.astro';
+import Callout from '../../components/layout/Callout.astro';
+
+# Self-Hosting for Families: My Unraid Journey
+
+Every engineer has their geek-out hobby. Mine is running a home server. What started as "I should have a better backup solution" has evolved into a philosophy about data ownership, privacy, and teaching my kids about technology.
+
+## Why Self-Host Anything?
+
+The simple answer: because you can. The better answer: because your data should belong to you.
+
+When I started managing facilities for Mars Inc., I got a crash course in data governance. Who owns what data? Where is it stored? What happens if a vendor relationship ends? These questions matter at enterprise scale, but they matter at family scale too.
+
+Every photo of my kids on Google Photos is training data for someone else's AI. Every document in Dropbox is stored on someone else's terms. Every family conversation on a cloud service belongs to... who exactly?
+
+Self-hosting doesn't eliminate these concerns, but it changes the equation. My data is on my hardware, in my house, under my control.
+
+## The Unraid Stack
+
+I run Unraid as my home server OS, and it's been a game-changer. For those unfamiliar, Unraid lets you build a NAS (Network Attached Storage) that also runs Docker containers and VMs. It's like having a data center in your closet.
+
+My current setup includes:
+
+**Media and Storage**
+- Plex for family media library
+- Photo management (goodbye Google Photos)
+- Document archive and backup
+
+**Development Tools**
+- Local code repositories
+- Development environments
+- CI/CD runners
+
+**Home Automation**
+- Home Assistant for smart home control
+- Network monitoring
+- Family dashboard
+
+**Privacy Tools**
+- Ad blocking at the network level
+- VPN server for when we travel
+- Secure file sharing
+
+## The Family Benefits
+
+Here's what surprised me: self-hosting has become a family teaching opportunity.
+
+When my kids ask "where are our photos stored?", I can show them the actual server. They understand that data is physical - it exists somewhere. That's a concept most kids (and many adults) never grasp.
+
+When we discuss privacy, it's not abstract. We can talk about why we host our own instead of using free services. "If you're not paying for the product, you are the product" makes sense when you can point to the alternative.
+
+My son has even started showing interest in how it all works. He's not ready to configure Docker containers, but he understands that Dad's "computer in the closet" is why our movies don't buffer and our photos don't disappear.
+
+## The Emergency Preparedness Angle
+
+This connects to my broader interest in emergency preparedness. What happens when internet services go down?
+
+During the 2021 Facebook outage, billions of people lost access to their data for hours. WhatsApp stopped working. Instagram went dark. Entire businesses that depended on Facebook's infrastructure were paralyzed.
+
+My home server kept running. Family photos were still accessible. Local media still played. The file shares still worked.
+
+Self-hosting is a form of digital resilience. You're not dependent on some distant data center staying online, some company staying in business, some service staying free.
+
+## The Challenges (Being Honest)
+
+Self-hosting isn't for everyone. Let me be real about the downsides:
+
+**Initial Setup**: There's a learning curve. Unraid is more user-friendly than most options, but you still need to understand basic networking, storage, and containers.
+
+**Maintenance**: Software needs updates. Hardware needs monitoring. Backups need testing. It's not zero-effort.
+
+**Power and Hardware Costs**: Running a server 24/7 uses electricity. The hardware has upfront costs.
+
+**No Support Hotline**: When something breaks at 2 AM, you're the IT department.
+
+For me, these tradeoffs are worth it. I enjoy the tinkering, I value the control, and I sleep better knowing where my family's data lives. But I understand it's not the right choice for everyone.
+
+## Getting Started
+
+If you're curious about self-hosting, here's my advice:
+
+**Start Small**: Don't try to replace everything at once. Pick one service - maybe photo backup or a media server - and learn from there.
+
+**Choose Beginner-Friendly Tools**: Unraid, Synology, or even a Raspberry Pi with CasaOS. Don't start with bare-metal Linux unless that's your thing.
+
+**Plan for Failure**: Assume your server will die. Have backups of your backups. Test recovery procedures.
+
+**Join Communities**: The r/selfhosted subreddit, Unraid forums, and YouTube channels like Spaceinvader One have incredible resources.
+
+## The Philosophy
+
+At its core, self-hosting is about agency. In a world where technology increasingly happens *to* us rather than *for* us, self-hosting is a way to take back some control.
+
+It's the same reason I build my own AI tools with PopKit instead of waiting for someone else's solutions. It's why I'm building Genesis instead of cobbling together five different family apps.
+
+Some things are worth doing yourself. For me, hosting my family's digital life is one of them.
+
+---
+
+
+*If you're interested in my specific Unraid configuration or want recommendations for getting started, feel free to reach out on LinkedIn. Happy to help fellow tinkerers.*

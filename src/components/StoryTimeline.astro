@@ -1,0 +1,158 @@
+---
+const timeline = [
+  {
+    date: '2024',
+    dateColor: '#22c55e',
+    heading: 'Building the Future',
+    title: '🤖 AI Systems Builder',
+    description: 'Developing multi-agent AI systems including PopKit (30+ agents for Claude Code), OPTIMUS (55+ agents for task automation), and Genesis Family OS. Exploring the intersection of AI and practical problem-solving.',
+  },
+  {
+    date: '2016',
+    dateColor: '#f59e0b',
+    heading: 'Corporate Leadership',
+    title: '🏢 Mars, Incorporated',
+    description: 'Managing integrated facilities across a $140M portfolio spanning 47 sites. Leading operational excellence initiatives, sustainability programs, and cross-functional teams of 200+ personnel for a Fortune 500 company.',
+  },
+  {
+    date: '2008',
+    dateColor: '#3b82f6',
+    heading: 'Engineering Foundations',
+    title: '🔧 Enovity, Inc.',
+    description: 'Building commissioning engineer in San Francisco. Led commercial HVAC optimization, energy efficiency programs, and earned PMP and LEED AP certifications. Applied engineering rigor to complex building systems.',
+  },
+  {
+    date: '2003',
+    dateColor: '#ef4444',
+    heading: 'Service Begins',
+    title: '⚓ U.S. Navy',
+    description: "21+ years of service as a Machinist's Mate, rising to Senior Chief Petty Officer (E-8). Surface Warfare and Air Warfare qualified. Led engineering teams across multiple deployments, managing complex propulsion and auxiliary systems.",
+  },
+];
+---
+
+<section class="timeline-section">
+  <h2 class="section-title">Educational & Professional Background</h2>
+
+  <div class="timeline">
+    {timeline.map((item, index) => (
+      <div class="timeline-item">
+        <div class="timeline-date" style={`background: ${item.dateColor}20; color: ${item.dateColor};`}>
+          {item.date}
+        </div>
+        <div class="timeline-marker">
+          <div class="marker-dot" style={`background: ${item.dateColor};`}></div>
+          {index < timeline.length - 1 && <div class="marker-line"></div>}
+        </div>
+        <div class="timeline-content">
+          <span class="content-heading">{item.heading}</span>
+          <h3 class="content-title">{item.title}</h3>
+          <p class="content-desc">{item.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .timeline-section {
+    padding: 3rem 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 2rem 0;
+    padding: 0.5rem 1rem;
+    background: var(--card-bg);
+    border-radius: 999px;
+    display: inline-block;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 80px 40px 1fr;
+    gap: 0;
+    min-height: 120px;
+  }
+
+  .timeline-date {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    height: fit-content;
+    text-align: center;
+  }
+
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.25rem;
+  }
+
+  .marker-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .marker-line {
+    width: 2px;
+    flex: 1;
+    background: var(--border);
+    margin-top: 0.5rem;
+  }
+
+  .timeline-content {
+    padding-bottom: 2rem;
+  }
+
+  .content-heading {
+    font-size: 0.8125rem;
+    font-style: italic;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .content-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .content-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .timeline-item {
+      grid-template-columns: 60px 30px 1fr;
+    }
+
+    .timeline-date {
+      font-size: 0.6875rem;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+</style>

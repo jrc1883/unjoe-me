@@ -1,0 +1,520 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { getReadingTime, formatReadingTime } from '../utils/reading-time';
+import { findRelatedPosts } from '../utils/related-posts';
+import { getFallbackHero } from '../utils/hero-fallback';
+import TooltipSidebar from '../components/interactive/TooltipSidebar.astro';
+import DraftBanner from '../components/DraftBanner.astro';
+
+type Props = CollectionEntry<'blog'>['data'] & { body: string; id: string };
+
+const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, body, tags = [], draft = false, id } = Astro.props;
+const readingTime = getReadingTime(body);
+
+// Generate gradient fallback if no hero image
+const fallbackHero = !heroImage ? getFallbackHero(tags, title) : null;
+
+// Fetch all posts for related posts functionality
+const allPosts = await getCollection('blog');
+const relatedPosts = findRelatedPosts(id, tags, allPosts, 3);
+---
+
+<html lang="en">
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			article={{
+				publishedTime: pubDate,
+				modifiedTime: updatedDate,
+				tags: tags,
+			}}
+		/>
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.hero-image {
+				width: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+				max-width: 35%;
+				height: auto;
+			}
+			.hero-gradient {
+				width: 100%;
+				height: 400px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 12px;
+				position: relative;
+				overflow: hidden;
+			}
+			.hero-gradient::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				opacity: 0.1;
+				background-image:
+					radial-gradient(circle at 25% 25%, currentColor 2px, transparent 2px),
+					radial-gradient(circle at 75% 75%, currentColor 2px, transparent 2px);
+				background-size: 50px 50px;
+			}
+			.hero-gradient-title {
+				position: relative;
+				z-index: 1;
+				font-size: clamp(2rem, 5vw, 3.5rem);
+				font-weight: 700;
+				text-align: center;
+				padding: 2rem;
+				max-width: 80%;
+				line-height: 1.2;
+			}
+			.prose {
+				width: 950px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.5em;
+				flex-wrap: wrap;
+			}
+			.meta-separator {
+				color: rgb(var(--gray));
+				opacity: 0.5;
+			}
+			.reading-time {
+				color: rgb(var(--gray));
+			}
+			.last-updated-on {
+				font-style: italic;
+				width: 100%;
+			}
+			.tags-section {
+				margin-top: 3em;
+				padding-top: 2em;
+				border-top: 1px solid rgb(var(--gray-light));
+				display: flex;
+				flex-direction: column;
+				gap: 1em;
+			}
+			.tags-label {
+				font-size: 0.875rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: rgb(var(--gray));
+			}
+			.tags-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+			}
+			.tag {
+				display: inline-block;
+				padding: 0.625rem 1.25rem;
+				background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(99, 102, 241, 0.15) 100%);
+				border: 1.5px solid rgba(59, 130, 246, 0.4);
+				border-radius: 100px;
+				font-size: 0.875rem;
+				font-weight: 500;
+				color: #3b82f6;
+				text-decoration: none;
+				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+				position: relative;
+				overflow: hidden;
+			}
+			.tag::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			}
+			.tag:hover {
+				background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(99, 102, 241, 0.25) 100%);
+				border-color: #3b82f6;
+				transform: translateY(-3px);
+				box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+			}
+			.tag:hover::before {
+				opacity: 1;
+			}
+			.share-section {
+				margin-top: 3em;
+				padding-top: 2em;
+				border-top: 1px solid rgb(var(--gray-light));
+				display: flex;
+				flex-direction: column;
+				gap: 1em;
+			}
+			.share-label {
+				font-size: 0.875rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: rgb(var(--gray));
+			}
+			.share-buttons {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+			}
+			.share-button {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.625rem;
+				padding: 0.75rem 1.5rem;
+				border-radius: 100px;
+				font-size: 0.875rem;
+				font-weight: 500;
+				text-decoration: none;
+				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				position: relative;
+				overflow: hidden;
+			}
+			.share-button::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: currentColor;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			}
+			.share-button svg {
+				position: relative;
+				z-index: 1;
+				transition: transform 0.3s ease;
+			}
+			.share-button:hover svg {
+				transform: scale(1.1);
+			}
+			.share-button.facebook {
+				background: linear-gradient(135deg, rgba(24, 119, 242, 0.15) 0%, rgba(66, 103, 178, 0.15) 100%);
+				border: 1.5px solid rgba(24, 119, 242, 0.4);
+				color: #1877f2;
+				box-shadow: 0 2px 10px rgba(24, 119, 242, 0.15);
+			}
+			.share-button.facebook:hover {
+				background: linear-gradient(135deg, rgba(24, 119, 242, 0.25) 0%, rgba(66, 103, 178, 0.25) 100%);
+				border-color: #1877f2;
+				transform: translateY(-3px);
+				box-shadow: 0 6px 20px rgba(24, 119, 242, 0.3);
+			}
+			.share-button.twitter {
+				background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(29, 29, 31, 0.8) 100%);
+				border: 1.5px solid rgba(255, 255, 255, 0.2);
+				color: #ffffff;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+			}
+			.share-button.twitter:hover {
+				background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(29, 29, 31, 0.95) 100%);
+				border-color: #ffffff;
+				transform: translateY(-3px);
+				box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+			}
+			.share-button.linkedin {
+				background: linear-gradient(135deg, rgba(10, 102, 194, 0.15) 0%, rgba(0, 119, 181, 0.15) 100%);
+				border: 1.5px solid rgba(10, 102, 194, 0.4);
+				color: #0a66c2;
+				box-shadow: 0 2px 10px rgba(10, 102, 194, 0.15);
+			}
+			.share-button.linkedin:hover {
+				background: linear-gradient(135deg, rgba(10, 102, 194, 0.25) 0%, rgba(0, 119, 181, 0.25) 100%);
+				border-color: #0a66c2;
+				transform: translateY(-3px);
+				box-shadow: 0 6px 20px rgba(10, 102, 194, 0.3);
+			}
+			.related-section {
+				margin-top: 4em;
+				padding-top: 3em;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.related-heading {
+				font-size: 1.5rem;
+				font-weight: 600;
+				margin: 0 0 1.5em;
+				color: rgb(var(--gray-dark));
+			}
+			.related-posts {
+				display: grid;
+				gap: 1.5rem;
+				grid-template-columns: 1fr;
+			}
+			@media (min-width: 768px) {
+				.related-posts {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+			@media (min-width: 1024px) {
+				.related-posts {
+					grid-template-columns: repeat(3, 1fr);
+				}
+			}
+			.related-post-card {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+				padding: 1.75rem;
+				background: linear-gradient(135deg, rgba(var(--gray-light), 0.08) 0%, rgba(var(--gray-light), 0.04) 100%);
+				border: 1.5px solid rgba(var(--gray-light), 0.2);
+				border-radius: 12px;
+				text-decoration: none;
+				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+				position: relative;
+				overflow: hidden;
+			}
+			.related-post-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4px;
+				background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			}
+			.related-post-card:hover {
+				background: linear-gradient(135deg, rgba(var(--gray-light), 0.12) 0%, rgba(var(--gray-light), 0.08) 100%);
+				border-color: rgba(59, 130, 246, 0.4);
+				transform: translateY(-4px);
+				box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+			}
+			.related-post-card:hover::before {
+				opacity: 1;
+			}
+			.related-post-card:hover h3 {
+				color: #3b82f6;
+			}
+			.related-post-card:hover .related-post-arrow {
+				opacity: 1;
+				transform: translate(4px, -4px);
+			}
+			.related-post-content {
+				flex: 1;
+			}
+			.related-post-content h3 {
+				font-size: 1.125rem;
+				font-weight: 600;
+				margin: 0 0 0.625rem;
+				color: rgb(var(--gray-dark));
+				transition: color 0.3s ease;
+				line-height: 1.4;
+			}
+			.related-post-content p {
+				font-size: 0.875rem;
+				color: rgb(var(--gray));
+				margin: 0 0 1rem;
+				line-height: 1.6;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			.related-post-meta {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				font-size: 0.8125rem;
+				color: rgb(var(--gray));
+				margin-top: auto;
+			}
+			.related-post-tags {
+				font-style: italic;
+				opacity: 0.85;
+			}
+			.related-post-arrow {
+				position: absolute;
+				top: 1.5rem;
+				right: 1.5rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 36px;
+				height: 36px;
+				background: rgba(59, 130, 246, 0.1);
+				border-radius: 50%;
+				color: #3b82f6;
+				opacity: 0;
+				transform: translate(0, 0);
+				transition: all 0.3s ease;
+			}
+			@media (max-width: 640px) {
+				.related-post-card {
+					padding: 1.25rem;
+				}
+				.related-post-arrow {
+					width: 32px;
+					height: 32px;
+					top: 1.25rem;
+					right: 1.25rem;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<DraftBanner draft={draft} />
+		<Header />
+		<main>
+			<article>
+				{heroImage ? (
+					<div class="hero-image">
+						<img
+							src={heroImage}
+							alt={heroImageAlt || `Hero image for ${title}`}
+						/>
+					</div>
+				) : fallbackHero && (
+					<div
+						class="hero-gradient"
+						style={`background: ${fallbackHero.gradient}; color: ${fallbackHero.accentColor};`}
+					>
+						<h2 class="hero-gradient-title">{fallbackHero.title}</h2>
+					</div>
+				)}
+				<div class="prose">
+					<div class="title">
+						<div class="date">
+							<FormattedDate date={pubDate} />
+							<span class="meta-separator">•</span>
+							<span class="reading-time">{formatReadingTime(readingTime)}</span>
+							{
+								updatedDate && (
+									<div class="last-updated-on">
+										Last updated on <FormattedDate date={updatedDate} />
+									</div>
+								)
+							}
+						</div>
+					</div>
+					<slot />
+					{tags.length > 0 && (
+						<div class="tags-section">
+							<span class="tags-label">Topics:</span>
+							<div class="tags-list">
+								{tags.map(tag => (
+									<a href={`/blog/tags/${tag}/`} class="tag">
+										{tag}
+									</a>
+								))}
+							</div>
+						</div>
+					)}
+
+					<!-- Social Share Buttons -->
+					<div class="share-section">
+						<span class="share-label">Share this article:</span>
+						<div class="share-buttons">
+							<a
+								href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://unjoe.me' + Astro.url.pathname)}`}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="share-button facebook"
+								aria-label="Share on Facebook"
+							>
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+								</svg>
+								Facebook
+							</a>
+							<a
+								href={`https://twitter.com/intent/tweet?url=${encodeURIComponent('https://unjoe.me' + Astro.url.pathname)}&text=${encodeURIComponent(title)}`}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="share-button twitter"
+								aria-label="Share on X (Twitter)"
+							>
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+								</svg>
+								X
+							</a>
+							<a
+								href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://unjoe.me' + Astro.url.pathname)}`}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="share-button linkedin"
+								aria-label="Share on LinkedIn"
+							>
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+								</svg>
+								LinkedIn
+							</a>
+						</div>
+					</div>
+
+					<!-- Related Posts -->
+					{relatedPosts.length > 0 && (
+						<div class="related-section">
+							<h2 class="related-heading">Related Articles</h2>
+							<div class="related-posts">
+								{relatedPosts.map(post => (
+									<a href={`/blog/${post.id}/`} class="related-post-card">
+										<div class="related-post-content">
+											<h3>{post.data.title}</h3>
+											<p>{post.data.description}</p>
+											<div class="related-post-meta">
+												<FormattedDate date={post.data.pubDate} />
+												{post.data.tags && post.data.tags.length > 0 && (
+													<>
+														<span class="meta-separator">•</span>
+														<span class="related-post-tags">
+															{post.data.tags.slice(0, 2).join(', ')}
+														</span>
+													</>
+												)}
+											</div>
+										</div>
+										<span class="related-post-arrow">
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M5 12h14M12 5l7 7-7 7"/>
+											</svg>
+										</span>
+									</a>
+								))}
+							</div>
+						</div>
+					)}
+				</div>
+			</article>
+		</main>
+		<Footer />
+		<TooltipSidebar />
+	</body>
+</html>
