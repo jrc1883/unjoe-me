@@ -1,0 +1,37 @@
+name = "jack-portfolio-event-form"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Account ID (get from Cloudflare dashboard)
+# account_id = "your-account-id-here"
+
+# Workers Routes
+# Route this worker to handle /api/create-event requests
+# routes = [
+#   { pattern = "jack.unjoe.me/api/create-event", zone_name = "unjoe.me" }
+# ]
+
+# Or use a custom subdomain for the worker
+# route = "events.unjoe.me/*"
+
+# Environment variables (set via 'wrangler secret put' command)
+# - GITHUB_TOKEN (GitHub Personal Access Token with repo scope)
+# - EVENT_FORM_PASSWORD (optional, for additional validation)
+
+[build]
+command = "npm run build"
+
+[build.upload]
+format = "service-worker"
+
+# Development configuration
+[env.development]
+name = "jack-portfolio-event-form-dev"
+
+# Production configuration
+[env.production]
+name = "jack-portfolio-event-form-prod"
+
+# Secrets (set these via CLI):
+# wrangler secret put GITHUB_TOKEN
+# wrangler secret put EVENT_FORM_PASSWORD

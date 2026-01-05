@@ -1,0 +1,33 @@
+{
+  "name": "jack-portfolio-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for event creation form GitHub integration",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:prod": "wrangler deploy --env production",
+    "build": "esbuild src/index.ts --bundle --format=esm --outfile=dist/index.js",
+    "test": "echo \"No tests yet\"",
+    "secrets:set": "echo \"Run: wrangler secret put GITHUB_TOKEN && wrangler secret put EVENT_FORM_PASSWORD\""
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.0.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "@types/node": "^20.10.6",
+    "esbuild": "^0.19.11",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.22.1"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "github-api",
+    "event-management"
+  ],
+  "author": "ElShaddai",
+  "license": "MIT"
+}

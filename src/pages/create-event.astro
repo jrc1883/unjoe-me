@@ -1,0 +1,667 @@
+---
+/**
+ * Event Creation Form - Password Protected
+ *
+ * This page allows Jack to create events via a form that automatically
+ * generates GitHub PRs with the event data as markdown files.
+ *
+ * Features:
+ * - Password protection via cookies
+ * - Google Places autocomplete for venue selection
+ * - Form validation
+ * - Preview mode
+ * - Direct submission to Cloudflare Worker
+ */
+
+const EVENT_FORM_PASSWORD = import.meta.env.EVENT_FORM_PASSWORD || 'jazzmaster2025';
+
+// Check authentication
+const authCookie = Astro.cookies.get('event-form-auth');
+let isAuthenticated = authCookie?.value === EVENT_FORM_PASSWORD;
+
+// Handle password submission
+if (Astro.request.method === 'POST' && !isAuthenticated) {
+  const formData = await Astro.request.formData();
+  const submittedPassword = formData.get('password');
+
+  if (submittedPassword === EVENT_FORM_PASSWORD) {
+    Astro.cookies.set('event-form-auth', EVENT_FORM_PASSWORD, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict'
+    });
+    return Astro.redirect('/create-event');
+  }
+}
+
+// If not authenticated, show password form
+if (!isAuthenticated) {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html'
+    }
+  });
+}
+
+const GOOGLE_PLACES_API_KEY = import.meta.env.PUBLIC_GOOGLE_PLACES_API_KEY || '';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Event | Jack Macklin</title>
+  <script src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_PLACES_API_KEY}&libraries=places`}></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #0a0a0b 0%, #1a1a1c 100%);
+      color: #fafafa;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      color: #d4a853;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: #a1a1aa;
+    }
+
+    .card {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #d4a853;
+    }
+
+    label .required {
+      color: #ef4444;
+    }
+
+    input[type="text"],
+    input[type="datetime-local"],
+    input[type="url"],
+    input[type="password"],
+    textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: #09090b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      color: #fafafa;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #d4a853;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      accent-color: #d4a853;
+    }
+
+    .checkbox-group label {
+      margin: 0;
+      font-weight: normal;
+      color: #fafafa;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+    }
+
+    input[type="file"] {
+      padding: 0.5rem;
+    }
+
+    #map-preview {
+      width: 100%;
+      height: 300px;
+      background: #09090b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    #map-preview.visible {
+      display: block;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    button {
+      flex: 1;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #d4a853;
+      color: #0a0a0b;
+    }
+
+    .btn-primary:hover {
+      background: #e5b962;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid #27272a;
+      color: #fafafa;
+    }
+
+    .btn-secondary:hover {
+      border-color: #d4a853;
+      color: #d4a853;
+    }
+
+    .help-text {
+      font-size: 0.875rem;
+      color: #71717a;
+      margin-top: 0.25rem;
+    }
+
+    .preview-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .preview-modal.visible {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .preview-content {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .preview-close {
+      background: transparent;
+      border: none;
+      color: #a1a1aa;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: auto;
+    }
+
+    .password-form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding-top: 4rem;
+    }
+
+    .password-form h2 {
+      color: #d4a853;
+      margin-bottom: 1rem;
+    }
+
+    .error-message {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .success-message {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid #22c55e;
+      color: #22c55e;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  {!isAuthenticated ? (
+    <div class="container">
+      <div class="password-form">
+        <div class="card">
+          <h2>Enter Password</h2>
+          <p class="help-text" style="margin-bottom: 1.5rem;">
+            This form is password-protected. Enter your password to create events.
+          </p>
+          <form method="POST">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                autofocus
+                placeholder="Enter password"
+              />
+            </div>
+            <button type="submit" class="btn-primary">
+              Unlock Form
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div class="container">
+      <div class="header">
+        <h1>Create New Event</h1>
+        <p>Fill out the form below to add a new show to your website</p>
+      </div>
+
+      <div id="success-message" style="display: none;" class="success-message">
+        Event submitted successfully! Joseph will review your PR and publish it.
+      </div>
+
+      <div id="error-message" style="display: none;" class="error-message">
+        There was an error submitting your event. Please try again.
+      </div>
+
+      <form id="event-form" class="card">
+        <div class="form-group">
+          <label for="title">
+            Event Title <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            required
+            placeholder="e.g., Live Jazz at Blue Note Chicago"
+          />
+          <p class="help-text">The name of the event as it will appear on your site</p>
+        </div>
+
+        <div class="form-group">
+          <label for="date">
+            Date & Time <span class="required">*</span>
+          </label>
+          <input
+            type="datetime-local"
+            id="date"
+            name="date"
+            required
+          />
+          <p class="help-text">When the event starts</p>
+        </div>
+
+        <div class="form-group">
+          <label for="venue">
+            Venue <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="venue"
+            name="venue"
+            required
+            placeholder="Start typing venue name..."
+          />
+          <input type="hidden" id="location" name="location" />
+          <input type="hidden" id="address" name="address" />
+          <p class="help-text">Start typing to search for the venue</p>
+          <div id="map-preview"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">
+            Description
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            placeholder="Tell people about this event..."
+          ></textarea>
+          <p class="help-text">Optional event details and highlights</p>
+        </div>
+
+        <div class="form-group">
+          <label for="ticketUrl">
+            Ticket URL
+          </label>
+          <input
+            type="url"
+            id="ticketUrl"
+            name="ticketUrl"
+            placeholder="https://..."
+          />
+          <p class="help-text">Link where fans can buy tickets (if applicable)</p>
+        </div>
+
+        <div class="form-group">
+          <label for="ticketType">
+            Ticket Type
+          </label>
+          <input
+            type="text"
+            id="ticketType"
+            name="ticketType"
+            placeholder="e.g., Free, $15, Varies"
+          />
+          <p class="help-text">Pricing information to display</p>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <input
+            type="checkbox"
+            id="featured"
+            name="featured"
+          />
+          <label for="featured">
+            Featured Event (will appear prominently on homepage)
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="customImage">
+            Custom Event Image
+          </label>
+          <input
+            type="file"
+            id="customImage"
+            name="customImage"
+            accept="image/*"
+          />
+          <p class="help-text">Optional custom image for this event</p>
+        </div>
+
+        <div class="button-group">
+          <button type="button" id="preview-btn" class="btn-secondary">
+            Preview
+          </button>
+          <button type="submit" class="btn-primary">
+            Publish Event
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="preview-modal">
+      <div class="preview-content">
+        <div class="preview-header">
+          <h2>Event Preview</h2>
+          <button id="close-preview" class="preview-close">&times;</button>
+        </div>
+        <div id="preview-body">
+          <!-- Preview content will be inserted here -->
+        </div>
+        <div class="button-group">
+          <button id="close-preview-btn" class="btn-secondary">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Google Places Autocomplete
+      const venueInput = document.getElementById('venue');
+      const locationInput = document.getElementById('location');
+      const addressInput = document.getElementById('address');
+      const mapPreview = document.getElementById('map-preview');
+
+      let map = null;
+      let marker = null;
+
+      const autocomplete = new google.maps.places.Autocomplete(venueInput, {
+        types: ['establishment'],
+        fields: ['name', 'formatted_address', 'geometry', 'address_components']
+      });
+
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+
+        if (!place.geometry) {
+          alert('No details available for input: ' + place.name);
+          return;
+        }
+
+        // Extract city and state
+        let city = '';
+        let state = '';
+        if (place.address_components) {
+          for (const component of place.address_components) {
+            if (component.types.includes('locality')) {
+              city = component.long_name;
+            }
+            if (component.types.includes('administrative_area_level_1')) {
+              state = component.short_name;
+            }
+          }
+        }
+
+        // Set location as "City, State"
+        const location = city && state ? `${city}, ${state}` : place.formatted_address;
+        locationInput.value = location;
+        addressInput.value = place.formatted_address;
+
+        // Show map
+        mapPreview.classList.add('visible');
+
+        if (!map) {
+          map = new google.maps.Map(mapPreview, {
+            center: place.geometry.location,
+            zoom: 15
+          });
+          marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+          });
+        } else {
+          map.setCenter(place.geometry.location);
+          marker.setPosition(place.geometry.location);
+        }
+      });
+
+      // Preview functionality
+      const previewBtn = document.getElementById('preview-btn');
+      const previewModal = document.getElementById('preview-modal');
+      const previewBody = document.getElementById('preview-body');
+      const closePreviewBtns = document.querySelectorAll('#close-preview, #close-preview-btn');
+
+      previewBtn.addEventListener('click', () => {
+        const formData = new FormData(document.getElementById('event-form'));
+
+        const title = formData.get('title');
+        const date = formData.get('date');
+        const venue = formData.get('venue');
+        const location = formData.get('location');
+        const description = formData.get('description');
+        const featured = formData.get('featured') === 'on';
+
+        const dateObj = new Date(date);
+        const displayDate = dateObj.toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        const displayTime = dateObj.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit'
+        });
+
+        previewBody.innerHTML = `
+          ${featured ? '<p style="color: #d4a853; font-weight: 600; margin-bottom: 0.5rem;">⭐ FEATURED EVENT</p>' : ''}
+          <h3 style="margin-bottom: 1rem;">${title || 'Untitled Event'}</h3>
+          <p style="color: #d4a853; margin-bottom: 0.5rem;">${displayDate}</p>
+          <p style="color: #a1a1aa; margin-bottom: 0.5rem;">${displayTime}</p>
+          <p style="margin-bottom: 0.5rem;"><strong>Venue:</strong> ${venue || 'Not specified'}</p>
+          <p style="margin-bottom: 1rem;"><strong>Location:</strong> ${location || 'Not specified'}</p>
+          ${description ? `<p style="line-height: 1.6;">${description}</p>` : ''}
+        `;
+
+        previewModal.classList.add('visible');
+      });
+
+      closePreviewBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          previewModal.classList.remove('visible');
+        });
+      });
+
+      // Form submission
+      const form = document.getElementById('event-form');
+      const successMessage = document.getElementById('success-message');
+      const errorMessage = document.getElementById('error-message');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Hide previous messages
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
+
+        const formData = new FormData(form);
+
+        // Convert datetime-local to ISO format
+        const dateValue = formData.get('date');
+        if (dateValue) {
+          const isoDate = new Date(dateValue).toISOString();
+          formData.set('date', isoDate);
+        }
+
+        // Set eventType
+        formData.set('eventType', 'upcoming');
+
+        // Add display date and time
+        if (dateValue) {
+          const dateObj = new Date(dateValue);
+          const displayDate = dateObj.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          const displayTime = dateObj.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+          }) + ' - ' + dateObj.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+          });
+          formData.set('displayDate', displayDate);
+          formData.set('time', displayTime);
+        }
+
+        try {
+          const response = await fetch('/api/create-event', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            successMessage.style.display = 'block';
+            successMessage.innerHTML = `
+              Event submitted successfully!<br>
+              <a href="${result.pr_url}" target="_blank" style="color: #22c55e; text-decoration: underline;">
+                View Pull Request
+              </a>
+            `;
+            form.reset();
+            mapPreview.classList.remove('visible');
+            window.scrollTo(0, 0);
+          } else {
+            const error = await response.text();
+            errorMessage.style.display = 'block';
+            errorMessage.textContent = `Error: ${error}`;
+            window.scrollTo(0, 0);
+          }
+        } catch (error) {
+          errorMessage.style.display = 'block';
+          errorMessage.textContent = 'Network error. Please check your connection and try again.';
+          window.scrollTo(0, 0);
+        }
+      });
+    </script>
+  )}
+</body>
+</html>
